@@ -1,0 +1,25 @@
+import { User } from "../types/User";
+import { axiosInstance as axios } from "../api";
+import { AUTH_ENDPOINTS } from "../api/endpoints";
+
+interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+interface LoginResponse {
+  token: string;
+  user: User;
+}
+
+// 로그인
+export const login = (
+  credentials: LoginCredentials,
+): Promise<LoginResponse> => {
+  return axios.post(AUTH_ENDPOINTS.LOGIN, credentials);
+};
+
+// 로그아웃
+export const logout = (): Promise<void> => {
+  return axios.post(AUTH_ENDPOINTS.LOGOUT);
+};
