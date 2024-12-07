@@ -1,3 +1,9 @@
+import KakaoLoginButton from "./Auth/components/kakaoLoginButton";
+
 export default function LandingPage() {
-  return <div>Landing</div>;
+  return (
+    <div>
+      <KakaoLoginButton />
+    </div>
+  );
 }
