@@ -6,7 +6,7 @@ import KakaoCallback from "./pages/Auth/KakaoCallback";
 
 function App() {
   return (
-    <div className="w-layout mx-auto h-screen bg-slate-600">
+    <div className="mx-auto h-screen w-layout bg-slate-100">
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/foodlist" element={<FoodListPage />} />

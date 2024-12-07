@@ -1,17 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@tailwind base; /* reset css나 기본 스타일 정의 */
+@tailwind components; /* 재사용 가능한 컴포넌트 스타일 정의 (버튼, 카드 등의 반복되는 UI 컴포넌트) */
+@tailwind utilities; /* 유틸리티 스타일 정의 (shadow 등) */
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@layer components {
+  .basic-button {
+    @apply rounded-lg bg-green-400 px-4 py-2;
+  }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  .center {
+    @apply flex items-center justify-center;
+  }
 }
