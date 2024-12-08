@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import Search from "../common/search";
+import SearchResultGrid from "./components/searchResultGrid";
 
 export default function FoodBottomSheet({
   isOpen,
@@ -57,7 +59,7 @@ export default function FoodBottomSheet({
 
   return (
     <aside
-      className="absolute inset-x-0 bottom-0 bg-white"
+      className="fixed bottom-0 left-1/2 z-[70] w-layout -translate-x-1/2 bg-pink-400"
       style={{ height: currentHeight }}
       ref={sheetRef}
     >
@@ -69,10 +71,16 @@ export default function FoodBottomSheet({
         <div className="h-1 w-16 rounded-full bg-gray-300" />
       </header>
       <main
-        className="overflow-y-auto bg-gray-100 p-4"
+        className="overflow-y-auto bg-pink-400 p-4"
         style={{ height: "calc(100% - 40px)" }}
       >
-        bottomsheet
+        <input
+          type="text"
+          placeholder="검색어를 입력해주세요"
+          className="h-[3rem] w-[22rem] rounded-2xl"
+          onFocus={() => setCurrentHeight(window.innerHeight * 0.95)}
+        />
+        <SearchResultGrid />
       </main>
     </aside>
   );

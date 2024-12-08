@@ -2,9 +2,54 @@
 @tailwind components; /* 재사용 가능한 컴포넌트 스타일 정의 (버튼, 카드 등의 반복되는 UI 컴포넌트) */
 @tailwind utilities; /* 유틸리티 스타일 정의 (shadow 등) */
 
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
+}
+
 @layer components {
   .basic-button {
-    @apply rounded-lg bg-green-400 px-4 py-2;
+    @apply h-[3.25rem] w-[22rem] rounded-lg px-4 py-2;
   }
 
   .center {

@@ -12,7 +12,7 @@ const KakaoCallback = () => {
       kakaoLogin(authCode)
         .then((res) => {
           localStorage.setItem("token", res.token);
-          navigate("/");
+          navigate("/welcome");
         })
         .catch((error) => {
           console.error("카카오 로그인 실패:", error);
@@ -24,4 +24,4 @@ const KakaoCallback = () => {
   return null;
 };
 
-export default KakaoCallback;
+export default KakaoCallback; 

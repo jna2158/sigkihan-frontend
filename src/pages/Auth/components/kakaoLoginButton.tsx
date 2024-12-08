@@ -1,4 +1,4 @@
-import axios from "axios";
+import instance from "../../../api/interceptors";
 
 const KakaoLoginButton = () => {
   const handleLogin = () => {
@@ -7,8 +7,8 @@ const KakaoLoginButton = () => {
     // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
     // window.location.href = KAKAO_AUTH_URL;
-    axios
-      .get("https://sigkihanapi.shop/users/test/")
+    instance
+      .post("https://sigkihanapi.shop/users/test/")
       .then((res) => {
         console.log(res);
       })
