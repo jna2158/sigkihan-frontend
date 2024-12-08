@@ -12,6 +12,10 @@ interface LoginResponse {
   user: User;
 }
 
+export const test = () => {
+  return axios.post(AUTH_ENDPOINTS.TEST);
+};
+
 // 로그인
 export const login = (
   credentials: LoginCredentials,
