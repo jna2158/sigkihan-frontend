@@ -2,13 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Search from "../common/search";
 import SearchResultGrid from "./components/searchResultGrid";
 
-export default function FoodBottomSheet({
-  isOpen,
-  onClose,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-}) {
+export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
   const sheetRef = useRef<HTMLElement>(null);
   const [startY, setStartY] = useState<number>(0);
   const [currentHeight, setCurrentHeight] = useState<number>(400);
@@ -25,7 +19,6 @@ export default function FoodBottomSheet({
   // 포인터 클릭 후 이동
   const handlePointerMove = (e: PointerEvent) => {
     if (!isDragging || !sheetRef.current) return;
-
     const deltaY = startY - e.clientY;
     const newHeight = currentHeight + deltaY;
 
@@ -37,9 +30,13 @@ export default function FoodBottomSheet({
   // 포인터 클릭 해제
   const handlePointerUp = () => {
     if (!isDragging || !sheetRef.current) return;
-
     setIsDragging(false);
     setCurrentHeight(sheetRef.current.offsetHeight);
+  };
+
+  // 검색창에 포커스 온 했을 때
+  const handleFocus = () => {
+    setCurrentHeight(window.innerHeight * 0.95);
   };
 
   // window 이벤트 리스너 등록/제거
@@ -78,7 +75,7 @@ export default function FoodBottomSheet({
           type="text"
           placeholder="검색어를 입력해주세요"
           className="h-[3rem] w-[22rem] rounded-2xl"
-          onFocus={() => setCurrentHeight(window.innerHeight * 0.95)}
+          onFocus={handleFocus}
         />
         <SearchResultGrid />
       </main>

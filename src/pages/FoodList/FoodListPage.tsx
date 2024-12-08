@@ -5,9 +5,10 @@ import Footer from "../../components/common/footer";
 import FoodGrid from "./components/food/foodGrid";
 import Header from "./components/header";
 import AddFoodBtn from "./components/food/addFoodBtn";
+import useModalStore from "../../store/useModalStore";
 
 export default function FoodListPage() {
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const { modals } = useModalStore();
 
   return (
     <main>
@@ -17,19 +18,16 @@ export default function FoodListPage() {
           <section className="h-full overflow-y-auto pb-20">
             <Search />
             <FoodGrid />
-            <AddFoodBtn setIsBottomSheetOpen={setIsBottomSheetOpen} />
+            <AddFoodBtn />
           </section>
         </div>
       </article>
 
       <Footer />
 
-      <FoodBottomSheet
-        isOpen={isBottomSheetOpen}
-        onClose={() => setIsBottomSheetOpen(false)}
-      />
-      {isBottomSheetOpen && (
-        <div className="fixed inset-0 z-[60] mx-auto w-layout bg-black bg-opacity-50" />
+      <FoodBottomSheet isOpen={modals.FOOD_BOTTOM_SHEET_MODAL} />
+      {modals.FOOD_BOTTOM_SHEET_MODAL && (
+        <div className="z-[60] mx-auto w-layout" />
       )}
     </main>
   );

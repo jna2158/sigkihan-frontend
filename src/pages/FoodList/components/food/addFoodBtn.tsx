@@ -1,15 +1,14 @@
-export default function AddFoodBtn({
-  setIsBottomSheetOpen,
-}: {
-  setIsBottomSheetOpen: (isOpen: boolean) => void;
-}) {
+import useModalStore from "../../../../store/useModalStore";
+
+export default function AddFoodBtn() {
+  const { setModalOpen } = useModalStore();
   return (
     <button
       className="basic-button bg-green-500"
-      onClick={() => setIsBottomSheetOpen(true)}
-      aria-label="재료 추가하기"
+      onClick={() => setModalOpen("FOOD_BOTTOM_SHEET_MODAL", true)}
+      aria-label="식품 추가하기"
     >
-      재료 추가하기
+      식품 추가하기
     </button>
   );
 }

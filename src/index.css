@@ -55,4 +55,8 @@
   .center {
     @apply flex items-center justify-center;
   }
+
+  .overlay {
+    @apply fixed inset-0 bg-black bg-opacity-50;
+  }
 }
