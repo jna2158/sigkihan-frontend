@@ -13,21 +13,18 @@ export default function FoodListPage() {
   return (
     <main>
       <Header />
-      <article className="fixed bottom-0 h-[50rem] w-layout bg-slate-300 px-[1.2rem] pt-[1.4rem]">
-        <div className="relative h-screen overflow-hidden">
-          <section className="h-full overflow-y-auto pb-20">
-            <Search />
-            <FoodGrid />
-            <AddFoodBtn />
-          </section>
-        </div>
+      <article className="relative h-full flex-1 bg-slate-300 px-[1.2rem] pt-[1.4rem]">
+        <section className="h-[50rem] overflow-y-auto pb-20">
+          <Search />
+          <FoodGrid />
+          <AddFoodBtn />
+        </section>
       </article>
 
       <Footer />
-
       <FoodBottomSheet isOpen={modals.FOOD_BOTTOM_SHEET_MODAL} />
       {modals.FOOD_BOTTOM_SHEET_MODAL && (
-        <div className="z-[60] mx-auto w-layout" />
+        <div className="overlay z-[60] mx-auto w-layout" />
       )}
     </main>
   );

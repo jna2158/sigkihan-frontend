@@ -11,15 +11,21 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
   const [isDragging, setIsDragging] = useState(false);
 
   // 포인터 클릭 시작
-  const handlePointerDown = (e: React.PointerEvent) => {
+  const handlePointerDown = (e: React.PointerEvent | React.TouchEvent) => {
     setIsDragging(true);
-    setStartY(e.clientY);
+    if ("touches" in e) {
+      setStartY(e.touches[0].clientY);
+    } else {
+      setStartY(e.clientY);
+    }
   };
 
   // 포인터 클릭 후 이동
-  const handlePointerMove = (e: PointerEvent) => {
+  const handlePointerMove = (e: PointerEvent | TouchEvent) => {
     if (!isDragging || !sheetRef.current) return;
-    const deltaY = startY - e.clientY;
+
+    const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
+    const deltaY = startY - clientY;
     const newHeight = currentHeight + deltaY;
 
     if (newHeight >= minHeight && newHeight <= maxHeight) {
@@ -44,11 +50,15 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
     if (isOpen) {
       window.addEventListener("pointermove", handlePointerMove);
       window.addEventListener("pointerup", handlePointerUp);
+      window.addEventListener("touchmove", handlePointerMove);
+      window.addEventListener("touchend", handlePointerUp);
     }
 
     return () => {
       window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("pointerup", handlePointerUp);
+      window.removeEventListener("touchmove", handlePointerMove);
+      window.removeEventListener("touchend", handlePointerUp);
     };
   }, [isOpen, isDragging, startY, currentHeight]);
 
@@ -63,7 +73,9 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
       <header
         className="center h-10 w-full cursor-grab active:cursor-grabbing"
         onPointerDown={handlePointerDown}
+        onTouchStart={handlePointerDown}
         onPointerUp={handlePointerUp}
+        onTouchEnd={handlePointerUp}
       >
         <div className="h-1 w-16 rounded-full bg-gray-300" />
       </header>

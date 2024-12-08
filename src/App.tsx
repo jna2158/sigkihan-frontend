@@ -9,10 +9,7 @@ import ModalContainer from "./components/common/modal/modalContainer";
 function App() {
   return (
     <>
-      <main className="mx-auto h-screen w-layout bg-slate-100">
-        <header className="flex h-11 w-full items-center justify-between border-b border-black bg-white px-4">
-          <time className="text-black">9:41</time>
-        </header>
+      <main className="mx-auto h-screen w-layout overflow-y-auto bg-slate-100">
         <section className="flex-1 overflow-auto">
           <Routes>
             <Route path="/" element={<LandingPage />} />
