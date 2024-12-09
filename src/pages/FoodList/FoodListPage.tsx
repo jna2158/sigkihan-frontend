@@ -1,6 +1,6 @@
 import FoodBottomSheet from "../../components/FoodBottomSheet/foodBottomSheet";
 import Search from "../../components/common/search";
-import Footer from "../../components/common/footer";
+import BottomNavigation from "../../components/common/BottomNavigation";
 import FoodGrid from "./components/food/foodGrid";
 import Header from "./components/header";
 import AddFoodBtn from "./components/food/addFoodBtn";
@@ -20,7 +20,7 @@ export default function FoodListPage() {
         </section>
       </article>
 
-      {/* <Footer /> */}
+      <BottomNavigation />
       <FoodBottomSheet isOpen={modals.FOOD_BOTTOM_SHEET_MODAL} />
       {modals.FOOD_BOTTOM_SHEET_MODAL && (
         <div className="overlay z-[60] mx-auto w-layout" />

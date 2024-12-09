@@ -8,8 +8,8 @@ import ModalContainer from "./components/common/modal/modalContainer";
 
 function App() {
   return (
-    <>
-      <main className="overflow-y- mx-auto h-screen w-layout bg-slate-100">
+    <div className="flex min-h-screen w-full items-center justify-center bg-gray-800">
+      <main className="relative w-layout overflow-hidden bg-white">
         <section className="flex-1 overflow-auto">
           <Routes>
             <Route path="/" element={<LandingPage />} />
@@ -19,9 +19,9 @@ function App() {
             <Route path="/oauth/callback/kakao" element={<KakaoCallback />} />
           </Routes>
         </section>
+        <ModalContainer />
       </main>
-      <ModalContainer />
-    </>
+    </div>
   );
 }
 

@@ -1,8 +1,10 @@
+import AlarmDrawer from "../../../pages/FoodList/components/alarm/alarmDrawer";
 import useModalStore from "../../../store/useModalStore";
 import AddFoodModal from "../../Modal/addFoodModal";
 
 const MODAL_COMPONENTS = {
   ADD_FOOD_MODAL: AddFoodModal,
+  ALARM_DRAWER: AlarmDrawer,
 };
 
 export default function ModalContainer() {
