@@ -5,7 +5,9 @@ import { useEffect } from "react";
 
 export default function LandingPage() {
   useEffect(() => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
+    localStorage.removeItem("user");
   }, []);
 
   const handleTest = () => {

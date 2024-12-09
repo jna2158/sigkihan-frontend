@@ -1,6 +1,3 @@
-import instance from "../../../api/interceptors";
-import { test } from "../../../services/authService";
-
 const KakaoLoginButton = () => {
   const handleLogin = () => {
     const CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;

@@ -8,8 +8,11 @@ interface LoginCredentials {
 }
 
 interface LoginResponse {
-  token: string;
-  user: User;
+  data: {
+    access: string;
+    refresh: string;
+    user: User;
+  }
 }
 
 export const test = () => {

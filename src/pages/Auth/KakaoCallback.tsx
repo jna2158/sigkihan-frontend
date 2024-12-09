@@ -11,7 +11,11 @@ const KakaoCallback = () => {
     if (authCode) {
       kakaoLogin(authCode)
         .then((res) => {
-          localStorage.setItem("token", res.token);
+          console.log(res);
+          const data = res.data;
+          localStorage.setItem("access", data.access);
+          localStorage.setItem("refresh", data.refresh);
+          localStorage.setItem("user", JSON.stringify(data.user));
           navigate("/welcome");
         })
         .catch((error) => {
@@ -24,4 +28,4 @@ const KakaoCallback = () => {
   return null;
 };
 
-export default KakaoCallback; 
+export default KakaoCallback;

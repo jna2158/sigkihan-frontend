@@ -11,9 +11,9 @@ const instance = axios.create({
 // 요청 인터셉터
 instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    const accessToken = localStorage.getItem("access");
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
   },
@@ -32,22 +32,22 @@ instance.interceptors.response.use(
 
     if (error.response?.status === 401) {
       try {
-        const refreshToken = localStorage.getItem("refreshToken");
+        const refreshToken = localStorage.getItem("refresh");
         if (refreshToken && originalRequest) {
           const { data } = await instance.post("/accounts/refresh", {
             refreshToken,
           });
-          const newToken = data.token;
+          const newToken = data.access;
 
-          localStorage.setItem("token", newToken);
+          localStorage.setItem("access", newToken);
 
           originalRequest.headers.Authorization = `Bearer ${newToken}`;
           return instance(originalRequest);
         }
       } catch (refreshError) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("refreshToken");
-        window.location.href = "/login";
+        localStorage.removeItem("access");
+        localStorage.removeItem("refresh");
+        window.location.href = "/";
       }
     }
 
