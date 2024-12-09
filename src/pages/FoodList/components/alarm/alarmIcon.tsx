@@ -2,7 +2,7 @@ import { useState } from "react";
 import logo from "../../../../assets/logo.png";
 
 export default function AlarmIcon() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <div className="relative">
@@ -16,23 +16,18 @@ export default function AlarmIcon() {
       {isOpen && (
         <>
           <div
-            className="absolute inset-0 z-40 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
             onClick={() => setIsOpen(false)}
-            style={{
-              width: "100vw",
-              height: "100vh",
-              transform: "translateX(-50%)",
-            }}
           />
 
-          {/* Drawer 내용 */}
-          <div className="absolute right-[-10rem] top-0 z-50 w-80 transform bg-white shadow-lg">
+          <div
+            className={`absolute right-0 top-0 z-50 h-screen w-64 transform bg-white shadow-lg transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+          >
             <div className="p-4">
               <button className="mb-4" onClick={() => setIsOpen(false)}>
                 닫기
               </button>
               <h2 className="text-lg font-bold">알림</h2>
-              {/* 여기에 drawer 내용을 추가하세요 */}
             </div>
           </div>
         </>

@@ -1,5 +1,6 @@
 import logo from "../../../assets/logo.png";
 import MyFridgeName from "../../../components/common/myFridgeName";
+import AlarmIcon from "./alarm/alarmIcon";
 
 export default function Header() {
   return (
@@ -8,7 +9,7 @@ export default function Header() {
         <MyFridgeName />
       </div>
       <nav className="flex gap-[0.5rem]">
-        <img src={logo} alt="알림 아이콘" className="h-[24px] w-[24px]" />
+        <AlarmIcon />
         <img src={logo} alt="프로필 이미지" className="h-[24px] w-[24px]" />
       </nav>
     </header>

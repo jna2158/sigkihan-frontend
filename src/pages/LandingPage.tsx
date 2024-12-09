@@ -1,7 +1,13 @@
 import KakaoLoginButton from "./Auth/components/kakaoLoginButton";
 import logo from "../assets/logo.png";
 import { test } from "../services/authService";
+import { useEffect } from "react";
+
 export default function LandingPage() {
+  useEffect(() => {
+    localStorage.removeItem("token");
+  }, []);
+
   const handleTest = () => {
     test()
       .then((res) => {
@@ -18,7 +24,7 @@ export default function LandingPage() {
         <header>
           <img src={logo} alt="로고 이미지" className="h-[300px] w-[300px]" />
         </header>
-        <section>
+        <section className="center flex-col">
           <KakaoLoginButton />
           <button
             className="mt-5 h-[3.25rem] w-[22rem] rounded-lg bg-yellow-300 px-4 py-2"

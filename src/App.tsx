@@ -9,7 +9,7 @@ import ModalContainer from "./components/common/modal/modalContainer";
 function App() {
   return (
     <>
-      <main className="mx-auto h-screen w-layout overflow-y-auto bg-slate-100">
+      <main className="overflow-y- mx-auto h-screen w-layout bg-slate-100">
         <section className="flex-1 overflow-auto">
           <Routes>
             <Route path="/" element={<LandingPage />} />
