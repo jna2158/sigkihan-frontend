@@ -5,9 +5,23 @@ import { useEffect } from "react";
 
 export default function LandingPage() {
   useEffect(() => {
+    const handlePageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) {
+        localStorage.removeItem("access");
+        localStorage.removeItem("refresh");
+        localStorage.removeItem("user");
+      }
+    };
+
+    window.addEventListener("pageshow", handlePageShow);
+
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
     localStorage.removeItem("user");
+
+    return () => {
+      window.removeEventListener("pageshow", handlePageShow);
+    };
   }, []);
 
   const handleTest = () => {
