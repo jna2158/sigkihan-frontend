@@ -12,12 +12,8 @@ interface LoginResponse {
     access: string;
     refresh: string;
     user: User;
-  }
+  };
 }
-
-export const test = () => {
-  return axios.get(AUTH_ENDPOINTS.TEST);
-};
 
 // 로그인
 export const login = (

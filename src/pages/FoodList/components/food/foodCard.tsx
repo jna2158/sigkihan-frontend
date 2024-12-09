@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-
+import ExpiredDateBadge from "../../../../components/common/expiredDateBadge";
+import logo from "../../../../assets/logo.png";
 export default function FoodCard({
   id,
   name,
@@ -17,11 +18,12 @@ export default function FoodCard({
 
   return (
     <div
-      className="center h-[7.5rem] w-28 cursor-pointer flex-col rounded-3xl bg-slate-400"
+      className="center cursor-pointer flex-col gap-[0.6rem] rounded-3xl"
       onClick={handleClick}
     >
-      <img src={image} alt={name} className="h-[5rem] w-[5rem]" />
-      <p className="text-center text-sm">{name}</p>
+      <ExpiredDateBadge />
+      <img src={logo} alt={name} className="h-[3rem] w-[2.4rem]" />
+      <p className="text-gray text-center text-[14px] font-semibold">{name}</p>
     </div>
   );
 }

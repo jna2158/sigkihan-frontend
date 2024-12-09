@@ -4,16 +4,14 @@ import WelcomeMessage from "./components/welcomeMessage";
 
 export default function WelcomePage() {
   return (
-    <main className="center h-screen w-full">
-      <div className="center flex-col gap-[9.5rem]">
+    <main className="center h-screen w-full flex-col gap-[5.8rem]">
+      <div className="">
         <WelcomeMessage />
         <header>
-          <img src={logo} alt="로고 이미지" className="h-[300px] w-[300px]" />
+          <img src={logo} alt="로고 이미지" className="h-[19rem] w-[19rem]" />
         </header>
-        <section>
-          <GoToFoodListButton />
-        </section>
       </div>
+      <GoToFoodListButton />
     </main>
   );
 }

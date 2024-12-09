@@ -11,9 +11,9 @@ export default function FoodListPage() {
   return (
     <main className="flex min-h-screen flex-col">
       <Header />
-      <article className="relative flex-1 bg-slate-300 px-[1.3rem] pt-[1.4rem]">
-        <section className="h-full overflow-y-auto">
-          <Search />
+      <article className="relative flex-1 px-[1.3rem] pt-[1.4rem]">
+        <section className="h-full">
+          {/* <Search /> */}
           <FoodGrid />
           <AddFoodBtn />
         </section>

@@ -1,3 +1,3 @@
 export default function MyFridgeName() {
-  return <div>우리집 냉장고</div>;
+  return <div>식기한 냉장고</div>;
 }
