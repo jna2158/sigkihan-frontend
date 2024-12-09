@@ -5,8 +5,15 @@ import FoodDetail from "./pages/FoodDetail/foodDetail";
 import KakaoCallback from "./pages/Auth/KakaoCallback";
 import WelcomePage from "./pages/Welcome/WelcomePage";
 import ModalContainer from "./components/common/modal/modalContainer";
+import BottomNavigation from "./components/common/\bBottomNavigation";
+import MyProfilePage from "./pages/User/MyProfilePage";
 
 function App() {
+  const hideBottomNavPaths = ["/", "/welcome", "/oauth/callback/kakao"];
+  const shouldShowBottomNav = !hideBottomNavPaths.includes(
+    window.location.pathname,
+  );
+
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-gray-800">
       <main className="relative w-layout overflow-hidden bg-white">
@@ -15,10 +22,12 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/welcome" element={<WelcomePage />} />
             <Route path="/foodlist" element={<FoodListPage />} />
-            <Route path="/fooddetail" element={<FoodDetail />} />
+            <Route path="/food/:id" element={<FoodDetail />} />
+            <Route path="/user/profile" element={<MyProfilePage />} />
             <Route path="/oauth/callback/kakao" element={<KakaoCallback />} />
           </Routes>
         </section>
+        {shouldShowBottomNav && <BottomNavigation />}
         <ModalContainer />
       </main>
     </div>

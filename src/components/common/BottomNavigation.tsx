@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 export default function BottomNavigation() {
+  const navigate = useNavigate();
+
   return (
     <footer className="fixed bottom-0 z-50 h-[4rem] w-layout border-t border-slate-400 bg-white">
       <nav className="flex h-full items-center justify-around">
@@ -16,7 +20,7 @@ export default function BottomNavigation() {
               strokeWidth={2}
               d="M5 12h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
             />
-          </svg> 
+          </svg>
           <span className="text-xs">냉장고 공유</span>
         </button>
 
@@ -59,9 +63,11 @@ export default function BottomNavigation() {
               d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
             />
           </svg>
-          <span className="text-xs">설정</span>
+          <span className="text-xs" onClick={() => navigate("/user/profile")}>
+            설정
+          </span>
         </button>
       </nav>
     </footer>
-  ); 
+  );
 }

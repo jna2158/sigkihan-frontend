@@ -5,7 +5,7 @@ export default function GoToFoodListButton() {
 
   return (
     <button
-      className="basic-button bg-green-400"
+      className="basic-button bg-green-500"
       onClick={() => navigate("/foodlist")}
     >
       신선한 하루를 열어보세요!

@@ -1,10 +1,14 @@
 import AlarmDrawer from "../../../pages/FoodList/components/alarm/alarmDrawer";
 import useModalStore from "../../../store/useModalStore";
 import AddFoodModal from "../../Modal/addFoodModal";
+import ModifyFoodModal from "../../Modal/modifyFoodModal";
+import ConfirmCancelModal from "./confirmCancelModal";
 
 const MODAL_COMPONENTS = {
   ADD_FOOD_MODAL: AddFoodModal,
+  MODIFY_FOOD_MODAL: ModifyFoodModal,
   ALARM_DRAWER: AlarmDrawer,
+  CONFIRM_CANCEL_MODAL: ConfirmCancelModal,
 };
 
 export default function ModalContainer() {
