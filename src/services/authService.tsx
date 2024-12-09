@@ -30,5 +30,5 @@ export const logout = (): Promise<void> => {
 
 // 카카오 로그인
 export const kakaoLogin = (authCode: string): Promise<LoginResponse> => {
-  return axios.post(AUTH_ENDPOINTS.KAKAO_LOGIN, { authCode });
+  return axios.post(AUTH_ENDPOINTS.KAKAO_LOGIN, { code: authCode });
 };
