@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import FoodListPage from "./pages/FoodList/FoodListPage";
 import FoodDetail from "./pages/FoodDetail/foodDetail";
@@ -9,10 +9,9 @@ import BottomNavigation from "./components/common/\bBottomNavigation";
 import MyProfilePage from "./pages/User/MyProfilePage";
 
 function App() {
+  const location = useLocation();
   const hideBottomNavPaths = ["/", "/welcome", "/oauth/callback/kakao"];
-  const shouldShowBottomNav = !hideBottomNavPaths.includes(
-    window.location.pathname,
-  );
+  const shouldShowBottomNav = !hideBottomNavPaths.includes(location.pathname);
 
   return (
     <div className="min-h-screen w-full bg-gray-800">
