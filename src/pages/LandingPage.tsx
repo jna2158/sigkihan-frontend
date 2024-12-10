@@ -37,9 +37,9 @@ export default function LandingPage() {
         <img
           src={logo}
           alt="로고 이미지"
-          className="absolute left-[2.2rem] top-[9.6rem] h-[8.9rem] w-[12.5rem]"
+          className="absolute left-[2.2rem] top-[6.2rem] h-[8.9rem] w-[12.5rem]"
         />
-        <section className="absolute bottom-[8.6rem]">
+        <section className="absolute top-[41.8rem]">
           <KakaoLoginButton />
         </section>
       </div>
