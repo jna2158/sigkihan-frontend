@@ -26,10 +26,9 @@ export default function LandingPage() {
 
   return (
     <main
-      className="center min-h-screen w-full items-center"
+      className="h-[calc(100vh-64px)] w-layout"
       style={{
         backgroundImage: `url(${mainBackground})`,
-        width: "w-layout",
         height: "cover",
         backgroundRepeat: "no-repeat",
       }}
