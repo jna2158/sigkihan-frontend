@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import Search from "../common/search";
 import SearchResultGrid from "./components/searchResultGrid";
+import useModalStore from "../../store/useModalStore";
+import {
+  PointerEvent as ReactPointerEvent,
+  TouchEvent as ReactTouchEvent,
+} from "react";
 
 export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
   const sheetRef = useRef<HTMLElement>(null);
@@ -9,19 +14,29 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
   const minHeight = 200;
   const maxHeight = window.innerHeight * 0.8;
   const [isDragging, setIsDragging] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  const [isOpening, setIsOpening] = useState(true);
+  const { setModalOpen } = useModalStore();
+  const dismissThreshold = 150;
+  const initialY = useRef<number>(0);
 
-  // 포인터 클릭 시작
-  const handlePointerDown = (e: React.PointerEvent | React.TouchEvent) => {
-    setIsDragging(true);
-    if ("touches" in e) {
-      setStartY(e.touches[0].clientY);
-    } else {
-      setStartY(e.clientY);
+  useEffect(() => {
+    if (isOpen) {
+      setIsOpening(true);
+      setTimeout(() => setIsOpening(false), 100);
     }
+  }, [isOpen]);
+
+  const handlePointerDown = (e: ReactPointerEvent | ReactTouchEvent) => {
+    setIsDragging(true);
+    const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
+    setStartY(clientY);
+    initialY.current = clientY;
   };
 
-  // 포인터 클릭 후 이동
-  const handlePointerMove = (e: PointerEvent | TouchEvent) => {
+  const handlePointerMove = (
+    e: globalThis.PointerEvent | globalThis.TouchEvent,
+  ) => {
     if (!isDragging || !sheetRef.current) return;
 
     const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
@@ -30,52 +45,91 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
 
     if (newHeight >= minHeight && newHeight <= maxHeight) {
       sheetRef.current.style.height = `${newHeight}px`;
+      setCurrentHeight(newHeight);
+      setStartY(clientY);
     }
   };
 
-  // 포인터 클릭 해제
-  const handlePointerUp = () => {
+  const handlePointerUp = (e: ReactPointerEvent | ReactTouchEvent) => {
     if (!isDragging || !sheetRef.current) return;
+
+    const clientY =
+      "touches" in e
+        ? (e as ReactTouchEvent).changedTouches[0].clientY
+        : (e as ReactPointerEvent).clientY;
+    const totalDragDistance = clientY - initialY.current;
+
+    if (
+      totalDragDistance > dismissThreshold &&
+      currentHeight <= minHeight + 50
+    ) {
+      setIsClosing(true);
+      setTimeout(() => {
+        setModalOpen("FOOD_BOTTOM_SHEET_MODAL", false);
+        setIsClosing(false);
+      }, 200);
+    } else {
+      sheetRef.current.style.height = `${currentHeight}px`;
+    }
+
     setIsDragging(false);
-    setCurrentHeight(sheetRef.current.offsetHeight);
   };
 
-  // 검색창에 포커스 온 했을 때
   const handleFocus = () => {
-    setCurrentHeight(window.innerHeight * 0.95);
+    const targetHeight = window.innerHeight * 0.95;
+    if (sheetRef.current) {
+      sheetRef.current.style.height = `${targetHeight}px`;
+      setCurrentHeight(targetHeight);
+    }
   };
 
-  // window 이벤트 리스너 등록/제거
+  const handleGlobalPointerMove = (
+    e: globalThis.PointerEvent | globalThis.TouchEvent,
+  ) => {
+    handlePointerMove(e);
+  };
+
+  const handleGlobalPointerUp = (
+    e: globalThis.PointerEvent | globalThis.TouchEvent,
+  ) => {
+    handlePointerUp(e as any);
+  };
+
   useEffect(() => {
     if (isOpen) {
-      window.addEventListener("pointermove", handlePointerMove);
-      window.addEventListener("pointerup", handlePointerUp);
-      window.addEventListener("touchmove", handlePointerMove);
-      window.addEventListener("touchend", handlePointerUp);
+      window.addEventListener("pointermove", handleGlobalPointerMove);
+      window.addEventListener("pointerup", handleGlobalPointerUp);
+      window.addEventListener("touchmove", handleGlobalPointerMove);
+      window.addEventListener("touchend", handleGlobalPointerUp);
     }
 
     return () => {
-      window.removeEventListener("pointermove", handlePointerMove);
-      window.removeEventListener("pointerup", handlePointerUp);
-      window.removeEventListener("touchmove", handlePointerMove);
-      window.removeEventListener("touchend", handlePointerUp);
+      window.removeEventListener("pointermove", handleGlobalPointerMove);
+      window.removeEventListener("pointerup", handleGlobalPointerUp);
+      window.removeEventListener("touchmove", handleGlobalPointerMove);
+      window.removeEventListener("touchend", handleGlobalPointerUp);
     };
   }, [isOpen, isDragging, startY, currentHeight]);
 
-  if (!isOpen) return null;
+  if (!isOpen && !isClosing) return null;
 
   return (
     <aside
-      className="fixed bottom-0 left-1/2 z-[70] w-layout -translate-x-1/2 rounded-t-3xl bg-white"
-      style={{ height: currentHeight }}
+      className={`fixed bottom-0 left-1/2 z-[70] w-layout -translate-x-1/2 rounded-t-3xl bg-white transition-all duration-200 ease-out ${
+        isClosing ? "translate-y-full" : "translate-y-0"
+      } ${isOpening ? "translate-y-full" : "translate-y-0"}`}
+      style={{
+        height: currentHeight,
+        transition: "height 0.2s ease-out, transform 0.2s ease-out",
+      }}
       ref={sheetRef}
     >
       <header
         className="center h-10 w-full cursor-grab active:cursor-grabbing"
         onPointerDown={handlePointerDown}
-        onTouchStart={handlePointerDown}
-        onPointerUp={handlePointerUp}
-        onTouchEnd={handlePointerUp}
+        onTouchStart={(e: ReactTouchEvent) => handlePointerDown(e)}
+        onPointerUp={(e: ReactPointerEvent) => handlePointerUp(e)}
+        onTouchEnd={(e: ReactTouchEvent) => handlePointerUp(e)}
       >
         <div className="h-1 w-16 rounded-full bg-[#96A2A9]" />
       </header>

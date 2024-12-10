@@ -19,9 +19,13 @@ export default function FoodListPage() {
 
       <FoodBottomSheet isOpen={modals.FOOD_BOTTOM_SHEET_MODAL} />
 
-      {modals.FOOD_BOTTOM_SHEET_MODAL && (
-        <div className="overlay z-[60] mx-auto w-layout" />
-      )}
+      <div
+        className={`overlay z-[60] mx-auto w-layout transition-opacity duration-500 ${
+          modals.FOOD_BOTTOM_SHEET_MODAL
+            ? "opacity-100"
+            : "pointer-events-none opacity-0"
+        }`}
+      />
     </main>
   );
 }
