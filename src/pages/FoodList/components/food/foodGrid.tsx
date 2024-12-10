@@ -90,7 +90,7 @@ export default function FoodGrid() {
 
   return (
     <section
-      className="flex max-h-[55vh] flex-col gap-4 overflow-y-auto pt-[1.9rem]"
+      className="flex max-h-[calc(100dvh-280px)] flex-col gap-4 overflow-y-auto pt-[1.9rem]"
       aria-label="식재료 목록"
     >
       {groupFoodItems(foodList).map((group, groupIndex) => (
