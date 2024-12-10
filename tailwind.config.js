@@ -22,7 +22,8 @@ module.exports = {
         layout: "393px",
       },
       height: {
-        layout: "calc(100vh - 64px)",
+        layout: "calc(100dvh - 64px)",
+        screen: "100dvh",
       },
     },
   },
