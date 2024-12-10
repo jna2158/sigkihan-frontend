@@ -9,29 +9,26 @@ export default function ConfirmCancelModal() {
       aria-labelledby="dialog-title"
       aria-describedby="dialog-description"
     >
-      <div className="relative rounded-lg bg-white p-6" role="document">
-        <header>
-          <h2 id="dialog-title" className="sr-only">
-            삭제 확인
-          </h2>
-        </header>
-
-        <div id="dialog-description">
-          <p>해당 제품을 삭제하시겠습니까?</p>
-        </div>
+      <div
+        className="relative h-[10rem] w-[21rem] rounded-3xl bg-white p-6 pt-[2.3rem]"
+        role="document"
+      >
+        <p className="center text-semibold text-[20px] mb-[1.7rem]">
+          해당 제품을 삭제하시겠습니까?
+        </p>
 
         <footer className="mt-4 flex justify-end gap-2">
           <button
-            className="rounded bg-red-500 px-4 py-2 text-white"
+            className="basic-button h-[3.3rem] w-[9.3rem] bg-gray-100 text-gray-400"
             onClick={() => setModalOpen("CONFIRM_CANCEL_MODAL", false)}
           >
-            아니요
+            아니오
           </button>
           <button
-            className="rounded bg-gray-500 px-4 py-2 text-white"
+            className="basic-button h-[3.3rem] w-[9.3rem] bg-primary text-white"
             onClick={() => setModalOpen("CONFIRM_CANCEL_MODAL", false)}
           >
-            예
+            삭제
           </button>
         </footer>
       </div>

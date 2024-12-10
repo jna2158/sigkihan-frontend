@@ -15,19 +15,20 @@ export default function BottomNavigation() {
           <span className="text-[13px] text-gray-500">냉장고 공유</span>
         </button>
 
-        <button className="flex flex-col items-center gap-1">
+        <button
+          className="flex flex-col items-center gap-1"
+          onClick={() => navigate("/foodlist")}
+        >
           <FontAwesomeIcon icon={faHouse} style={{ color: "#3BD273" }} />
           <span className="text-[13px] text-gray-500">홈화면</span>
         </button>
 
-        <button className="flex flex-col items-center gap-1">
+        <button
+          className="flex flex-col items-center gap-1"
+          onClick={() => navigate("/user/profile")}
+        >
           <FontAwesomeIcon icon={faGear} style={{ color: "#3BD273" }} />
-          <span
-            className="text-[13px] text-gray-500"
-            onClick={() => navigate("/user/profile")}
-          >
-            설정
-          </span>
+          <span className="text-[13px] text-gray-500">개인 설정</span>
         </button>
       </nav>
     </footer>
