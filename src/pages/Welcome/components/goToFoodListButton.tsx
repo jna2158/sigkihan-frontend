@@ -8,9 +8,7 @@ export default function GoToFoodListButton() {
       className="basic-button bg-primary"
       onClick={() => navigate("/foodlist")}
     >
-      <span className="font-inter text-base font-semibold">
-        신선한 하루를 열어보세요!
-      </span>
+      신선한 하루를 열어보세요!
     </button>
   );
 }

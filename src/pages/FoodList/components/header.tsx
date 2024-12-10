@@ -1,16 +1,26 @@
-import logo from "../../../assets/logo.svg";
+import profile from "../../../assets/default_profile.svg";
 import MyFridgeName from "../../../components/common/myFridgeName";
 import AlarmIcon from "./alarm/alarmIcon";
+import logo2 from "../../../assets/logo_02.svg";
 
 export default function Header() {
   return (
-    <header className="flex px-[1.3rem] py-4 pt-[2rem]">
+    <header className="center mt-[2.9rem] flex py-4">
       <div className="flex-1">
-        <MyFridgeName />
+        {/* <MyFridgeName /> */}
+        <img
+          src={logo2}
+          alt="식기한 냉장고 로고"
+          className="h-[2.4rem] w-[10rem]"
+        />
       </div>
-      <nav className="flex gap-[0.5rem]">
+      <nav className="center flex gap-[1rem]">
         <AlarmIcon />
-        <img src={logo} alt="프로필 이미지" className="h-[24px] w-[24px]" />
+        <img
+          src={profile}
+          alt="프로필 이미지"
+          className="h-[1.8rem] w-[1.8rem]"
+        />
       </nav>
     </header>
   );

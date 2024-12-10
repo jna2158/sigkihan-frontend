@@ -16,6 +16,15 @@
       sans-serif;
   }
 
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+
   html {
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
@@ -58,7 +67,7 @@
 @layer components {
   /* button */
   .basic-button {
-    @apply h-[3.25rem] w-[22rem] rounded-lg px-4 py-2 text-white;
+    @apply h-[3.25rem] w-[22rem] rounded-lg px-4 py-2 font-inter text-base font-semibold text-white;
   }
   .social-button {
     @apply h-[2.8rem] w-[18.8rem] rounded-md px-4 py-2;

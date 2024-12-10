@@ -9,9 +9,9 @@ export default function FoodListPage() {
   const { modals } = useModalStore();
 
   return (
-    <main className="flex min-h-screen flex-col">
+    <main className="flex min-h-screen flex-col overflow-y-auto px-[1.3rem]">
       <Header />
-      <article className="relative flex-1 px-[1.3rem] pt-[1.4rem]">
+      <article className="relative flex-1">
         <section className="h-full">
           {/* <Search /> */}
           <FoodGrid />

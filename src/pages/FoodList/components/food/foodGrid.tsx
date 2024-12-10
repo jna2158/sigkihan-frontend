@@ -27,6 +27,56 @@ export default function FoodGrid() {
       name: "사과5",
       image: "https://via.placeholder.com/80",
     },
+    {
+      id: 6,
+      name: "사과6",
+      image: "https://via.placeholder.com/80",
+    },
+    {
+      id: 7,
+      name: "사과7",
+      image: "https://via.placeholder.com/80",
+    },
+    {
+      id: 8,
+      name: "사과8",
+      image: "https://via.placeholder.com/80",
+    },
+    {
+      id: 9,
+      name: "사과9",
+      image: "https://via.placeholder.com/80",
+    },
+    {
+      id: 10,
+      name: "사과10",
+      image: "https://via.placeholder.com/80",
+    },
+    {
+      id: 11,
+      name: "사과11",
+      image: "https://via.placeholder.com/80",
+    },
+    {
+      id: 12,
+      name: "사과12",
+      image: "https://via.placeholder.com/80",
+    },
+    {
+      id: 13,
+      name: "사과13",
+      image: "https://via.placeholder.com/80",
+    },
+    {
+      id: 14,
+      name: "사과14",
+      image: "https://via.placeholder.com/80",
+    },
+    {
+      id: 15,
+      name: "사과15",
+      image: "https://via.placeholder.com/80",
+    },
   ];
 
   // 3개씩 그룹화
@@ -40,13 +90,13 @@ export default function FoodGrid() {
 
   return (
     <section
-      className="flex flex-col gap-4 pt-[4.4rem]"
+      className="flex max-h-[35rem] flex-col gap-4 overflow-y-auto pt-[1.9rem] scrollbar-hide"
       aria-label="식재료 목록"
     >
       {groupFoodItems(foodList).map((group, groupIndex) => (
         <div
           key={groupIndex}
-          className="bg-lightLightGray mx-auto grid h-[10rem] w-[22rem] grid-cols-3 gap-4 rounded-[1.5rem] px-4 py-4"
+          className="mx-auto grid h-[10rem] w-[22rem] grid-cols-3 gap-4 rounded-[1.5rem] bg-gray-50 px-4 py-4"
         >
           {group.map((food) => (
             <FoodCard

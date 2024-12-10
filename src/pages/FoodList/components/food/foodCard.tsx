@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import ExpiredDateBadge from "../../../../components/common/expiredDateBadge";
-import logo from "../../../../assets/logo.svg";
+import apple from "../../../../assets/apple.svg";
+
 export default function FoodCard({
   id,
   name,
@@ -22,8 +23,10 @@ export default function FoodCard({
       onClick={handleClick}
     >
       <ExpiredDateBadge />
-      <img src={logo} alt={name} className="h-[3rem] w-[2.4rem]" />
-      <p className="text-gray text-center text-[14px] font-semibold">{name}</p>
+      <img src={apple} alt={name} className="h-[3rem] w-[2.4rem]" />
+      <p className="text-center text-[14px] font-semibold text-gray-500">
+        {name}
+      </p>
     </div>
   );
 }

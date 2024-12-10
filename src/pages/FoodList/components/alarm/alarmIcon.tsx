@@ -1,16 +1,15 @@
-import useModalStore from "../../../../store/useModalStore";
-import logo from "../../../../assets/logo.svg";
-export default function AlarmIcon() {
-  const { setModalOpen } = useModalStore();
+import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+export default function AlarmIcon() {
   return (
     <div className="relative">
-      <img
-        src={logo}
-        alt="알림 아이콘"
-        className="h-[24px] w-[24px] cursor-pointer hover:opacity-80"
-        onClick={() => setModalOpen("ALARM_DRAWER", true)}
+      <FontAwesomeIcon
+        icon={faBell}
+        className="h-[1.8rem] w-[1.8rem]"
+        style={{ color: "#EBEBEB" }}
       />
+      <div className="absolute -right-1 top-0 h-[0.4rem] w-[0.4rem] rounded-full bg-primary"></div>
     </div>
   );
 }
