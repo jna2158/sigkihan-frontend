@@ -77,7 +77,7 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
         onPointerUp={handlePointerUp}
         onTouchEnd={handlePointerUp}
       >
-        <div className="bg-lightGray h-1 w-16 rounded-full" />
+        <div className="h-1 w-16 rounded-full bg-[#96A2A9]" />
       </header>
       <main
         className="overflow-y-auto bg-white p-4"
@@ -86,7 +86,7 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
         <input
           type="text"
           placeholder="검색어를 입력해주세요 ex) 먹다 남은 햄버거"
-          className="bg-lightLightGray h-[3rem] w-[22rem] rounded-[0.6rem] pl-[0.8rem] text-[14px] text-[#9BA5B7]"
+          className="h-[3rem] w-[22rem] rounded-[0.6rem] bg-gray-50 pl-[0.8rem] text-[14px] text-[#9BA5B7]"
           onFocus={handleFocus}
         />
         <SearchResultGrid />
