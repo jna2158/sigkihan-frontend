@@ -14,18 +14,22 @@
       system-ui,
       Roboto,
       sans-serif;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
   }
 
   html {
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior-y: none;
   }
 
   body {
     line-height: 1.5;
     text-rendering: optimizeSpeed;
     background-color: #272727;
+    overscroll-behavior-y: none;
   }
 
   img,
