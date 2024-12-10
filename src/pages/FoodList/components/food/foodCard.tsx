@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import ExpiredDateBadge from "../../../../components/common/expiredDateBadge";
-import logo from "../../../../assets/logo.png";
+import logo from "../../../../assets/logo.svg";
 export default function FoodCard({
   id,
   name,

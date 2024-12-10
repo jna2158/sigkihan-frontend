@@ -4,7 +4,10 @@ export default function GoToFoodListButton() {
   const navigate = useNavigate();
 
   return (
-    <button className="primary-button" onClick={() => navigate("/foodlist")}>
+    <button
+      className="basic-button bg-primary"
+      onClick={() => navigate("/foodlist")}
+    >
       <span className="font-inter text-base font-semibold">
         신선한 하루를 열어보세요!
       </span>

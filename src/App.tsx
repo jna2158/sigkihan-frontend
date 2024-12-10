@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-gray-800">
-      <main className="relative w-layout overflow-hidden bg-white">
+      <main className="relative h-layout w-layout overflow-hidden bg-white">
         <section className="flex-1 overflow-auto">
           <Routes>
             <Route path="/" element={<LandingPage />} />

@@ -5,9 +5,14 @@ module.exports = {
     extend: {
       colors: {
         primary: "#3BD273",
-        gray: "#6D6D6D",
-        lightGray: "#96A2A9",
-        lightLightGray: "#F5F5F5",
+        black: "#141414",
+        gray600: "#333333",
+        gray500: "#6D6D6D",
+        gray400: "#999999",
+        gray300: "#B5B5B5",
+        gray200: "#CCCCCC",
+        gray100: "#EBEBEB",
+        gray50: "#F5F5F5",
       },
       fontFamily: {
         inter: ["Inter", "sans-serif"],

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo.svg";
 import useModalStore from "../../store/useModalStore";
 export default function FoodDetail() {
   const { id } = useParams();

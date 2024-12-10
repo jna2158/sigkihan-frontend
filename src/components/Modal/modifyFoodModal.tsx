@@ -1,4 +1,4 @@
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo.svg";
 import useModalStore from "../../store/useModalStore";
 
 export default function ModifyFoodModal() {

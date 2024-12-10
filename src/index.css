@@ -56,11 +56,12 @@
 }
 
 @layer components {
-  .primary-button {
-    @apply bg-primary h-[3.25rem] w-[22rem] rounded-md text-white;
-  }
+  /* button */
   .basic-button {
-    @apply h-[3.25rem] w-[22rem] rounded-lg px-4 py-2;
+    @apply h-[3.25rem] w-[22rem] rounded-lg px-4 py-2 text-white;
+  }
+  .social-button {
+    @apply h-[2.8rem] w-[18.8rem] rounded-md px-4 py-2;
   }
 
   .center {

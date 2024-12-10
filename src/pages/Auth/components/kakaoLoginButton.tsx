@@ -1,3 +1,5 @@
+import kakaoLogo from "../../../assets/kakao.png";
+
 const KakaoLoginButton = () => {
   const handleLogin = () => {
     const CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
@@ -10,9 +12,14 @@ const KakaoLoginButton = () => {
   return (
     <button
       onClick={handleLogin}
-      className="h-[3.25rem] w-[22rem] rounded-lg bg-yellow-300 px-4 py-2"
+      className="center social-button bg-yellow-300"
     >
-      카카오로 로그인하기
+      <img
+        src={kakaoLogo}
+        alt="카카오 로고"
+        className="absolute left-5 h-5 w-5"
+      />
+      <span className="">카카오 로그인</span>
     </button>
   );
 };

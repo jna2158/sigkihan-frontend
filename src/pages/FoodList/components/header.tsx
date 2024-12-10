@@ -1,4 +1,4 @@
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo.svg";
 import MyFridgeName from "../../../components/common/myFridgeName";
 import AlarmIcon from "./alarm/alarmIcon";
 
