@@ -15,9 +15,9 @@ function App() {
   );
 
   return (
-    <div className="flex h-screen w-full items-center justify-center bg-gray-800">
-      <main className="relative h-full w-layout overflow-hidden bg-white">
-        <section className="flex-1 overflow-auto">
+    <div className="min-h-screen w-full bg-gray-800">
+      <div className="mx-auto flex h-screen w-layout flex-col bg-white">
+        <main className="flex-1 overflow-y-auto pb-16">
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/welcome" element={<WelcomePage />} />
@@ -26,10 +26,10 @@ function App() {
             <Route path="/user/profile" element={<MyProfilePage />} />
             <Route path="/oauth/callback/kakao" element={<KakaoCallback />} />
           </Routes>
-        </section>
+        </main>
         {shouldShowBottomNav && <BottomNavigation />}
         <ModalContainer />
-      </main>
+      </div>
     </div>
   );
 }

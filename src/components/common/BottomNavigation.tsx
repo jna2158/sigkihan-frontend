@@ -8,7 +8,7 @@ export default function BottomNavigation() {
   const navigate = useNavigate();
 
   return (
-    <footer className="fixed bottom-0 z-50 h-[4rem] w-layout border-t border-[#EEF1F4] bg-white">
+    <footer className="fixed bottom-0 z-50 h-16 w-layout border-t border-[#EEF1F4] bg-white">
       <nav className="flex h-full items-center justify-around">
         <button className="flex flex-col items-center gap-1">
           <FontAwesomeIcon icon={faShareNodes} style={{ color: "#3BD273" }} />

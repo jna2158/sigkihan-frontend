@@ -9,17 +9,16 @@ export default function FoodListPage() {
   const { modals } = useModalStore();
 
   return (
-    <main className="flex min-h-screen flex-col overflow-y-auto px-[1.3rem]">
+    <main className="px-[1.3rem]">
       <Header />
+
       <article className="relative flex-1">
-        <section className="h-full">
-          {/* <Search /> */}
-          <FoodGrid />
-          <AddFoodBtn />
-        </section>
+        <FoodGrid />
+        <AddFoodBtn />
       </article>
 
       <FoodBottomSheet isOpen={modals.FOOD_BOTTOM_SHEET_MODAL} />
+
       {modals.FOOD_BOTTOM_SHEET_MODAL && (
         <div className="overlay z-[60] mx-auto w-layout" />
       )}

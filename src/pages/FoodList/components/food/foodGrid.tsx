@@ -90,13 +90,13 @@ export default function FoodGrid() {
 
   return (
     <section
-      className="flex max-h-[35rem] flex-col gap-4 overflow-y-auto pt-[1.9rem] scrollbar-hide"
+      className="flex max-h-[35rem] flex-col gap-4 overflow-y-auto pt-[1.9rem]"
       aria-label="식재료 목록"
     >
       {groupFoodItems(foodList).map((group, groupIndex) => (
         <div
           key={groupIndex}
-          className="mx-auto grid h-[10rem] w-[22rem] grid-cols-3 gap-4 rounded-[1.5rem] bg-gray-50 px-4 py-4"
+          className="mx-auto grid h-[10rem] w-[21rem] grid-cols-3 gap-4 rounded-[1.5rem] bg-gray-50 px-4 py-4"
         >
           {group.map((food) => (
             <FoodCard
