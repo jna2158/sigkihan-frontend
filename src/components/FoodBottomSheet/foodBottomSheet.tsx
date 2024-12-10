@@ -22,8 +22,22 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
 
   useEffect(() => {
     if (isOpen) {
-      setIsOpening(true);
-      setTimeout(() => setIsOpening(false), 100);
+      // 먼저 높이와 상태들을 초기화
+      if (sheetRef.current) {
+        sheetRef.current.style.height = "400px";
+      }
+      setCurrentHeight(400);
+      setIsDragging(false);
+      setStartY(0);
+      initialY.current = 0;
+
+      // 약간의 지연 후 opening 애니메이션 시작
+      requestAnimationFrame(() => {
+        setIsOpening(true);
+        requestAnimationFrame(() => {
+          setIsOpening(false);
+        });
+      });
     }
   }, [isOpen]);
 
@@ -67,6 +81,10 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
       setTimeout(() => {
         setModalOpen("FOOD_BOTTOM_SHEET_MODAL", false);
         setIsClosing(false);
+        setCurrentHeight(400);
+        setStartY(0);
+        initialY.current = 0;
+        setIsDragging(false);
       }, 200);
     } else {
       sheetRef.current.style.height = `${currentHeight}px`;
@@ -115,12 +133,14 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
 
   return (
     <aside
-      className={`fixed bottom-0 left-1/2 z-[70] w-layout -translate-x-1/2 rounded-t-3xl bg-white transition-all duration-200 ease-out ${
+      className={`fixed bottom-0 left-1/2 z-[70] w-layout -translate-x-1/2 rounded-t-3xl bg-white ${
         isClosing ? "translate-y-full" : "translate-y-0"
       } ${isOpening ? "translate-y-full" : "translate-y-0"}`}
       style={{
         height: currentHeight,
-        transition: "height 0.2s ease-out, transform 0.2s ease-out",
+        transition: isDragging
+          ? "none"
+          : "height 0.2s ease-out, transform 0.2s ease-out",
       }}
       ref={sheetRef}
     >
