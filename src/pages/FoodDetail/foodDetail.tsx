@@ -6,6 +6,14 @@ export default function FoodDetail() {
   const { id } = useParams();
   const { setModalOpen } = useModalStore();
 
+  const handleEatFood = () => {
+    setModalOpen("SELECT_EAT_COUNT_MODAL", true);
+  };
+
+  const handleDiscardFood = () => {
+    setModalOpen("SELECT_DISCARD_COUNT_MODAL", true);
+  };
+
   return (
     <main className="relative">
       <article className="flex flex-col gap-6 p-8">
@@ -59,8 +67,8 @@ export default function FoodDetail() {
         </section>
 
         <div className="flex gap-4">
-          <button className="basic-button bg-primary">맛있게 먹었어요</button>
-          <button className="basic-button bg-primary">폐기했어요</button>
+          <button className="basic-button bg-primary" onClick={handleEatFood}>맛있게 먹었어요</button>
+          <button className="basic-button bg-primary" onClick={handleDiscardFood}>폐기했어요</button>
         </div>
       </article>
     </main>

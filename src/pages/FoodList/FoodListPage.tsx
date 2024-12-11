@@ -15,8 +15,8 @@ export default function FoodListPage() {
       <Header />
  
       <article className="relative flex-1">
-        {/* <FoodGrid /> */}
-        <NoFood />
+        <FoodGrid />
+        {/* <NoFood /> */}
         <AddFoodBtn />
       </article>
 
