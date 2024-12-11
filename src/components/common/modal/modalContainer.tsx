@@ -23,14 +23,14 @@ export default function ModalContainer() {
   const { modals } = useModalStore();
   return (
     <>
-      {Object.entries(modals).map(([modalName, isOpen]) => {
-        if (!isOpen) return null;
+      {Object.entries(modals).map(([modalName, modalState]) => {
+        if (!modalState.isOpen) return null;
 
         const ModalComponent =
           MODAL_COMPONENTS[modalName as keyof typeof MODAL_COMPONENTS];
         if (!ModalComponent) return null;
 
-        return <ModalComponent key={modalName} />;
+        return <ModalComponent key={modalName} data={modalState.data} />;
       })}
     </>
   );

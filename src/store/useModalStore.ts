@@ -1,14 +1,24 @@
 import { create } from "zustand";
 
 interface ModalState {
-  modals: { [key: string]: boolean };
-  setModalOpen: (name: string, isOpen: boolean) => void;
+  modals: {
+    [key: string]: {
+      isOpen: boolean;
+      data?: any;
+    };
+  };
+  setModalOpen: (name: string, isOpen: boolean, data?: any) => void;
 }
 
 const useModalStore = create<ModalState>((set) => ({
   modals: {},
-  setModalOpen: (name, isOpen) =>
-    set((state) => ({ modals: { ...state.modals, [name]: isOpen } })),
+  setModalOpen: (name, isOpen, data) =>
+    set((state) => ({
+      modals: {
+        ...state.modals,
+        [name]: { isOpen, data },
+      },
+    })),
 }));
 
 export default useModalStore;

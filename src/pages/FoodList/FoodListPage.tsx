@@ -17,6 +17,7 @@ export default function FoodListPage() {
   const { userInfo } = useUserStore.getState();
   const { foodItems } = useRefrigeStore.getState();
 
+  // 냉장고 음식 리스트 조회
   useEffect(() => {
     if (!userInfo) return;
 
@@ -39,11 +40,13 @@ export default function FoodListPage() {
         <AddFoodBtn />
       </article>
 
-      <FoodBottomSheet isOpen={modals.FOOD_BOTTOM_SHEET_MODAL} />
+      <FoodBottomSheet
+        isOpen={modals.FOOD_BOTTOM_SHEET_MODAL?.isOpen || false}
+      />
 
       <div
         className={`overlay z-[60] mx-auto w-layout transition-opacity duration-500 ${
-          modals.FOOD_BOTTOM_SHEET_MODAL
+          modals.FOOD_BOTTOM_SHEET_MODAL?.isOpen
             ? "opacity-100"
             : "pointer-events-none opacity-0"
         }`}

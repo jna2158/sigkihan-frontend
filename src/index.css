@@ -67,6 +67,11 @@
   h6 {
     overflow-wrap: break-word;
   }
+
+  input {
+    font-size: 13px;
+    padding: 0.5rem;
+  }
 }
 
 @keyframes slide-up {

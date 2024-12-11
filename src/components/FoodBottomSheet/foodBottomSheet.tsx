@@ -18,25 +18,7 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
   const { setModalOpen } = useModalStore();
   const dismissThreshold = 150;
   const initialY = useRef<number>(0);
-
-  useEffect(() => {
-    if (isOpen) {
-      if (sheetRef.current) {
-        sheetRef.current.style.height = "400px";
-      }
-      setCurrentHeight(400);
-      setIsDragging(false);
-      setStartY(0);
-      initialY.current = 0;
-
-      requestAnimationFrame(() => {
-        setIsOpening(true);
-        requestAnimationFrame(() => {
-          setIsOpening(false);
-        });
-      });
-    }
-  }, [isOpen]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const handlePointerDown = (e: ReactPointerEvent | ReactTouchEvent) => {
     setIsDragging(true);
@@ -126,6 +108,26 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
     };
   }, [isOpen, isDragging, startY, currentHeight]);
 
+  useEffect(() => {
+    if (isOpen) {
+      if (sheetRef.current) {
+        sheetRef.current.style.height = "400px";
+      }
+      setCurrentHeight(400);
+      setIsDragging(false);
+      setStartY(0);
+      initialY.current = 0;
+
+      requestAnimationFrame(() => {
+        setIsOpening(true);
+        requestAnimationFrame(() => {
+          setIsOpening(false);
+        });
+      });
+      setSearchQuery("");
+    }
+  }, [isOpen]);
+
   if (!isOpen && !isClosing) return null;
 
   return (
@@ -159,8 +161,10 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
           placeholder="검색어를 입력해주세요 ex) 먹다 남은 햄버거"
           className="h-[3rem] w-[22rem] rounded-[0.6rem] bg-gray-50 pl-[0.8rem] text-[14px] text-[#9BA5B7]"
           onFocus={handleFocus}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <SearchResultGrid />
+        <SearchResultGrid searchQuery={searchQuery} />
       </main>
     </aside>
   );

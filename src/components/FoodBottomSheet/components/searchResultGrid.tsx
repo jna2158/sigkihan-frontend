@@ -1,27 +1,50 @@
 import SearchResultCard from "./searchResultCard";
+import { getDefaultFoodList } from "../../../services/refrigeService";
+import { useEffect, useState } from "react";
 
-export default function SearchResultGrid() {
+export default function SearchResultGrid({
+  searchQuery,
+}: {
+  searchQuery: string;
+}) {
+  const [defaultList, setDefaultList] = useState<any>([]);
+
+  // 기본 제공하는 default 음식 리스트 조회
+  const getDefaultList = async () => {
+    await getDefaultFoodList()
+      .then((res) => {
+        console.log(res);
+        setDefaultList(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+        setDefaultList([]);
+      });
+  };
+
+  const filteredList = defaultList.filter((item: any) =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase().trim()),
+  );
+
+  useEffect(() => {
+    getDefaultList();
+  }, []);
+
   return (
     <section
       className="flex flex-wrap gap-[0.5rem] pt-[1.2rem]"
       aria-label="식재료 검색 결과 목록"
     >
-      <SearchResultCard />
-      <SearchResultCard />
-      <SearchResultCard />
-      <SearchResultCard />
-      <SearchResultCard />
-      <SearchResultCard />
-      <SearchResultCard />
-      <SearchResultCard />
-      <SearchResultCard />
-      <SearchResultCard />
-      <SearchResultCard />
-      <SearchResultCard />
-      <SearchResultCard />
-      <SearchResultCard />
-      <SearchResultCard />
-      <SearchResultCard />
+      {filteredList.map((item: any) => (
+        <SearchResultCard key={item.id} item={item} />
+      ))}
+
+      {filteredList.length === 0 && (
+        <SearchResultCard
+          key={999}
+          item={{ id: 999, name: searchQuery, image: "default" }}
+        />
+      )}
     </section>
   );
 }
