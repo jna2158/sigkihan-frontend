@@ -4,12 +4,15 @@ import AddFoodModal from "../../Modal/addFoodModal";
 import ModifyFoodModal from "../../Modal/modifyFoodModal";
 import ConfirmCancelModal from "./confirmCancelModal";
 import SelectProfileModal from "../../../pages/User/components/selectProfileModal";
+import ExpiredAlarmModal from "../../../pages/FoodList/components/alarmmodal/expiredAlarmModal";
+
 const MODAL_COMPONENTS = {
   ADD_FOOD_MODAL: AddFoodModal,
   MODIFY_FOOD_MODAL: ModifyFoodModal,
   ALARM_DRAWER: AlarmDrawer,
   CONFIRM_CANCEL_MODAL: ConfirmCancelModal,
   SELECT_PROFILE_MODAL: SelectProfileModal,
+  EXPIRED_ALARM_MODAL: ExpiredAlarmModal,
 };
 
 export default function ModalContainer() {

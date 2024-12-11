@@ -19,7 +19,7 @@ export default function Header() {
         <img
           src={profile}
           alt="프로필 이미지"
-          className="h-[1.8rem] w-[1.8rem]"
+          className="h-[1.8rem] w-[1.8rem] rounded-full shadow-[0_0_4px_rgba(0,0,0,0.3)]"
         />
       </nav>
     </header>

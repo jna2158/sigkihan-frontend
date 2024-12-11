@@ -4,6 +4,7 @@ import FoodGrid from "./components/food/foodGrid";
 import Header from "./components/header";
 import AddFoodBtn from "./components/food/addFoodBtn";
 import useModalStore from "../../store/useModalStore";
+import ExpiredAlarmModal from "./components/alarmmodal/expiredAlarmModal";
 
 export default function FoodListPage() {
   const { modals } = useModalStore();
@@ -26,6 +27,8 @@ export default function FoodListPage() {
             : "pointer-events-none opacity-0"
         }`}
       />
+
+      {/* <ExpiredAlarmModal /> */}
     </main>
   );
 }
