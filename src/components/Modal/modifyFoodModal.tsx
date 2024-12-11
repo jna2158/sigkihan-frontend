@@ -2,9 +2,25 @@ import useModalStore from "../../store/useModalStore";
 import apple from "../../assets/apple.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import Calendar from "../common/calendar";
 
-export default function ModifyFoodMOdal() {
+export default function ModifyFoodModal() {
   const { setModalOpen } = useModalStore();
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [calendarType, setCalendarType] = useState<"purchase" | "expiry">("purchase");
+  const [purchaseDate, setPurchaseDate] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+
+  const handleDateSelect = (date: Date) => {
+    const formattedDate = date.toISOString().split("T")[0];
+    if (calendarType === "purchase") {
+      setPurchaseDate(formattedDate);
+    } else {
+      setExpiryDate(formattedDate);
+    }
+    setShowCalendar(false);
+  };
 
   return (
     <section className="center overlay z-[70]">
@@ -51,7 +67,13 @@ export default function ModifyFoodMOdal() {
               <input
                 type="text"
                 id="purchaseDate"
-                className="absolute right-[2.3rem] h-[1.5rem] w-[8.3rem] bg-gray-50"
+                value={purchaseDate}
+                onClick={() => {
+                  setCalendarType("purchase");
+                  setShowCalendar(true);
+                }}
+                readOnly
+                className="absolute right-[2.3rem] h-[1.5rem] w-[8.3rem] cursor-pointer bg-gray-50"
               />
             </div>
             <div>
@@ -64,7 +86,13 @@ export default function ModifyFoodMOdal() {
               <input
                 type="text"
                 id="expiryDate"
-                className="absolute right-[2.3rem] h-[1.5rem] w-[8.3rem] bg-gray-50"
+                value={expiryDate}
+                onClick={() => {
+                  setCalendarType("expiry");
+                  setShowCalendar(true);
+                }}
+                readOnly
+                className="absolute right-[2.3rem] h-[1.5rem] w-[8.3rem] cursor-pointer bg-gray-50"
               />
             </div>
 
@@ -81,6 +109,18 @@ export default function ModifyFoodMOdal() {
           </form>
         </main>
       </article>
+      {showCalendar && (
+        <>
+          <div
+            className="fixed inset-0 z-[60] bg-black bg-opacity-40"
+            onClick={() => setShowCalendar(false)}
+          />
+          <Calendar
+            onSelect={handleDateSelect}
+            onClose={() => setShowCalendar(false)}
+          />
+        </>
+      )}
     </section>
   );
 }

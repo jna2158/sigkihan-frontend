@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import Search from "../common/search";
 import SearchResultGrid from "./components/searchResultGrid";
 import useModalStore from "../../store/useModalStore";
 import {
@@ -22,7 +21,6 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
 
   useEffect(() => {
     if (isOpen) {
-      // 먼저 높이와 상태들을 초기화
       if (sheetRef.current) {
         sheetRef.current.style.height = "400px";
       }
@@ -31,7 +29,6 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
       setStartY(0);
       initialY.current = 0;
 
-      // 약간의 지연 후 opening 애니메이션 시작
       requestAnimationFrame(() => {
         setIsOpening(true);
         requestAnimationFrame(() => {
@@ -133,7 +130,7 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
 
   return (
     <aside
-      className={`fixed bottom-0 left-1/2 z-[70] w-layout -translate-x-1/2 rounded-t-3xl bg-white ${
+      className={`bottom-sheet-container ${
         isClosing ? "translate-y-full" : "translate-y-0"
       } ${isOpening ? "translate-y-full" : "translate-y-0"}`}
       style={{
