@@ -12,9 +12,9 @@ import useUserStore from "../../store/useUserStore";
 import useRefrigeStore from "../../store/useRefrigeStore";
 
 export default function FoodListPage() {
-  const { modals } = useModalStore();
-  const { userInfo } = useUserStore.getState();
+  const { modals, setModalOpen } = useModalStore();
   const { addFood } = useRefrigeStore();
+  const { userInfo } = useUserStore.getState();
   const { foodItems } = useRefrigeStore.getState();
 
   useEffect(() => {
@@ -47,6 +47,7 @@ export default function FoodListPage() {
             ? "opacity-100"
             : "pointer-events-none opacity-0"
         }`}
+        onClick={() => setModalOpen("FOOD_BOTTOM_SHEET_MODAL", false)}
       />
 
       {/* <ExpiredAlarmModal /> */}
