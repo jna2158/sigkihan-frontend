@@ -6,3 +6,13 @@ export const AUTH_ENDPOINTS = {
   REFRESH: "/accounts/refresh",
   SIGNUP: "accounts/signup",
 } as const;
+
+// 내 정보
+export const USER_INFO_ENDPOINTS = {
+  GET_USER_INFO: "/api/users",
+};
+
+// 냉장고 정보
+export const REFRIGERATOR_ENDPOINTS = {
+  GET_FOOD_LIST: "/api/refrigerators",
+};

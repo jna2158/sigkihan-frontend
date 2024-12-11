@@ -6,17 +6,36 @@ import AddFoodBtn from "./components/food/addFoodBtn";
 import useModalStore from "../../store/useModalStore";
 import ExpiredAlarmModal from "./components/alarmmodal/expiredAlarmModal";
 import NoFood from "./components/food/noFood";
+import { getFoodList } from "../../services/refrigeService";
+import { useEffect } from "react";
+import useUserStore from "../../store/useUserStore";
+import useRefrigeStore from "../../store/useRefrigeStore";
 
 export default function FoodListPage() {
   const { modals } = useModalStore();
+  const { userInfo } = useUserStore.getState();
+  const { addFood } = useRefrigeStore();
+  const { foodItems } = useRefrigeStore.getState();
+
+  useEffect(() => {
+    if (!userInfo) return;
+
+    getFoodList(userInfo.refrigerator_id)
+      .then((res) => {
+        addFood(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+        addFood([]);
+      });
+  }, [userInfo]);
 
   return (
     <main className="px-[1.3rem]">
       <Header />
- 
+
       <article className="relative flex-1">
-        <FoodGrid />
-        {/* <NoFood /> */}
+        {foodItems.length !== 0 ? <FoodGrid /> : <NoFood />}
         <AddFoodBtn />
       </article>
 
