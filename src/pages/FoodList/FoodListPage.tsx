@@ -5,6 +5,7 @@ import Header from "./components/header";
 import AddFoodBtn from "./components/food/addFoodBtn";
 import useModalStore from "../../store/useModalStore";
 import ExpiredAlarmModal from "./components/alarmmodal/expiredAlarmModal";
+import NoFood from "./components/food/noFood";
 
 export default function FoodListPage() {
   const { modals } = useModalStore();
@@ -12,9 +13,10 @@ export default function FoodListPage() {
   return (
     <main className="px-[1.3rem]">
       <Header />
-
+ 
       <article className="relative flex-1">
-        <FoodGrid />
+        {/* <FoodGrid /> */}
+        <NoFood />
         <AddFoodBtn />
       </article>
 
