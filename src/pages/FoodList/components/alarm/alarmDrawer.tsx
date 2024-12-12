@@ -3,14 +3,22 @@ import useModalStore from "../../../../store/useModalStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import AlarmItem from "./alarmItem";
+import useUserStore from "../../../../store/useUserStore";
+import { getExpiredFoodList } from "../../../../services/notificationService";
+
+interface ExpiredFood {
+  id: number;
+  content: string;
+  date: string;
+}
+
 export default function AlarmDrawer() {
   const { setModalOpen } = useModalStore();
   const [isClosing, setIsClosing] = useState(false);
   const [isOpening, setIsOpening] = useState(true);
-
-  useEffect(() => {
-    setIsOpening(false);
-  }, []);
+  const { userInfo } = useUserStore();
+  const refrigeratorId = userInfo?.refrigerator_id;
+  const [expiredFoodList, setExpiredFoodList] = useState<ExpiredFood[]>([]);
 
   const handleClose = () => {
     setIsClosing(true);
@@ -19,6 +27,23 @@ export default function AlarmDrawer() {
       setIsClosing(false);
     }, 300);
   };
+
+  const getAlarmList = async () => {
+    try {
+      if (refrigeratorId) {
+        const res = await getExpiredFoodList(refrigeratorId, userInfo?.id);
+        setExpiredFoodList(res.data);
+      }
+    } catch (error) {
+      console.error(error);
+      setExpiredFoodList([]);
+    }
+  };
+
+  useEffect(() => {
+    setIsOpening(false);
+    getAlarmList();
+  }, []);
 
   return (
     <section className="absolute inset-0 z-[60] mx-auto w-layout overflow-hidden">
@@ -37,10 +62,9 @@ export default function AlarmDrawer() {
           <FontAwesomeIcon icon={faX} />
         </button>
 
-        <AlarmItem />
-        <AlarmItem />
-        <AlarmItem />
-        <AlarmItem />
+        {expiredFoodList.map((item) => (
+          <AlarmItem key={item.id} item={item} />
+        ))}
       </article>
     </section>
   );

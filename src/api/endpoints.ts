@@ -20,3 +20,8 @@ export const REFRIGERATOR_ENDPOINTS = {
   MODIFY_FOOD: "/api/refrigerators",
   DELETE_FOOD: "/api/refrigerators",
 };
+
+// 알림
+export const NOTIFICATION_ENDPOINTS = {
+  GET_EXPIRED_FOOD_LIST: "/api/notifications/expired-foods",
+};
