@@ -6,10 +6,12 @@ export default function FoodCard({
   id,
   name,
   image,
+  expirationDate,
 }: {
   id: number;
   name: string;
   image: string;
+  expirationDate: string;
 }) {
   const navigate = useNavigate();
 
@@ -22,8 +24,8 @@ export default function FoodCard({
       className="center cursor-pointer flex-col gap-[0.6rem] rounded-3xl"
       onClick={handleClick}
     >
-      <ExpiredDateBadge />
-      <img src={apple} alt={name} className="h-[3rem] w-[2.4rem]" />
+      <ExpiredDateBadge expirationDate={expirationDate} />
+      <img src={image} alt={name} className="h-[3rem] w-[2.4rem]" />
       <p className="text-center text-[14px] font-semibold text-gray-500">
         {name}
       </p>

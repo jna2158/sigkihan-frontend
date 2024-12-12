@@ -28,6 +28,7 @@ export default function FoodGrid() {
               id={food.id}
               name={food.name}
               image={food.image || ""}
+              expirationDate={food.expiration_date?.toString() || ""}
             />
           ))}
         </div>

@@ -1,7 +1,15 @@
-export default function ExpiredDateBadge() {
+import { calculateDday } from "../../shared/utils/calculateDday";
+
+interface ExpiredDateBadgeProps {
+  expirationDate?: string;
+}
+
+export default function ExpiredDateBadge({ expirationDate }: ExpiredDateBadgeProps) {
+  if (!expirationDate) return null;
+  
   return (
-    <div className="bg-primary center h-[1.6rem] w-[2.6rem] rounded-[1.5rem] text-[14px] text-white">
-      D-7
+    <div className="center h-[1.6rem] w-[2.6rem] rounded-[1.5rem] bg-primary text-[14px] text-white">
+      {calculateDday(expirationDate)}
     </div>
   );
 }

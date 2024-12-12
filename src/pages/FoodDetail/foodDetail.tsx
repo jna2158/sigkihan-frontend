@@ -22,7 +22,9 @@ export default function FoodDetail() {
     <main className="relative">
       <article className="flex flex-col gap-6 p-8">
         <header className="flex items-center pb-[1.9rem] pt-[2.2rem]">
-          <ExpiredDateBadge />
+          <ExpiredDateBadge
+            expirationDate={currentFoodItem?.expiration_date?.toString() || ""}
+          />
           <span className="ml-[0.8rem] w-[12rem] truncate text-[22px] text-black">
             {currentFoodItem?.name}
           </span>
