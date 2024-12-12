@@ -1,10 +1,8 @@
 import useModalStore from "../../store/useModalStore";
-import profile from "../../assets/default_profile.svg";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getUserInfo } from "../../services/userInfoService";
 import useUserStore from "../../store/useUserStore";
-import { useState } from "react";
-import { logout } from "../../services/authService";
+import { logout, withdraw } from "../../services/authService";
 
 interface UserInfo {
   name: string;
@@ -20,9 +18,12 @@ export default function MyProfilePage() {
   const { userInfo } = useUserStore();
   const [info, setInfo] = useState<UserInfo | null>(null);
 
+  // 로그아웃
   const handleClickLogoutBtn = async () => {
     try {
-      await logout();
+      if (!userInfo) return;
+
+      await logout(userInfo.id);
       localStorage.clear();
       window.location.href = "/";
     } catch (error) {
@@ -30,18 +31,23 @@ export default function MyProfilePage() {
     }
   };
 
-  useEffect(() => {
-    if (!userInfo) return;
+  // 탈퇴
+  const handleClickWithdrawBtn = async () => {
+    setModalOpen("WITHDRAW_CONFIRM_MODAL", true);
+  };
 
-    getInfo();
-  }, [userInfo]);
-
+  // 내 정보 조회
   const getInfo = async () => {
     if (!userInfo) return;
 
     const res = await getUserInfo(userInfo.id);
     setInfo(res.data);
   };
+
+  useEffect(() => {
+    if (!userInfo) return;
+    getInfo();
+  }, [userInfo]);
 
   return (
     <main className="relative">
@@ -93,7 +99,12 @@ export default function MyProfilePage() {
             로그아웃
           </p>
           <hr />
-          <p className="text-[16px] font-medium text-black">탈퇴하기</p>
+          <p
+            className="cursor-pointer text-[16px] font-medium text-black"
+            onClick={handleClickWithdrawBtn}
+          >
+            탈퇴하기
+          </p>
         </section>
       </article>
     </main>

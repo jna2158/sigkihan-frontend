@@ -2,10 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import useModalStore from "../../../store/useModalStore";
 import profile from "../../../assets/default_profile.svg";
-import profile1 from "../../../assets/profile_01.svg";
-import profile2 from "../../../assets/profile_02.svg";
-import profile3 from "../../../assets/profile_03.svg";
-import profile4 from "../../../assets/profile_04.svg";
 import { useEffect, useState } from "react";
 import { getProfileImages } from "../../../services/userInfoService";
 

@@ -7,6 +7,7 @@ import SelectProfileModal from "../../../pages/User/components/selectProfileModa
 import ExpiredAlarmModal from "../../../pages/FoodList/components/alarmmodal/expiredAlarmModal";
 import SelectEatCountModal from "../../../pages/FoodList/components/food/selectEatCountModal";
 import SelectDiscardCountModal from "../../../pages/FoodList/components/food/selectDiscardCountModal";
+import { WithDrawConfirmModal } from "../../../pages/User/components/withDrawConfirmModal";
 
 const MODAL_COMPONENTS = {
   ADD_FOOD_MODAL: AddFoodModal,
@@ -17,6 +18,7 @@ const MODAL_COMPONENTS = {
   EXPIRED_ALARM_MODAL: ExpiredAlarmModal,
   SELECT_EAT_COUNT_MODAL: SelectEatCountModal,
   SELECT_DISCARD_COUNT_MODAL: SelectDiscardCountModal,
+  WITHDRAW_CONFIRM_MODAL: WithDrawConfirmModal,
 };
 
 export default function ModalContainer() {

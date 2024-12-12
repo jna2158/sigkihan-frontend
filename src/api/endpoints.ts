@@ -2,6 +2,7 @@
 export const AUTH_ENDPOINTS = {
   KAKAO_LOGIN: "/auth/kakao/login",
   LOGOUT: "/api/accounts/logout",
+  WITHDRAW: "/api/accounts/withdraw",
   REFRESH: "/accounts/refresh",
 } as const;
 
