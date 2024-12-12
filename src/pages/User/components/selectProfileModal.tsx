@@ -1,33 +1,45 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import useModalStore from "../../../store/useModalStore";
-import profile from "../../../assets/default_profile.svg";
-import { useEffect, useState } from "react";
-import { getProfileImages } from "../../../services/userInfoService";
-
-interface ProfileImage {
-  id: number;
-  name: string;
-  image: string;
-}
+import { useState } from "react";
+import { PROFILE_IMAGES } from "../../../shared/constants/profileImages";
+import { updateUserInfo } from "../../../services/userInfoService";
+import useUserStore from "../../../store/useUserStore";
 
 export default function SelectProfileModal() {
   const { setModalOpen } = useModalStore();
-  const [selectedProfile, setSelectedProfile] = useState(profile);
-  const [profileImages, setProfileImages] = useState<ProfileImage[]>([]);
+  const [selectedProfile, setSelectedProfile] = useState("");
+  const { userInfo, updateUser } = useUserStore();
 
-  useEffect(() => {
-    getProfileImages().then((res) => {
-      setProfileImages(res.data);
-    });
-  }, []);
+  const handleCloseModal = async () => {
+    if (!userInfo) return;
+
+    const data = {
+      name: userInfo.name,
+      image: {
+        name: selectedProfile,
+        image: selectedProfile,
+      },
+    };
+
+    try {
+      const res = await updateUserInfo(userInfo.id, data);
+      updateUser({
+        ...userInfo,
+        profileImage: res.data.image.image,
+      });
+      setModalOpen("SELECT_PROFILE_MODAL", false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <section className="center overlay z-[70]">
       <article className="relative w-[22.1rem] rounded-[1.3rem] bg-white p-6">
         <button
           className="absolute right-4 top-4 text-gray-500 hover:text-gray-700"
-          onClick={() => setModalOpen("SELECT_PROFILE_MODAL", false)}
+          onClick={() => handleCloseModal()}
           aria-label="모달 닫기"
         >
           <FontAwesomeIcon icon={faX} />
@@ -51,15 +63,15 @@ export default function SelectProfileModal() {
           </p>
 
           <div className="flex gap-4">
-            {profileImages.map((image) => (
+            {PROFILE_IMAGES.map((image) => (
               <button
                 key={image.id}
-                onClick={() => setSelectedProfile(image.image)}
+                onClick={() => setSelectedProfile(image.imageUrl)}
               >
                 <img
-                  src={image.image}
+                  src={image.imageUrl}
                   alt={`프로필 사진 ${image.id}`}
-                  className="h-[3.4rem] w-[3.4rem]"
+                  className={`rounded-full p-[2px] ${selectedProfile === image.imageUrl ? "ring-2 ring-green-500" : ""}`}
                 />
               </button>
             ))}

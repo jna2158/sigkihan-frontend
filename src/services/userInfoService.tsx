@@ -24,7 +24,7 @@ export const getUserInfo = (id: number): Promise<UserInfoResponse> => {
   return axios.get(`${USER_INFO_ENDPOINTS.GET_USER_INFO}/${id}`);
 };
 
-// 프로필 뷰셋 조회
-export const getProfileImages = (): Promise<ProfileImagesResponse> => {
-  return axios.get(`${USER_INFO_ENDPOINTS.GET_PROFILE_IMAGES}`);
+// 내 정보 수정
+export const updateUserInfo = (id: number, data: any): Promise<UserInfoResponse> => {
+  return axios.put(`${USER_INFO_ENDPOINTS.UPDATE_USER_INFO}/${id}`, data);
 };

@@ -13,7 +13,7 @@ export type UserStore = {
   userInfo: UserInfo | null;
 
   setUserInfo: (user: UserInfo) => void;
-  updateUserInfo: (updates: Partial<UserInfo>) => void;
+  updateUser: (updates: Partial<UserInfo>) => void;
   clearUserInfo: () => void;
 };
 
@@ -27,7 +27,7 @@ const useUserStore = create(
         set({ userInfo: user });
       },
 
-      updateUserInfo: (updates) =>
+      updateUser: (updates) =>
         set((state) => ({
           userInfo: state.userInfo ? { ...state.userInfo, ...updates } : null,
         })),

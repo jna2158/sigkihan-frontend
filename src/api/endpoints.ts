@@ -9,7 +9,7 @@ export const AUTH_ENDPOINTS = {
 // 내 정보
 export const USER_INFO_ENDPOINTS = {
   GET_USER_INFO: "/api/users",
-  GET_PROFILE_IMAGES: "/api/users/profile-images",
+  UPDATE_USER_INFO: "/api/users",
 };
 
 // 냉장고 정보
