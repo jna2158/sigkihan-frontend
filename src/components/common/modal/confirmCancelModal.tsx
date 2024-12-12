@@ -13,7 +13,7 @@ export default function ConfirmCancelModal() {
         className="relative h-[10rem] w-[21rem] rounded-3xl bg-white p-6 pt-[2.3rem]"
         role="document"
       >
-        <p className="center text-semibold text-[20px] mb-[1.7rem]">
+        <p className="center text-semibold mb-[1.7rem] text-[20px]">
           해당 제품을 삭제하시겠습니까?
         </p>
 

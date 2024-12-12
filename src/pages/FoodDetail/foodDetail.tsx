@@ -23,12 +23,14 @@ export default function FoodDetail() {
       <article className="flex flex-col gap-6 p-8">
         <header className="flex items-center pb-[1.9rem] pt-[2.2rem]">
           <ExpiredDateBadge />
-          <span className="ml-[0.8rem] text-[22px] text-black">
+          <span className="ml-[0.8rem] w-[12rem] truncate text-[22px] text-black">
             {currentFoodItem?.name}
           </span>
           <div className="absolute right-[2.1rem] flex gap-4">
             <button
-              onClick={() => setModalOpen("MODIFY_FOOD_MODAL", true)}
+              onClick={() =>
+                setModalOpen("MODIFY_FOOD_MODAL", true, currentFoodItem)
+              }
               className="text-[16px] font-medium text-gray-500"
             >
               편집

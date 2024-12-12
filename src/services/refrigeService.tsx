@@ -34,3 +34,15 @@ export const getDefaultFoodList = (): Promise<DefaultFoodListResponse> => {
 export const addFoodList = (id: number, data: any) => {
   return axios.post(`${REFRIGERATOR_ENDPOINTS.ADD_FOOD}/${id}/foods`, data);
 };
+
+// 냉장고 음식 수정
+export const modifyFoodList = (
+  refrigeratorId: number,
+  foodId: number,
+  data: any,
+) => {
+  return axios.patch(
+    `${REFRIGERATOR_ENDPOINTS.MODIFY_FOOD}/${refrigeratorId}/foods/${foodId}`,
+    data,
+  );
+};

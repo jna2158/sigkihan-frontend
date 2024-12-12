@@ -17,4 +17,5 @@ export const REFRIGERATOR_ENDPOINTS = {
   GET_FOOD_LIST: "/api/refrigerators",
   GET_DEFAULT_FOOD_LIST: "/api/default-foods",
   ADD_FOOD: "/api/refrigerators",
+  MODIFY_FOOD: "/api/refrigerators",
 };

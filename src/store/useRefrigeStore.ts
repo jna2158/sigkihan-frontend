@@ -18,16 +18,14 @@ export type RefrigeStore = {
   addFood: (food: FoodItem[]) => void;
   // removeFood: (id: number) => void;
   // updateFoodQuantity: (id: number, quantity: number) => void;
-  // updateFood: (id: number, updates: Partial<FoodItem>) => void;
+  updateFood: (id: number, updates: Partial<FoodItem>) => void;
 };
 
 const useRefrigeStore = create(
   persist<RefrigeStore>(
     (set) => ({
       foodItems: [],
-      setFood: (
-        food,
-      ) =>
+      setFood: (food) =>
         set(() => ({
           foodItems: food,
         })),
@@ -48,12 +46,12 @@ const useRefrigeStore = create(
       //     ),
       //   })),
 
-      // updateFood: (id, updates) =>
-      //   set((state) => ({
-      //     foodItems: state.foodItems.map((item) =>
-      //       item.id === id ? { ...item, ...updates } : item,
-      //     ),
-      //   })),
+      updateFood: (id, updates) =>
+        set((state) => ({
+          foodItems: state.foodItems.map((item) =>
+            item.id === id ? { ...item, ...updates } : item,
+          ),
+        })),
     }),
     {
       name: "refrige-storage",
