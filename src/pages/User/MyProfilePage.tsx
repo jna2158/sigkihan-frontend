@@ -81,6 +81,15 @@ export default function MyProfilePage() {
 
         <section className="mt-[2.5rem] flex flex-col gap-[0.9rem] px-[1.7rem]">
           <a
+            href="https://chiseled-magician-e00.notion.site/159e17688efe80d2af5ad36cfacbc0a3?pvs=4"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cursor-pointer text-[16px] font-medium text-black"
+          >
+            이용약관
+          </a>
+          <hr />
+          <a
             href="https://chiseled-magician-e00.notion.site/159e17688efe80aca204e783e4833a2a"
             target="_blank"
             rel="noopener noreferrer"
