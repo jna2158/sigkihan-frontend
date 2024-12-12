@@ -6,11 +6,25 @@ import profile1 from "../../../assets/profile_01.svg";
 import profile2 from "../../../assets/profile_02.svg";
 import profile3 from "../../../assets/profile_03.svg";
 import profile4 from "../../../assets/profile_04.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getProfileImages } from "../../../services/userInfoService";
+
+interface ProfileImage {
+  id: number;
+  name: string;
+  image: string;
+}
 
 export default function SelectProfileModal() {
   const { setModalOpen } = useModalStore();
   const [selectedProfile, setSelectedProfile] = useState(profile);
+  const [profileImages, setProfileImages] = useState<ProfileImage[]>([]);
+
+  useEffect(() => {
+    getProfileImages().then((res) => {
+      setProfileImages(res.data);
+    });
+  }, []);
 
   return (
     <section className="center overlay z-[70]">
@@ -41,54 +55,18 @@ export default function SelectProfileModal() {
           </p>
 
           <div className="flex gap-4">
-            <button
-              onClick={() => setSelectedProfile(profile1)}
-              className={`rounded-full p-[2px] ${
-                selectedProfile === profile1 ? "ring-2 ring-green-500" : ""
-              }`}
-            >
-              <img
-                src={profile1}
-                alt="프로필 사진1"
-                className="h-[3.4rem] w-[3.4rem]"
-              />
-            </button>
-            <button
-              onClick={() => setSelectedProfile(profile2)}
-              className={`rounded-full p-[2px] ${
-                selectedProfile === profile2 ? "ring-2 ring-green-500" : ""
-              }`}
-            >
-              <img
-                src={profile2}
-                alt="프로필 사진2"
-                className="h-[3.4rem] w-[3.4rem]"
-              />
-            </button>
-            <button
-              onClick={() => setSelectedProfile(profile3)}
-              className={`rounded-full p-[2px] ${
-                selectedProfile === profile3 ? "ring-2 ring-green-500" : ""
-              }`}
-            >
-              <img
-                src={profile3}
-                alt="프로필 사진3"
-                className="h-[3.4rem] w-[3.4rem]"
-              />
-            </button>
-            <button
-              onClick={() => setSelectedProfile(profile4)}
-              className={`rounded-full p-[2px] ${
-                selectedProfile === profile4 ? "ring-2 ring-green-500" : ""
-              }`}
-            >
-              <img
-                src={profile4}
-                alt="프로필 사진4"
-                className="h-[3.4rem] w-[3.4rem]"
-              />
-            </button>
+            {profileImages.map((image) => (
+              <button
+                key={image.id}
+                onClick={() => setSelectedProfile(image.image)}
+              >
+                <img
+                  src={image.image}
+                  alt={`프로필 사진 ${image.id}`}
+                  className="h-[3.4rem] w-[3.4rem]"
+                />
+              </button>
+            ))}
           </div>
         </header>
 
