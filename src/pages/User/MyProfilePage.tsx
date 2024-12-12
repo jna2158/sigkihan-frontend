@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { getUserInfo } from "../../services/userInfoService";
 import useUserStore from "../../store/useUserStore";
 import { useState } from "react";
+import { logout } from "../../services/authService";
 
 interface UserInfo {
   name: string;
@@ -18,6 +19,16 @@ export default function MyProfilePage() {
   const { setModalOpen } = useModalStore();
   const { userInfo } = useUserStore();
   const [info, setInfo] = useState<UserInfo | null>(null);
+
+  const handleClickLogoutBtn = async () => {
+    try {
+      await logout();
+      localStorage.clear();
+      window.location.href = "/";
+    } catch (error) {
+      console.error("로그아웃 실패", error);
+    }
+  };
 
   useEffect(() => {
     if (!userInfo) return;
@@ -75,7 +86,12 @@ export default function MyProfilePage() {
             개인정보처리방침
           </a>
           <hr />
-          <p className="text-[16px] font-medium text-black">로그아웃</p>
+          <p
+            className="cursor-pointer text-[16px] font-medium text-black"
+            onClick={handleClickLogoutBtn}
+          >
+            로그아웃
+          </p>
           <hr />
           <p className="text-[16px] font-medium text-black">탈퇴하기</p>
         </section>

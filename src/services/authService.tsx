@@ -15,13 +15,6 @@ interface LoginResponse {
   };
 }
 
-// 로그인
-export const login = (
-  credentials: LoginCredentials,
-): Promise<LoginResponse> => {
-  return axios.post(AUTH_ENDPOINTS.LOGIN, credentials);
-};
-
 // 로그아웃
 export const logout = (): Promise<void> => {
   return axios.post(AUTH_ENDPOINTS.LOGOUT);
