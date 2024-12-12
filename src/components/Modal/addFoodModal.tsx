@@ -1,62 +1,85 @@
-import useModalStore from "../../store/useModalStore";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import useModalStore from "../../store/useModalStore";
+import useUserStore from "../../store/useUserStore";
+import useRefrigeStore from "../../store/useRefrigeStore";
 import Calendar from "../common/calendar";
 import { onlyNumbers } from "../../shared/utils/onlyNumber";
 import { addFoodList } from "../../services/refrigeService";
-import useUserStore from "../../store/useUserStore";
-import useRefrigeStore from "../../store/useRefrigeStore";
 
-export default function AddFoodModal({ data }: { data: any }) {
+interface FoodData {
+  id: number | null;
+  name: string;
+  image: string;
+}
+
+interface AddFoodModalProps {
+  data: FoodData;
+}
+
+interface FoodForm {
+  name: string;
+  quantity: string;
+  purchaseDate: string;
+  expiryDate: string;
+}
+
+export default function AddFoodModal({ data }: AddFoodModalProps) {
   const { setModalOpen } = useModalStore();
   const { addFood } = useRefrigeStore();
   const { userInfo } = useUserStore.getState();
+
   const [showCalendar, setShowCalendar] = useState(false);
   const [calendarType, setCalendarType] = useState<"purchase" | "expiry">(
     "purchase",
   );
-  const [purchaseDate, setPurchaseDate] = useState(
-    new Date().toISOString().split("T")[0],
-  );
-  const [expiryDate, setExpiryDate] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [foodName, setFoodName] = useState(data.name);
 
-  // 날짜 선택 시 날짜 포맷팅
+  const [formData, setFormData] = useState<FoodForm>({
+    name: data.name,
+    quantity: "",
+    purchaseDate: new Date().toISOString().split("T")[0],
+    expiryDate: "",
+  });
+
+  const handleFormChange = (field: keyof FoodForm, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
   const handleDateSelect = (date: Date) => {
     const formattedDate = date.toISOString().split("T")[0];
-    if (calendarType === "purchase") {
-      setPurchaseDate(formattedDate);
-    } else {
-      setExpiryDate(formattedDate);
-    }
+    const field = calendarType === "purchase" ? "purchaseDate" : "expiryDate";
+    handleFormChange(field, formattedDate);
     setShowCalendar(false);
   };
 
-  // 재료 등록 버튼 클릭 시
-  const handleClickAddFoodBtn = () => {
+  const handleSubmit = async () => {
     if (!userInfo) return;
 
     const food = {
       refrigerator_id: userInfo.refrigerator_id,
       default_food_id: data.id,
-      name: foodName,
-      purchase_date: purchaseDate,
-      expiration_date: expiryDate,
-      quantity: Number(quantity),
+      name: formData.name,
+      purchase_date: formData.purchaseDate,
+      expiration_date: formData.expiryDate,
+      quantity: Number(formData.quantity),
     };
 
-    addFoodList(userInfo.refrigerator_id, food)
-      .then((res) => {
-        addFood([res.data]);
-        setModalOpen("ADD_FOOD_MODAL", false);
-        setModalOpen("FOOD_BOTTOM_SHEET_MODAL", false);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    try {
+      const res = await addFoodList(userInfo.refrigerator_id, food);
+      addFood([res.data]);
+      setModalOpen("ADD_FOOD_MODAL", false);
+      setModalOpen("FOOD_BOTTOM_SHEET_MODAL", false);
+    } catch (err) {
+      console.error(err);
+    }
   };
+
+  const isFormValid =
+    formData.name &&
+    formData.quantity &&
+    formData.purchaseDate &&
+    formData.expiryDate;
 
   return (
     <section className="center overlay z-[70]">
@@ -68,6 +91,7 @@ export default function AddFoodModal({ data }: { data: any }) {
         >
           <FontAwesomeIcon icon={faX} />
         </button>
+
         <header className="mb-[0.6rem] mt-[0.4rem] flex items-center justify-center">
           <img src={data.image} alt="음식 이미지" className="w-20" />
         </header>
@@ -83,10 +107,8 @@ export default function AddFoodModal({ data }: { data: any }) {
                   type="text"
                   id="foodName"
                   className="text-semibold h-[2rem] w-[7.5rem] rounded-[13rem] bg-gray-50 text-center text-[20px]"
-                  value={foodName}
-                  onChange={(e) => {
-                    setFoodName(e.target.value);
-                  }}
+                  value={formData.name}
+                  onChange={(e) => handleFormChange("name", e.target.value)}
                 />
               ) : (
                 <label htmlFor="foodName" className="text-semibold text-[20px]">
@@ -94,6 +116,7 @@ export default function AddFoodModal({ data }: { data: any }) {
                 </label>
               )}
             </div>
+
             <div>
               <label
                 htmlFor="quantity"
@@ -105,12 +128,13 @@ export default function AddFoodModal({ data }: { data: any }) {
                 type="text"
                 id="quantity"
                 className="absolute right-[2.3rem] h-[1.5rem] w-[8.3rem] bg-gray-50"
-                onChange={(e) => {
-                  e.target.value = onlyNumbers(e.target.value);
-                  setQuantity(e.target.value);
-                }}
+                value={formData.quantity}
+                onChange={(e) =>
+                  handleFormChange("quantity", onlyNumbers(e.target.value))
+                }
               />
             </div>
+
             <div>
               <label
                 htmlFor="purchaseDate"
@@ -121,12 +145,16 @@ export default function AddFoodModal({ data }: { data: any }) {
               <input
                 type="text"
                 id="purchaseDate"
-                value={purchaseDate}
-                onClick={() => setShowCalendar(true)}
+                value={formData.purchaseDate}
+                onClick={() => {
+                  setCalendarType("purchase");
+                  setShowCalendar(true);
+                }}
                 readOnly
                 className="absolute right-[2.3rem] h-[1.5rem] w-[8.3rem] cursor-pointer bg-gray-50"
               />
             </div>
+
             <div>
               <label
                 htmlFor="expiryDate"
@@ -137,7 +165,7 @@ export default function AddFoodModal({ data }: { data: any }) {
               <input
                 type="text"
                 id="expiryDate"
-                value={expiryDate}
+                value={formData.expiryDate}
                 onClick={() => {
                   setCalendarType("expiry");
                   setShowCalendar(true);
@@ -150,9 +178,12 @@ export default function AddFoodModal({ data }: { data: any }) {
             <footer className="flex justify-center">
               <button
                 type="submit"
-                className="basic-button mt-[1.6rem] h-[2.5rem] w-[10rem] bg-primary"
+                className={`basic-button mt-[1.6rem] h-[2.5rem] w-[10rem] ${
+                  !isFormValid ? "bg-gray-300" : "bg-primary"
+                }`}
                 aria-label="식품 등록하기"
-                onClick={() => handleClickAddFoodBtn()}
+                onClick={handleSubmit}
+                disabled={!isFormValid}
               >
                 재료 등록하기
               </button>
