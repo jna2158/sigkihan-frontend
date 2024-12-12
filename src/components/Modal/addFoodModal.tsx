@@ -16,9 +16,12 @@ export default function AddFoodModal({ data }: { data: any }) {
   const [calendarType, setCalendarType] = useState<"purchase" | "expiry">(
     "purchase",
   );
-  const [purchaseDate, setPurchaseDate] = useState("");
+  const [purchaseDate, setPurchaseDate] = useState(
+    new Date().toISOString().split("T")[0],
+  );
   const [expiryDate, setExpiryDate] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [foodName, setFoodName] = useState(data.name);
 
   // 날짜 선택 시 날짜 포맷팅
   const handleDateSelect = (date: Date) => {
@@ -38,7 +41,7 @@ export default function AddFoodModal({ data }: { data: any }) {
     const food = {
       refrigerator_id: userInfo.refrigerator_id,
       default_food_id: data.id,
-      name: data.name,
+      name: foodName,
       purchase_date: purchaseDate,
       expiration_date: expiryDate,
       quantity: Number(quantity),
@@ -75,10 +78,21 @@ export default function AddFoodModal({ data }: { data: any }) {
             onSubmit={(e) => e.preventDefault()}
           >
             <div className="center mb-[1.3rem]">
-              <label htmlFor="foodName" className="text-semibold text-[20px]">
-                {data.name}
-              </label>
-              {/* <input type="text" id="foodName" /> */}
+              {data.id === null ? (
+                <input
+                  type="text"
+                  id="foodName"
+                  className="text-semibold h-[2rem] w-[7.5rem] rounded-[13rem] bg-gray-50 text-center text-[20px]"
+                  value={foodName}
+                  onChange={(e) => {
+                    setFoodName(e.target.value);
+                  }}
+                />
+              ) : (
+                <label htmlFor="foodName" className="text-semibold text-[20px]">
+                  {data.name}
+                </label>
+              )}
             </div>
             <div>
               <label

@@ -42,7 +42,7 @@ export default function SearchResultGrid({
       {filteredList.length === 0 && (
         <SearchResultCard
           key={999}
-          item={{ id: 999, name: searchQuery, image: "default" }}
+          item={{ id: null, name: searchQuery, image: "default" }}
         />
       )}
     </section>

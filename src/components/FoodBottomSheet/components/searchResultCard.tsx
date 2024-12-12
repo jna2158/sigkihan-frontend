@@ -3,7 +3,7 @@ import useModalStore from "../../../store/useModalStore";
 export default function SearchResultCard({
   item,
 }: {
-  item: { id: number; name: string; image: string };
+  item: { id: number | null; name: string; image: string };
 }) {
   const { setModalOpen } = useModalStore();
 
