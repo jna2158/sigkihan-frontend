@@ -8,7 +8,7 @@ import useUserStore from "../../../store/useUserStore";
 
 export default function SelectProfileModal() {
   const { setModalOpen } = useModalStore();
-  const [selectedProfile, setSelectedProfile] = useState("");
+  const [selectedProfile, setSelectedProfile] = useState(PROFILE_IMAGES[0]);
   const { userInfo, updateUser } = useUserStore();
 
   const handleCloseModal = async () => {
@@ -16,10 +16,7 @@ export default function SelectProfileModal() {
 
     const data = {
       name: userInfo.name,
-      image: {
-        name: selectedProfile,
-        image: selectedProfile,
-      },
+      image: selectedProfile.image,
     };
 
     try {
@@ -53,9 +50,9 @@ export default function SelectProfileModal() {
           </p>
 
           <img
-            src={selectedProfile}
+            src={selectedProfile.url}
             alt="프로필 사진"
-            className="h-[7rem] w-[7rem]"
+            className="mb-[0.5rem] h-[7rem] w-[7rem]"
           />
 
           <p className="pb-[1.6rem] text-[20px] font-semibold text-gray-500">
@@ -65,13 +62,13 @@ export default function SelectProfileModal() {
           <div className="flex gap-4">
             {PROFILE_IMAGES.map((image) => (
               <button
-                key={image.id}
-                onClick={() => setSelectedProfile(image.imageUrl)}
+                key={image.image}
+                onClick={() => setSelectedProfile(image)}
               >
                 <img
-                  src={image.imageUrl}
-                  alt={`프로필 사진 ${image.id}`}
-                  className={`rounded-full p-[2px] ${selectedProfile === image.imageUrl ? "ring-2 ring-green-500" : ""}`}
+                  src={image.url}
+                  alt={`프로필 사진 ${image.image}`}
+                  className={`rounded-full p-[2px] ${selectedProfile.url === image.url ? "ring-2 ring-green-500" : ""}`}
                 />
               </button>
             ))}

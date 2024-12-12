@@ -1,6 +1,6 @@
 export const PROFILE_IMAGES = [
-  { id: 1, name: "profile1.svg", imageUrl: "/assets/profile_01.svg" },
-  { id: 2, name: "profile2.svg", imageUrl: "/assets/profile_02.svg" },
-  { id: 3, name: "profile3.svg", imageUrl: "/assets/profile_03.svg" },
-  { id: 4, name: "profile4.svg", imageUrl: "/assets/profile_04.svg" },
+  { name: "profile1", image: 1, url: "/assets/profile_01.svg" },
+  { name: "profile2", image: 2, url: "/assets/profile_02.svg" },
+  { name: "profile3", image: 3, url: "/assets/profile_03.svg" },
+  { name: "profile4", image: 4, url: "/assets/profile_04.svg" },
 ];
