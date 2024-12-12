@@ -51,7 +51,11 @@ export default function MyProfilePage() {
 
         <section className="flex items-center gap-6 rounded-3xl bg-gray-50 px-[1.7rem] py-[1.6rem]">
           <div className="">
-            <img src={info?.image?.image} alt="사용자 프로필" className="h-[4.2rem]" />
+            <img
+              src={info?.image?.image}
+              alt="사용자 프로필"
+              className="h-[4.2rem]"
+            />
           </div>
           <div className="gap-2">
             <p className="text-semibold text-[20px] text-black">{info?.name}</p>
@@ -62,7 +66,14 @@ export default function MyProfilePage() {
         </section>
 
         <section className="mt-[2.5rem] flex flex-col gap-[0.9rem] px-[1.7rem]">
-          <p className="text-[16px] font-medium text-black">개인정보처리방침</p>
+          <a
+            href="https://chiseled-magician-e00.notion.site/159e17688efe80aca204e783e4833a2a"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cursor-pointer text-[16px] font-medium text-black"
+          >
+            개인정보처리방침
+          </a>
           <hr />
           <p className="text-[16px] font-medium text-black">로그아웃</p>
           <hr />
