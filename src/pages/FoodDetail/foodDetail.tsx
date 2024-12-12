@@ -11,11 +11,11 @@ export default function FoodDetail() {
   const currentFoodItem = foodItems.find((item) => item.id === Number(id));
 
   const handleEatFood = () => {
-    setModalOpen("SELECT_EAT_COUNT_MODAL", true);
+    setModalOpen("SELECT_EAT_COUNT_MODAL", true, currentFoodItem);
   };
 
   const handleDiscardFood = () => {
-    setModalOpen("SELECT_DISCARD_COUNT_MODAL", true);
+    setModalOpen("SELECT_DISCARD_COUNT_MODAL", true, currentFoodItem);
   };
 
   return (
@@ -36,7 +36,9 @@ export default function FoodDetail() {
               편집
             </button>
             <button
-              onClick={() => setModalOpen("CONFIRM_CANCEL_MODAL", true, {id: Number(id)})}
+              onClick={() =>
+                setModalOpen("CONFIRM_CANCEL_MODAL", true, { id: Number(id) })
+              }
               className="text-[16px] font-medium text-gray-500"
             >
               삭제

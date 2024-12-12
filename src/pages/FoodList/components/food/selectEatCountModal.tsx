@@ -2,19 +2,41 @@ import useModalStore from "../../../../store/useModalStore";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { modifyFoodList } from "../../../../services/refrigeService";
+import useUserStore from "../../../../store/useUserStore";
+import useRefrigeStore from "../../../../store/useRefrigeStore";
 
-export default function SelectEatCountModal() {
+export default function SelectEatCountModal(foodItem: any) {
   const { setModalOpen } = useModalStore();
   const [count, setCount] = useState(1);
+  const { userInfo } = useUserStore();
+  const { updateFood } = useRefrigeStore();
 
   const handleIncrement = () => {
-    setCount((prev) => prev + 1);
+    if (count < foodItem.data.quantity) {
+      setCount((prev: number) => prev + 1);
+    }
   };
 
   const handleDecrement = () => {
     if (count > 1) {
-      setCount((prev) => prev - 1);
+      setCount((prev: number) => prev - 1);
     }
+  };
+
+  const handleClickConfirmBtn = async () => {
+    if (!userInfo) return;
+
+    const res = await modifyFoodList(
+      userInfo.refrigerator_id,
+      foodItem.data.id,
+      {
+        ...foodItem.data,
+        quantity: foodItem.data.quantity - count,
+      },
+    );
+    updateFood(foodItem.data.id, res.data);
+    setModalOpen("SELECT_EAT_COUNT_MODAL", false);
   };
 
   return (
@@ -56,7 +78,7 @@ export default function SelectEatCountModal() {
           </button>
           <button
             className="basic-button h-[3.3rem] w-[9.3rem] bg-primary text-white"
-            onClick={() => setModalOpen("SELECT_EAT_COUNT_MODAL", false)}
+            onClick={() => handleClickConfirmBtn()}
           >
             확인
           </button>
