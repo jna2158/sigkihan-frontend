@@ -1,7 +1,32 @@
 import useModalStore from "../../../store/useModalStore";
+import useRefrigeStore from "../../../store/useRefrigeStore";
+import { deleteFoodList } from "../../../services/refrigeService";
+import useUserStore from "../../../store/useUserStore";
+import { useNavigate } from "react-router-dom";
 
-export default function ConfirmCancelModal() {
+interface ConfirmCancelModalProps {
+  data?: {
+    id: number;
+  };
+}
+
+export default function ConfirmCancelModal({ data }: ConfirmCancelModalProps) {
   const { setModalOpen } = useModalStore();
+  const { removeFood } = useRefrigeStore();
+  const { userInfo } = useUserStore();
+  const navigate = useNavigate();
+  const handleDeleteBtn = async () => {
+    if (!data?.id || !userInfo?.refrigerator_id) return;
+
+    try {
+      const res = await deleteFoodList(userInfo.refrigerator_id, data.id);
+      removeFood(res.data.iď);
+      setModalOpen("CONFIRM_CANCEL_MODAL", false);
+      navigate("/foodlist");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <section
@@ -26,7 +51,7 @@ export default function ConfirmCancelModal() {
           </button>
           <button
             className="basic-button h-[3.3rem] w-[9.3rem] bg-primary text-white"
-            onClick={() => setModalOpen("CONFIRM_CANCEL_MODAL", false)}
+            onClick={handleDeleteBtn}
           >
             삭제
           </button>

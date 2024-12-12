@@ -46,3 +46,10 @@ export const modifyFoodList = (
     data,
   );
 };
+
+// 냉장고 음식 삭제
+export const deleteFoodList = (refrigeratorId: number, foodId: number) => {
+  return axios.delete(
+    `${REFRIGERATOR_ENDPOINTS.DELETE_FOOD}/${refrigeratorId}/foods/${foodId}`,
+  );
+};

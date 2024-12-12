@@ -36,7 +36,7 @@ export default function FoodDetail() {
               편집
             </button>
             <button
-              onClick={() => setModalOpen("CONFIRM_CANCEL_MODAL", true)}
+              onClick={() => setModalOpen("CONFIRM_CANCEL_MODAL", true, {id: Number(id)})}
               className="text-[16px] font-medium text-gray-500"
             >
               삭제
