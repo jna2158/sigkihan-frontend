@@ -21,9 +21,6 @@ export default function MyProfilePage() {
   // 로그아웃
   const handleClickLogoutBtn = async () => {
     try {
-      if (!userInfo) return;
-
-      await logout(userInfo.id);
       localStorage.clear();
       window.location.href = "/";
     } catch (error) {
