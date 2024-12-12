@@ -4,11 +4,13 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import Calendar from "../common/calendar";
 import { onlyNumbers } from "../../shared/utils/onlyNumber";
-import { addFood } from "../../services/refrigeService";
+import { addFoodList } from "../../services/refrigeService";
 import useUserStore from "../../store/useUserStore";
+import useRefrigeStore from "../../store/useRefrigeStore";
 
 export default function AddFoodModal({ data }: { data: any }) {
   const { setModalOpen } = useModalStore();
+  const { addFood } = useRefrigeStore();
   const { userInfo } = useUserStore.getState();
   const [showCalendar, setShowCalendar] = useState(false);
   const [calendarType, setCalendarType] = useState<"purchase" | "expiry">(
@@ -29,20 +31,23 @@ export default function AddFoodModal({ data }: { data: any }) {
     setShowCalendar(false);
   };
 
+  // 재료 등록 버튼 클릭 시
   const handleClickAddFoodBtn = () => {
-    console.log(purchaseDate, expiryDate, quantity);
     if (!userInfo) return;
 
-    addFood(userInfo.refrigerator_id, {
+    const food = {
       refrigerator_id: userInfo.refrigerator_id,
       default_food_id: data.id,
       name: data.name,
       purchase_date: purchaseDate,
       expiration_date: expiryDate,
       quantity: Number(quantity),
-    })
+    };
+
+    addFoodList(userInfo.refrigerator_id, food)
       .then((res) => {
-        console.log(res);
+        addFood([res.data]);
+        setModalOpen("ADD_FOOD_MODAL", false);
         setModalOpen("FOOD_BOTTOM_SHEET_MODAL", false);
       })
       .catch((err) => {

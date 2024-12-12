@@ -8,11 +8,13 @@ export type FoodItem = {
   purchase_date: Date;
   expiration_date: Date;
   quantity: number;
+  image?: string;
 };
 
 export type RefrigeStore = {
   foodItems: FoodItem[];
 
+  setFood: (food: FoodItem[]) => void;
   addFood: (food: FoodItem[]) => void;
   // removeFood: (id: number) => void;
   // updateFoodQuantity: (id: number, quantity: number) => void;
@@ -23,7 +25,12 @@ const useRefrigeStore = create(
   persist<RefrigeStore>(
     (set) => ({
       foodItems: [],
-
+      setFood: (
+        food,
+      ) =>
+        set(() => ({
+          foodItems: food,
+        })),
       addFood: (food) =>
         set((state) => ({
           foodItems: [...state.foodItems, ...food],

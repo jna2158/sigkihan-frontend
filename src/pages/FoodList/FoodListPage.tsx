@@ -13,7 +13,7 @@ import useRefrigeStore from "../../store/useRefrigeStore";
 
 export default function FoodListPage() {
   const { modals, setModalOpen } = useModalStore();
-  const { addFood } = useRefrigeStore();
+  const { setFood } = useRefrigeStore();
   const { userInfo } = useUserStore.getState();
   const { foodItems } = useRefrigeStore.getState();
 
@@ -23,11 +23,11 @@ export default function FoodListPage() {
 
     getFoodList(userInfo.refrigerator_id)
       .then((res) => {
-        addFood(res.data);
+        setFood(res.data);
       })
       .catch((err) => {
         console.error(err);
-        addFood([]);
+        setFood([]);
       });
   }, [userInfo]);
 

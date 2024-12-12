@@ -31,6 +31,6 @@ export const getDefaultFoodList = (): Promise<DefaultFoodListResponse> => {
 };
 
 // 냉장고에 음식 추가
-export const addFood = (id: number, data: any) => {
+export const addFoodList = (id: number, data: any) => {
   return axios.post(`${REFRIGERATOR_ENDPOINTS.ADD_FOOD}/${id}/foods`, data);
 };
