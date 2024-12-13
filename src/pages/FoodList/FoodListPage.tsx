@@ -32,12 +32,20 @@ export default function FoodListPage() {
   }, [userInfo]);
 
   return (
-    <main className="px-[1.3rem]">
+    <main className="flex h-full flex-col px-[1.3rem]">
       <Header />
 
-      <article className="relative flex-1">
-        {foodItems.length !== 0 ? <FoodGrid /> : <NoFood />}
-        <AddFoodBtn />
+      <article className="relative flex flex-1 flex-col">
+        {foodItems.length !== 0 ? (
+          <div className="flex-1">
+            <FoodGrid />
+          </div>
+        ) : (
+          <NoFood />
+        )}
+        <div className="sticky bottom-4">
+          <AddFoodBtn />
+        </div>
       </article>
 
       <FoodBottomSheet
