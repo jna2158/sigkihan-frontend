@@ -21,7 +21,10 @@ const KakaoCallback = () => {
             id: data.user.id,
             email: data.user.email,
             name: data.user.username,
-            profileImage: data.user.profile_image.image_url,
+            profileImage: {
+              name: data.user.profile_image.name,
+              image: data.user.profile_image.image
+            },
             refrigerator_id: data.user.refrigerator_id,
           });
           navigate("/welcome");
@@ -34,7 +37,10 @@ const KakaoCallback = () => {
             id: 5,
             email: "potenday@gmail.com",
             name: "냉부심",
-            profileImage: "/media/profile_images/default.cvg",
+            profileImage: {
+              name: "profile1",
+              image: 1,
+            },
             refrigerator_id: 4,
           });
 

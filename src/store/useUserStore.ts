@@ -5,7 +5,10 @@ export type UserInfo = {
   id: number;
   email: string;
   name: string;
-  profileImage: string;
+  profileImage: {
+    name: string;
+    image: number;
+  };
   refrigerator_id: number;
 };
 

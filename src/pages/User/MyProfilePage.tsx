@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getUserInfo } from "../../services/userInfoService";
 import useUserStore from "../../store/useUserStore";
 import { withdraw } from "../../services/authService";
+import { PROFILE_IMAGES } from "../../shared/constants/profileImages";
 
 interface UserInfo {
   name: string;
@@ -18,6 +19,10 @@ export default function MyProfilePage() {
   const { setModalOpen } = useModalStore();
   const { userInfo } = useUserStore();
   const [info, setInfo] = useState<UserInfo | null>(null);
+
+  const profileImageUrl = PROFILE_IMAGES.find(
+    (item) => item.image === userInfo?.profileImage?.image,
+  )?.url;
 
   // 로그아웃
   const handleClickLogoutBtn = async () => {
@@ -67,7 +72,7 @@ export default function MyProfilePage() {
         <section className="flex items-center gap-6 rounded-3xl bg-gray-50 px-[1.7rem] py-[1.6rem]">
           <div className="">
             <img
-              src={info?.image?.image}
+              src={profileImageUrl}
               alt="사용자 프로필"
               className="h-[4.2rem]"
             />
