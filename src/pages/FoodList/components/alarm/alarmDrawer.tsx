@@ -28,6 +28,7 @@ export default function AlarmDrawer() {
     }, 300);
   };
 
+  // 알림 목록 조회
   const getAlarmList = async () => {
     try {
       if (refrigeratorId) {

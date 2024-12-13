@@ -6,7 +6,8 @@ export const WithDrawConfirmModal = () => {
   const { setModalOpen } = useModalStore();
   const { userInfo } = useUserStore();
 
-  const handleDeleteBtn = async () => {
+  // 탈퇴 버튼 클릭 시
+  const handleClickWithDrawBtn = async () => {
     try {
       if (!userInfo) return;
 
@@ -42,7 +43,7 @@ export const WithDrawConfirmModal = () => {
           </button>
           <button
             className="basic-button h-[3.3rem] w-[9.3rem] bg-primary text-white"
-            onClick={handleDeleteBtn}
+            onClick={handleClickWithDrawBtn}
           >
             예
           </button>

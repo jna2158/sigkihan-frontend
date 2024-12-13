@@ -26,7 +26,6 @@ const useUserStore = create(
       userInfo: null,
 
       setUserInfo: (user) => {
-        console.log("user", user);
         set({ userInfo: user });
       },
 

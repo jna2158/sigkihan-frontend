@@ -13,7 +13,6 @@ export default function SearchResultGrid({
   const getDefaultList = async () => {
     await getDefaultFoodList()
       .then((res) => {
-        console.log(res);
         setDefaultList(res.data);
       })
       .catch((err) => {

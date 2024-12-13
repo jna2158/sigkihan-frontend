@@ -10,12 +10,15 @@ import { getFoodList } from "../../services/refrigeService";
 import { useEffect } from "react";
 import useUserStore from "../../store/useUserStore";
 import useRefrigeStore from "../../store/useRefrigeStore";
+import { getNotificationList } from "../../services/notificationService";
+import { useState } from "react";
 
 export default function FoodListPage() {
   const { modals, setModalOpen } = useModalStore();
   const { setFood } = useRefrigeStore();
   const { userInfo } = useUserStore.getState();
   const { foodItems } = useRefrigeStore.getState();
+  const [notiList, setNotiList] = useState<any[]>([]);
 
   // 냉장고 음식 리스트 조회
   useEffect(() => {
@@ -29,7 +32,28 @@ export default function FoodListPage() {
         console.error(err);
         setFood([]);
       });
+    getNotiList();
   }, [userInfo]);
+
+  // 알림 목록 조회
+  const getNotiList = async () => {
+    if (!userInfo) return;
+
+    try {
+      const res = await getNotificationList(
+        userInfo.refrigerator_id,
+        userInfo.id,
+      );
+      setNotiList(res.data);
+    } catch (err) {
+      setNotiList([]);
+      setNotiList([
+        { id: 1, content: "오이", date: "2024-12-13" },
+        { id: 2, content: "당근", date: "2024-12-13" },
+      ]);
+      console.error(err);
+    }
+  };
 
   return (
     <main className="flex h-full flex-col px-[1.3rem]">
@@ -61,7 +85,7 @@ export default function FoodListPage() {
         onClick={() => setModalOpen("FOOD_BOTTOM_SHEET_MODAL", false)}
       />
 
-      {/* <ExpiredAlarmModal /> */}
+      {notiList.length !== 0 && <ExpiredAlarmModal notiList={notiList} setNotiList={setNotiList} />}
     </main>
   );
 }
