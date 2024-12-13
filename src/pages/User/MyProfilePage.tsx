@@ -2,10 +2,11 @@ import useModalStore from "../../store/useModalStore";
 import { useEffect, useState } from "react";
 import { getUserInfo } from "../../services/userInfoService";
 import useUserStore from "../../store/useUserStore";
-import { logout, withdraw } from "../../services/authService";
+import { withdraw } from "../../services/authService";
 
 interface UserInfo {
   name: string;
+  email?: string;
   image: {
     id: number;
     name: string;
@@ -74,7 +75,7 @@ export default function MyProfilePage() {
           <div className="gap-2">
             <p className="text-semibold text-[20px] text-black">{info?.name}</p>
             <p className="text-regular text-[16px] text-gray-300">
-              12345@gmail.com
+              {info?.email}
             </p>
           </div>
         </section>

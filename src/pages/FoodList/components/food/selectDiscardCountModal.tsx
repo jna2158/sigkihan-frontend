@@ -2,9 +2,9 @@ import useModalStore from "../../../../store/useModalStore";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { modifyFoodList } from "../../../../services/refrigeService";
 import useUserStore from "../../../../store/useUserStore";
 import useRefrigeStore from "../../../../store/useRefrigeStore";
+import { eatFood } from "../../../../services/refrigeService";
 
 export default function SelectDiscardCountModal(foodItem: any) {
   const { setModalOpen } = useModalStore();
@@ -27,14 +27,10 @@ export default function SelectDiscardCountModal(foodItem: any) {
   const handleClickConfirmBtn = async () => {
     if (!userInfo) return;
 
-    const res = await modifyFoodList(
-      userInfo.refrigerator_id,
-      foodItem.data.id,
-      {
-        ...foodItem.data,
-        quantity: foodItem.data.quantity - count,
-      },
-    );
+    const res = await eatFood(userInfo.refrigerator_id, foodItem.data.id, {
+      action: "discarded",
+      quantity: count,
+    });
     updateFood(foodItem.data.id, res.data);
     setModalOpen("SELECT_DISCARD_COUNT_MODAL", false);
   };

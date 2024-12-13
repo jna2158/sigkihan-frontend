@@ -2,27 +2,32 @@ import KakaoLoginButton from "./Auth/components/kakaoLoginButton";
 import logo from "../assets/logo.svg";
 import { useEffect } from "react";
 import mainBackground from "../assets/mainbackground.png";
+import { useNavigate } from "react-router-dom";
 
 export default function LandingPage() {
+  const navigate = useNavigate();
+
   useEffect(() => {
+    const accessToken = localStorage.getItem("access");
+    const refreshToken = localStorage.getItem("refresh");
+
+    if (accessToken && refreshToken) {
+      navigate("/welcome");
+      return;
+    }
+
     const handlePageShow = (e: PageTransitionEvent) => {
       if (e.persisted) {
-        localStorage.removeItem("access");
-        localStorage.removeItem("refresh");
-        localStorage.removeItem("user");
+        localStorage.clear();
       }
     };
 
     window.addEventListener("pageshow", handlePageShow);
 
-    localStorage.removeItem("access");
-    localStorage.removeItem("refresh");
-    localStorage.removeItem("user");
-
     return () => {
       window.removeEventListener("pageshow", handlePageShow);
     };
-  }, []);
+  }, [navigate]);
 
   return (
     <main

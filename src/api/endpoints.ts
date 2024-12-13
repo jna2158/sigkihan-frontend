@@ -19,6 +19,7 @@ export const REFRIGERATOR_ENDPOINTS = {
   ADD_FOOD: "/api/refrigerators",
   MODIFY_FOOD: "/api/refrigerators",
   DELETE_FOOD: "/api/refrigerators",
+  EAT_FOOD: "/api/refrigerators",
 };
 
 // 알림

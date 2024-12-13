@@ -53,3 +53,15 @@ export const deleteFoodList = (refrigeratorId: number, foodId: number) => {
     `${REFRIGERATOR_ENDPOINTS.DELETE_FOOD}/${refrigeratorId}/foods/${foodId}`,
   );
 };
+
+// 냉장고 음식 소비
+export const eatFood = (
+  refrigeratorId: number,
+  foodId: number,
+  data: { action: string; quantity: number },
+) => {
+  return axios.post(
+    `${REFRIGERATOR_ENDPOINTS.EAT_FOOD}/${refrigeratorId}/foods/${foodId}/history`,
+    data,
+  );
+};
