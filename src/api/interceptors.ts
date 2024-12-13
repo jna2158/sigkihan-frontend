@@ -31,24 +31,26 @@ instance.interceptors.response.use(
     const originalRequest = error.config;
 
     if (error.response?.status === 401) {
-      try {
-        const refreshToken = localStorage.getItem("refresh");
-        if (refreshToken && originalRequest) {
-          const { data } = await instance.post("/accounts/refresh", {
-            refreshToken,
-          });
-          const newToken = data.access;
+      localStorage.clear();
+      window.location.href = "/";
+      // try {
+      //   const refreshToken = localStorage.getItem("refresh");
+      //   if (refreshToken && originalRequest) {
+      //     const { data } = await instance.post("/accounts/refresh", {
+      //       refreshToken,
+      //     });
+      //     const newToken = data.access;
 
-          localStorage.setItem("access", newToken);
+      //     localStorage.setItem("access", newToken);
 
-          originalRequest.headers.Authorization = `Bearer ${newToken}`;
-          return instance(originalRequest);
-        }
-      } catch (refreshError) {
-        localStorage.removeItem("access");
-        localStorage.removeItem("refresh");
-        window.location.href = "/";
-      }
+      //     originalRequest.headers.Authorization = `Bearer ${newToken}`;
+      //     return instance(originalRequest);
+      //   }
+      // } catch (refreshError) {
+      //   localStorage.removeItem("access");
+      //   localStorage.removeItem("refresh");
+      //   window.location.href = "/";
+      // }
     }
 
     if (error.response?.status === 404) {
