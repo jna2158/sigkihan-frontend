@@ -6,9 +6,9 @@ export default function AddFoodBtn() {
     <button
       className="basic-button mt-[1.8rem] bg-primary"
       onClick={() => setModalOpen("FOOD_BOTTOM_SHEET_MODAL", true)}
-      aria-label="재료 추가하기"
+      aria-label="식품 추가하기"
     >
-      재료 추가하기
+      식품 추가하기
     </button>
   );
 }

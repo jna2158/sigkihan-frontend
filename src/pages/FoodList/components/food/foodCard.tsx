@@ -26,7 +26,7 @@ export default function FoodCard({
     >
       <ExpiredDateBadge expirationDate={expirationDate} />
       <img src={image} alt={name} className="h-[3rem] w-[2.4rem]" />
-      <p className="text-center text-[14px] font-semibold text-gray-500">
+      <p className="w-[6.5rem] truncate text-center text-[14px] font-semibold text-gray-500">
         {name}
       </p>
     </div>

@@ -92,7 +92,7 @@
 @layer components {
   /* button */
   .basic-button {
-    @apply h-[3.25rem] w-[22rem] rounded-lg px-4 py-2 font-inter text-base font-semibold text-white;
+    @apply h-[3.25rem] w-[22rem] rounded-xl px-4 py-2 font-inter text-base font-semibold text-white;
   }
   .social-button {
     @apply h-[2.8rem] w-[18.8rem] rounded-md px-4 py-2;

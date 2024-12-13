@@ -106,15 +106,55 @@ export default function AddFoodModal({ data }: AddFoodModalProps) {
                 <input
                   type="text"
                   id="foodName"
-                  className="text-semibold h-[2rem] w-[7.5rem] rounded-[13rem] bg-gray-50 text-center text-[20px]"
+                  className="font-semibold h-[2rem] w-[7.5rem] rounded-[13rem] bg-gray-50 text-center text-[20px]"
                   value={formData.name}
                   onChange={(e) => handleFormChange("name", e.target.value)}
                 />
               ) : (
-                <label htmlFor="foodName" className="text-semibold text-[20px]">
+                <label htmlFor="foodName" className="font-semibold text-[20px]">
                   {data.name}
                 </label>
               )}
+            </div>
+
+            <div>
+              <label
+                htmlFor="purchaseDate"
+                className="text-center text-[13px] text-gray-500"
+              >
+                구매 일자
+              </label>
+              <input
+                type="text"
+                id="purchaseDate"
+                value={formData.purchaseDate}
+                onClick={() => {
+                  setCalendarType("purchase");
+                  setShowCalendar(true);
+                }}
+                readOnly
+                className="absolute right-[2.3rem] h-[1.5rem] w-[8.3rem] cursor-pointer rounded-[13rem] bg-gray-50"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="expiryDate"
+                className="text-center text-[13px] text-gray-500"
+              >
+                소비 기한
+              </label>
+              <input
+                type="text"
+                id="expiryDate"
+                value={formData.expiryDate}
+                onClick={() => {
+                  setCalendarType("expiry");
+                  setShowCalendar(true);
+                }}
+                readOnly
+                className="absolute right-[2.3rem] h-[1.5rem] w-[8.3rem] cursor-pointer rounded-[13rem] bg-gray-50"
+              />
             </div>
 
             <div>
@@ -127,51 +167,11 @@ export default function AddFoodModal({ data }: AddFoodModalProps) {
               <input
                 type="text"
                 id="quantity"
-                className="absolute right-[2.3rem] h-[1.5rem] w-[8.3rem] bg-gray-50"
+                className="absolute right-[2.3rem] h-[1.5rem] w-[8.3rem] rounded-[13rem] bg-gray-50"
                 value={formData.quantity}
                 onChange={(e) =>
                   handleFormChange("quantity", onlyNumbers(e.target.value))
                 }
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="purchaseDate"
-                className="text-center text-[13px] text-gray-500"
-              >
-                구매일자
-              </label>
-              <input
-                type="text"
-                id="purchaseDate"
-                value={formData.purchaseDate}
-                onClick={() => {
-                  setCalendarType("purchase");
-                  setShowCalendar(true);
-                }}
-                readOnly
-                className="absolute right-[2.3rem] h-[1.5rem] w-[8.3rem] cursor-pointer bg-gray-50"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="expiryDate"
-                className="text-center text-[13px] text-gray-500"
-              >
-                유효기간
-              </label>
-              <input
-                type="text"
-                id="expiryDate"
-                value={formData.expiryDate}
-                onClick={() => {
-                  setCalendarType("expiry");
-                  setShowCalendar(true);
-                }}
-                readOnly
-                className="absolute right-[2.3rem] h-[1.5rem] w-[8.3rem] cursor-pointer bg-gray-50"
               />
             </div>
 
@@ -185,7 +185,7 @@ export default function AddFoodModal({ data }: AddFoodModalProps) {
                 onClick={handleSubmit}
                 disabled={!isFormValid}
               >
-                재료 등록하기
+                식품 등록하기
               </button>
             </footer>
           </form>

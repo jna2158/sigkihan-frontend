@@ -51,7 +51,7 @@ export default function MyProfilePage() {
     <main className="relative">
       <article className="flex flex-col p-8">
         <header className="flex items-center pb-[1.9rem] pt-[2.2rem]">
-          <span className="ml-[0.8rem] text-[22px] text-black">
+          <span className="ml-[0.8rem] text-[22px] font-semibold text-black">
             마이 프로필
           </span>
           <div className="absolute right-[2.1rem] flex gap-4">
@@ -73,7 +73,7 @@ export default function MyProfilePage() {
             />
           </div>
           <div className="gap-2">
-            <p className="text-semibold text-[20px] text-black">{info?.name}</p>
+            <p className="text-[20px] font-semibold text-black">{info?.name}</p>
             <p className="text-regular text-[16px] text-gray-300">
               {info?.email}
             </p>
@@ -85,7 +85,7 @@ export default function MyProfilePage() {
             href="https://chiseled-magician-e00.notion.site/159e17688efe80d2af5ad36cfacbc0a3?pvs=4"
             target="_blank"
             rel="noopener noreferrer"
-            className="cursor-pointer text-[16px] font-medium text-black"
+            className="cursor-pointer text-[16px] font-medium text-gray-500"
           >
             이용약관
           </a>
@@ -94,20 +94,20 @@ export default function MyProfilePage() {
             href="https://chiseled-magician-e00.notion.site/159e17688efe80aca204e783e4833a2a"
             target="_blank"
             rel="noopener noreferrer"
-            className="cursor-pointer text-[16px] font-medium text-black"
+            className="cursor-pointer text-[16px] font-medium text-gray-500"
           >
             개인정보처리방침
           </a>
           <hr />
           <p
-            className="cursor-pointer text-[16px] font-medium text-black"
+            className="cursor-pointer text-[16px] font-medium text-gray-500"
             onClick={handleClickLogoutBtn}
           >
             로그아웃
           </p>
           <hr />
           <p
-            className="cursor-pointer text-[16px] font-medium text-black"
+            className="cursor-pointer text-[16px] font-medium text-gray-500"
             onClick={handleClickWithdrawBtn}
           >
             탈퇴하기

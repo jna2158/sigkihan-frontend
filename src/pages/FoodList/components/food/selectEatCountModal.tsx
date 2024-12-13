@@ -29,7 +29,7 @@ export default function SelectEatCountModal(foodItem: any) {
 
     const res = await eatFood(userInfo.refrigerator_id, foodItem.data.id, {
       action: "consumed",
-      quantity: foodItem.data.quantity - count,
+      quantity: count,
     });
     updateFood(foodItem.data.id, res.data);
     setModalOpen("SELECT_EAT_COUNT_MODAL", false);
@@ -46,7 +46,7 @@ export default function SelectEatCountModal(foodItem: any) {
         role="document"
       >
         <p className="center text-regular mb-6 text-[14px] text-gray-500">
-          소비한 수량을 선택해주세요!
+          소비한 수량을 선택해 주세요!
         </p>
 
         <div className="mb-8 flex items-center justify-center gap-4">

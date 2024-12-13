@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import { faShareNodes, faUser } from "@fortawesome/free-solid-svg-icons";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 
@@ -27,8 +27,8 @@ export default function BottomNavigation() {
           className="flex flex-col items-center gap-1"
           onClick={() => navigate("/user/profile")}
         >
-          <FontAwesomeIcon icon={faGear} style={{ color: "#3BD273" }} />
-          <span className="text-[13px] text-gray-500">개인 설정</span>
+          <FontAwesomeIcon icon={faUser} style={{ color: "#3BD273" }} />
+          <span className="text-[13px] text-gray-500">개인설정</span>
         </button>
       </nav>
     </footer>

@@ -46,7 +46,7 @@ export default function SelectDiscardCountModal(foodItem: any) {
         role="document"
       >
         <p className="center text-regular mb-6 text-[14px] text-gray-500">
-          폐기한 수량을 선택해주세요!
+          폐기한 수량을 선택해 주세요!
         </p>
 
         <div className="mb-8 flex items-center justify-center gap-4">

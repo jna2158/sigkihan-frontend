@@ -38,8 +38,8 @@ export default function ConfirmCancelModal({ data }: ConfirmCancelModalProps) {
         className="relative h-[10rem] w-[21rem] rounded-3xl bg-white p-6 pt-[2.3rem]"
         role="document"
       >
-        <p className="center text-semibold mb-[1.7rem] text-[20px]">
-          해당 제품을 삭제하시겠습니까?
+        <p className="center font-semibold mb-[1.7rem] text-[20px]">
+        해당 식품을 삭제하시겠습니까?
         </p>
 
         <footer className="mt-4 flex justify-end gap-2">

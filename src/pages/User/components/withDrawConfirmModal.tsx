@@ -29,7 +29,7 @@ export const WithDrawConfirmModal = () => {
         className="relative h-[10rem] w-[21rem] rounded-3xl bg-white p-6 pt-[2.3rem]"
         role="document"
       >
-        <p className="center text-semibold mb-[1.7rem] text-[20px]">
+        <p className="center mb-[1.7rem] text-[20px] font-semibold">
           정말로 탈퇴하시겠습니까?
         </p>
 

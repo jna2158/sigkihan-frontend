@@ -158,7 +158,7 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
       >
         <input
           type="text"
-          placeholder="검색어를 입력해주세요 ex) 먹다 남은 햄버거"
+          placeholder="검색어를 입력하세요 ex) 먹다 남은 햄버거"
           className="h-[3rem] w-[22rem] rounded-[0.6rem] bg-gray-50 pl-[0.8rem] text-[14px] text-[#9BA5B7]"
           onFocus={handleFocus}
           value={searchQuery}

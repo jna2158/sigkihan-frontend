@@ -5,7 +5,7 @@ export default function WelcomeMessage() {
       <p className="text-gray-400">
         나만의 신기한 냉장고!
         <br />
-        식기한 냉장고에 오신걸 환영합니다.
+        식기한 냉장고에 오신 걸 환영합니다.
       </p>
     </header>
   );

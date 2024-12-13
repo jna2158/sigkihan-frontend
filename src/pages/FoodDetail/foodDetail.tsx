@@ -53,14 +53,6 @@ export default function FoodDetail() {
           <div className="flex flex-col gap-2">
             <p>
               <span className="text-[14px] font-semibold text-gray-500">
-                수량
-              </span>
-              <span className="font-regular ml-[3.6rem] text-[14px] text-gray-400">
-                {currentFoodItem?.quantity}
-              </span>
-            </p>
-            <p>
-              <span className="text-[14px] font-semibold text-gray-500">
                 구매 일자
               </span>
               <span className="font-regular ml-[1.9rem] text-[14px] text-gray-400">
@@ -69,10 +61,18 @@ export default function FoodDetail() {
             </p>
             <p>
               <span className="text-[14px] font-semibold text-gray-500">
-                유효 기간
+                소비 기한
               </span>
               <span className="font-regular ml-[1.9rem] text-[14px] text-gray-400">
                 {currentFoodItem?.expiration_date?.toString()}
+              </span>
+            </p>
+            <p>
+              <span className="text-[14px] font-semibold text-gray-500">
+                수량
+              </span>
+              <span className="font-regular ml-[3.6rem] text-[14px] text-gray-400">
+                {currentFoodItem?.quantity}
               </span>
             </p>
           </div>
