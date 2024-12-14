@@ -14,9 +14,9 @@ export default function BottomNavigation() {
 
   const handleShareClick = () => {
     setShowToast(true);
-    // setTimeout(() => {
-    //   setShowToast(false);
-    // }, 2000);
+    setTimeout(() => {
+      setShowToast(false);
+    }, 2000);
   };
 
   return (
