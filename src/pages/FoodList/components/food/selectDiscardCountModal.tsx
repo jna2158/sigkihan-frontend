@@ -10,7 +10,7 @@ export default function SelectDiscardCountModal(foodItem: any) {
   const { setModalOpen } = useModalStore();
   const [count, setCount] = useState(1);
   const { userInfo } = useUserStore();
-  const { updateFood } = useRefrigeStore();
+  const { updateFood, updateFoodQuantity } = useRefrigeStore();
 
   const handleIncrement = () => {
     if (count < foodItem.data.quantity) {
@@ -31,7 +31,7 @@ export default function SelectDiscardCountModal(foodItem: any) {
       action: "discarded",
       quantity: count,
     });
-    updateFood(foodItem.data.id, res.data);
+    updateFoodQuantity(foodItem.data.id, res.data.remaining_quantity);
     setModalOpen("SELECT_DISCARD_COUNT_MODAL", false);
   };
 

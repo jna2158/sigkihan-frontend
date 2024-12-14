@@ -10,7 +10,7 @@ export default function SelectEatCountModal(foodItem: any) {
   const { setModalOpen } = useModalStore();
   const [count, setCount] = useState(1);
   const { userInfo } = useUserStore();
-  const { updateFood } = useRefrigeStore();
+  const { updateFoodQuantity } = useRefrigeStore();
 
   const handleIncrement = () => {
     if (count < foodItem.data.quantity) {
@@ -31,7 +31,7 @@ export default function SelectEatCountModal(foodItem: any) {
       action: "consumed",
       quantity: count,
     });
-    updateFood(foodItem.data.id, res.data);
+    updateFoodQuantity(foodItem.data.id, res.data.remaining_quantity);
     setModalOpen("SELECT_EAT_COUNT_MODAL", false);
   };
 
