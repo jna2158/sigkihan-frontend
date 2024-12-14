@@ -54,12 +54,12 @@ export default function SelectProfileModal() {
 
           <img
             src={selectedProfile.url}
-            alt="프��필 사진"
+            alt="프로필 사진"
             className="mb-[0.5rem] h-[7rem] w-[7rem]"
           />
 
           <p className="pb-[1.6rem] text-[20px] font-semibold text-gray-500">
-            냉부심
+            {userInfo?.name}
           </p>
 
           <div className="flex gap-4">
