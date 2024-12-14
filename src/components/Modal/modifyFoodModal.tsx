@@ -1,5 +1,4 @@
 import useModalStore from "../../store/useModalStore";
-import apple from "../../assets/apple.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -91,7 +90,11 @@ export default function ModifyFoodModal({ data }: ModifyFoodModalProps) {
           <FontAwesomeIcon icon={faX} />
         </button>
         <header className="mb-[0.6rem] mt-[0.4rem] flex items-center justify-center">
-          <img src={apple} alt="음식 이미지" className="w-20" />
+          <img
+            src={currentFood?.image_url}
+            alt="음식 이미지"
+            className="w-20"
+          />
         </header>
 
         <main>
