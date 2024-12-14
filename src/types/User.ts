@@ -4,7 +4,8 @@ export interface User {
   username: string;
   refrigerator_id: number;
   profile_image: {
+    id: number;
     name: string;
-    image: number;
+    image_url: string;
   };
 }
