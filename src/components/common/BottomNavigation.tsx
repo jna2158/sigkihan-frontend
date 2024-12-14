@@ -14,15 +14,15 @@ export default function BottomNavigation() {
 
   const handleShareClick = () => {
     setShowToast(true);
-    setTimeout(() => {
-      setShowToast(false);
-    }, 2000);
+    // setTimeout(() => {
+    //   setShowToast(false);
+    // }, 2000);
   };
 
   return (
     <>
       {showToast && (
-        <div className="fixed bottom-24 left-1/2 z-50 -translate-x-1/2 transform">
+        <div className="fixed bottom-24 left-1/2 z-50 w-[20rem] -translate-x-1/2 transform">
           <div className="flex items-center gap-3 rounded-xl border border-gray-100 bg-white px-6 py-4 shadow-lg">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50">
               <FontAwesomeIcon
