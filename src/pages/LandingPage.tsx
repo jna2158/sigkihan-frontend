@@ -1,7 +1,6 @@
 import KakaoLoginButton from "./Auth/components/kakaoLoginButton";
-import logo from "../assets/logo.svg";
 import { useEffect } from "react";
-import mainBackground from "../assets/mainbackground.png";
+import mainBackground from "../assets/mainbackground.jpg";
 import { useNavigate } from "react-router-dom";
 
 export default function LandingPage() {
@@ -40,11 +39,6 @@ export default function LandingPage() {
       }}
     >
       <div className="center h-full flex-col justify-between gap-[9.5rem] pb-20">
-        <img
-          src={logo}
-          alt="로고 이미지"
-          className="relative left-[-3rem] top-[6.2rem] h-[8.9rem] w-[12.5rem]"
-        />
         <section className="absolute bottom-[8.63rem]">
           <KakaoLoginButton />
         </section>
