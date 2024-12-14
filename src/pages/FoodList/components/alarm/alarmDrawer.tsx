@@ -5,6 +5,7 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import AlarmItem from "./alarmItem";
 import useUserStore from "../../../../store/useUserStore";
 import { getExpiredFoodList } from "../../../../services/notificationService";
+import { faBellSlash } from "@fortawesome/free-solid-svg-icons";
 
 interface ExpiredFood {
   id: number;
@@ -53,7 +54,9 @@ export default function AlarmDrawer() {
         onClick={handleClose}
       />
       <article
-        className={`absolute right-0 top-0 h-full w-[18rem] bg-white pt-[8.6rem] shadow-lg transition-transform duration-300 ease-out ${isClosing ? "translate-x-full" : "translate-x-0"} ${isOpening ? "translate-x-full" : "translate-x-0"}`}
+        className={`absolute right-0 top-0 h-full w-[18rem] bg-white pt-[8.6rem] shadow-lg transition-transform duration-300 ease-out ${
+          isClosing ? "translate-x-full" : "translate-x-0"
+        } ${isOpening ? "translate-x-full" : "translate-x-0"}`}
       >
         <button
           className="absolute right-4 top-20 text-gray-500 hover:text-gray-700"
@@ -63,9 +66,26 @@ export default function AlarmDrawer() {
           <FontAwesomeIcon icon={faX} />
         </button>
 
-        {expiredFoodList.map((item) => (
-          <AlarmItem key={item.id} item={item} />
-        ))}
+        {expiredFoodList.length === 0 ? (
+          <div className="flex h-[calc(100%-4rem)] flex-col items-center justify-center px-6">
+            <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-gray-50">
+              <FontAwesomeIcon
+                icon={faBellSlash}
+                className="text-3xl text-gray-300"
+              />
+            </div>
+            <p className="mb-2 text-center font-medium text-gray-600">
+              현재 알림이 없습니다
+            </p>
+            <p className="px-4 text-center text-sm text-gray-400">
+              소비기한에 임박한 식품이 있다면
+              <br />
+              여기에서 알려드릴게요
+            </p>
+          </div>
+        ) : (
+          expiredFoodList.map((item) => <AlarmItem key={item.id} item={item} />)
+        )}
       </article>
     </section>
   );
