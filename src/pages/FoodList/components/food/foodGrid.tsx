@@ -27,7 +27,7 @@ export default function FoodGrid() {
               key={food.id}
               id={food.id}
               name={food.name}
-              image={food.image || ""}
+              image_url={food.image_url || ""}
               expirationDate={food.expiration_date?.toString() || ""}
             />
           ))}

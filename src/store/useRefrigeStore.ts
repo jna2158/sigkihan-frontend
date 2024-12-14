@@ -8,7 +8,7 @@ export type FoodItem = {
   purchase_date: Date;
   expiration_date: Date;
   quantity: number;
-  image?: string;
+  image_url?: string;
 };
 
 export type RefrigeStore = {

@@ -8,9 +8,12 @@ import useUserStore from "../../../store/useUserStore";
 
 export default function SelectProfileModal() {
   const { setModalOpen } = useModalStore();
-  const [selectedProfile, setSelectedProfile] = useState(PROFILE_IMAGES[0]);
   const { userInfo, updateUser } = useUserStore();
-
+  
+  const [selectedProfile, setSelectedProfile] = useState(
+    PROFILE_IMAGES.find((image) => image.image === userInfo?.profileImage.image) || PROFILE_IMAGES[0]
+  );
+  
   const handleCloseModal = async () => {
     if (!userInfo) return;
 
@@ -51,7 +54,7 @@ export default function SelectProfileModal() {
 
           <img
             src={selectedProfile.url}
-            alt="프로필 사진"
+            alt="프��필 사진"
             className="mb-[0.5rem] h-[7rem] w-[7rem]"
           />
 
