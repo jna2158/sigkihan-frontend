@@ -1,6 +1,8 @@
 import profile from "../../../../assets/alarm_profile.png";
 import ExpiredDateBadge from "../../../../components/common/expiredDateBadge";
 import { motion, PanInfo } from "framer-motion";
+import { readPopupNotification } from "../../../../services/notificationService";
+import useUserStore from "../../../../store/useUserStore";
 
 export default function ExpiredAlarmModal({
   notiList,
@@ -9,9 +11,17 @@ export default function ExpiredAlarmModal({
   notiList: any[];
   setNotiList: any;
 }) {
-  const handleDragEnd = (event: any, info: PanInfo) => {
+  const { userInfo } = useUserStore();
+  const refrigeratorId = userInfo?.refrigerator_id;
+
+  const handleDragEnd = async (event: any, info: PanInfo) => {
     if (info.offset.y < -50) {
-      setNotiList([]);
+      try {
+        await readPopupNotification(refrigeratorId || 0);
+        setNotiList([]);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -43,9 +53,11 @@ export default function ExpiredAlarmModal({
             맛있게 먹었어?
           </h2>
           <section className="flex flex-row">
-            <ExpiredDateBadge expirationDate={notiList[0].date} />
+            <div className="center h-[1.6rem] w-[2.6rem] rounded-[1.5rem] bg-primary text-[14px] text-white">
+              {notiList[0].d_day}
+            </div>
             <p className="ml-[0.6rem] w-[11rem] truncate text-[14px] font-semibold text-primary">
-              {notiList.map((item) => item.content).join(", ")}
+              {notiList.map((item) => item.message).join(", ")}
             </p>
           </section>
         </div>

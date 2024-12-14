@@ -39,10 +39,7 @@ export default function FoodListPage() {
     if (!userInfo) return;
 
     try {
-      const res = await getNotificationList(
-        userInfo.refrigerator_id,
-        userInfo.id,
-      );
+      const res = await getNotificationList(userInfo.refrigerator_id);
       setNotiList(res.data);
     } catch (err) {
       setNotiList([]);

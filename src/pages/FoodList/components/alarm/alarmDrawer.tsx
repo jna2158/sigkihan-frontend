@@ -3,23 +3,28 @@ import useModalStore from "../../../../store/useModalStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import AlarmItem from "./alarmItem";
-import useUserStore from "../../../../store/useUserStore";
-import { getExpiredFoodList } from "../../../../services/notificationService";
 import { faBellSlash } from "@fortawesome/free-solid-svg-icons";
+import { readNotification } from "../../../../services/notificationService";
+import useUserStore from "../../../../store/useUserStore";
 
 interface ExpiredFood {
   id: number;
-  content: string;
-  date: string;
+  message: string;
+  d_day: string;
+  is_read: boolean;
+  created_at: string;
 }
 
-export default function AlarmDrawer() {
+export default function AlarmDrawer({
+  expiredFoodList,
+}: {
+  expiredFoodList: ExpiredFood[];
+}) {
   const { setModalOpen } = useModalStore();
   const [isClosing, setIsClosing] = useState(false);
   const [isOpening, setIsOpening] = useState(true);
   const { userInfo } = useUserStore();
   const refrigeratorId = userInfo?.refrigerator_id;
-  const [expiredFoodList, setExpiredFoodList] = useState<ExpiredFood[]>([]);
 
   const handleClose = () => {
     setIsClosing(true);
@@ -29,22 +34,19 @@ export default function AlarmDrawer() {
     }, 300);
   };
 
-  // 알림 목록 조회
-  const getAlarmList = async () => {
-    try {
-      if (refrigeratorId) {
-        const res = await getExpiredFoodList(refrigeratorId, userInfo?.id);
-        setExpiredFoodList(res.data);
+  const setAlarmListRead = async () => {
+    if (expiredFoodList && expiredFoodList.some((food) => !food.is_read)) {
+      try {
+        await readNotification(refrigeratorId || 0);
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-      setExpiredFoodList([]);
     }
   };
 
   useEffect(() => {
     setIsOpening(false);
-    getAlarmList();
+    setAlarmListRead();
   }, []);
 
   return (
@@ -66,7 +68,7 @@ export default function AlarmDrawer() {
           <FontAwesomeIcon icon={faX} />
         </button>
 
-        {expiredFoodList.length === 0 ? (
+        {expiredFoodList && expiredFoodList.length === 0 ? (
           <div className="flex h-[calc(100%-4rem)] flex-col items-center justify-center px-6">
             <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-gray-50">
               <FontAwesomeIcon
@@ -84,6 +86,7 @@ export default function AlarmDrawer() {
             </p>
           </div>
         ) : (
+          expiredFoodList &&
           expiredFoodList.map((item) => <AlarmItem key={item.id} item={item} />)
         )}
       </article>

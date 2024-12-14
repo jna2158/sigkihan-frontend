@@ -41,7 +41,7 @@ const KakaoCallback = () => {
               name: "profile1",
               image: 1,
             },
-            refrigerator_id: 4,
+            refrigerator_id: 8,
           });
 
           navigate("/");
