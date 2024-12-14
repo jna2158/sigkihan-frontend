@@ -27,7 +27,7 @@ export const getUserInfo = (id: number): Promise<UserInfoResponse> => {
 // 내 정보 수정
 export const updateUserInfo = (
   id: number,
-  data: { name: string; image: number },
+  data: { name: string; image_id: number },
 ): Promise<any> => {
   return axios.put(`${USER_INFO_ENDPOINTS.UPDATE_USER_INFO}/${id}`, data);
 };

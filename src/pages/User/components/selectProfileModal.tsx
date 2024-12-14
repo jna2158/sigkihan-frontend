@@ -16,14 +16,14 @@ export default function SelectProfileModal() {
 
     const data = {
       name: userInfo.name,
-      image: selectedProfile.image,
+      image_id: selectedProfile.image,
     };
 
     try {
       const res = await updateUserInfo(userInfo.id, data);
       updateUser({
         ...userInfo,
-        profileImage: res.data.image.image,
+        profileImage: { name: res.data.name, image: res.data.profile_image.id },
       });
       setModalOpen("SELECT_PROFILE_MODAL", false);
     } catch (error) {

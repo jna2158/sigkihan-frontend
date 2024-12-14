@@ -23,7 +23,7 @@ const KakaoCallback = () => {
             name: data.user.username,
             profileImage: {
               name: data.user.profile_image.name,
-              image: data.user.profile_image.image
+              image: data.user.profile_image.image,
             },
             refrigerator_id: data.user.refrigerator_id,
           });

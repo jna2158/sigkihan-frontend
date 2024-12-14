@@ -20,6 +20,8 @@ export default function MyProfilePage() {
   const { userInfo } = useUserStore();
   const [info, setInfo] = useState<UserInfo | null>(null);
 
+  console.log("userInfo", userInfo);
+
   const profileImageUrl = PROFILE_IMAGES.find(
     (item) => item.image === userInfo?.profileImage?.image,
   )?.url;
