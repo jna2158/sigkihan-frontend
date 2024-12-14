@@ -26,4 +26,5 @@ export const REFRIGERATOR_ENDPOINTS = {
 export const NOTIFICATION_ENDPOINTS = {
   GET_EXPIRED_FOOD_LIST: "/api/notifications/expired-foods",
   GET_NOTIFICATION_LIST: "/api/notifications",
+  READ_NOTIFICATION: "/api/refrigerators",
 };

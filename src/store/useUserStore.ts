@@ -1,23 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-export type UserInfo = {
-  id: number;
-  email: string;
-  name: string;
-  profileImage: {
-    name: string;
-    image: number;
-  };
-  refrigerator_id: number;
-};
+import { UserProfile } from "../types/User";
 
 export type UserStore = {
-  userInfo: UserInfo | null;
+  userInfo: UserProfile | null;
 
-  setUserInfo: (user: UserInfo) => void;
-  updateUser: (updates: Partial<UserInfo>) => void;
-  clearUserInfo: () => void;
+  setUserInfo: (user: UserProfile) => void;
+  updateUser: (updates: UserProfile) => void;
 };
 
 const useUserStore = create(
@@ -33,8 +22,6 @@ const useUserStore = create(
         set((state) => ({
           userInfo: state.userInfo ? { ...state.userInfo, ...updates } : null,
         })),
-
-      clearUserInfo: () => set({ userInfo: null }),
     }),
     {
       name: "user-storage",

@@ -9,3 +9,14 @@ export interface User {
     image_url: string;
   };
 }
+
+export interface UserProfile {
+  id: number;
+  email: string;
+  name: string;
+  profileImage: {
+    name: string;
+    image: number;
+  };
+  refrigerator_id: number;
+}

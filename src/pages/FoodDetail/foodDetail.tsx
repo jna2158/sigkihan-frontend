@@ -9,6 +9,7 @@ export default function FoodDetail() {
   const { setModalOpen } = useModalStore();
   const { foodItems } = useRefrigeStore.getState();
   const currentFoodItem = foodItems.find((item) => item.id === Number(id));
+  console.log(currentFoodItem);
 
   const handleEatFood = () => {
     setModalOpen("SELECT_EAT_COUNT_MODAL", true, currentFoodItem);
@@ -49,7 +50,11 @@ export default function FoodDetail() {
         </header>
 
         <section className="flex gap-6 rounded-3xl bg-gray-50 px-[2.2rem] py-[1.9rem]">
-          <img src={apple} alt="빨간 사과" className="h-[5.6rem]" />
+          <img
+            src={currentFoodItem?.image_url}
+            alt="음식사진"
+            className="max-w-[75px]"
+          />
           <div className="flex flex-col gap-2">
             <p>
               <span className="text-[14px] font-semibold text-gray-500">

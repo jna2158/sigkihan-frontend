@@ -31,3 +31,10 @@ export const getNotificationList = (
     params: { refrigerator_id, user_id },
   });
 };
+
+// 알림 읽음 처리
+export const readNotification = (notification_id: number): Promise<void> => {
+  return axios.post(
+    `${NOTIFICATION_ENDPOINTS.READ_NOTIFICATION}/${notification_id}`,
+  );
+};
