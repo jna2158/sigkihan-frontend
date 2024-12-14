@@ -25,7 +25,7 @@ export default function FoodCard({
     >
       <ExpiredDateBadge expirationDate={expirationDate} />
       <img
-        src={"/media/food_images/beef.svg"}
+        src={image_url}
         alt={name}
         className="h-[3rem] w-[2.4rem]"
       />
