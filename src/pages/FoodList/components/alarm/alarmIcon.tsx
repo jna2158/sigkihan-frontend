@@ -24,7 +24,30 @@ export default function AlarmIcon() {
     try {
       if (refrigeratorId) {
         const res = await getExpiredFoodList(refrigeratorId);
-        setExpiredFoodList(res.data);
+        // setExpiredFoodList(res.data);
+        setExpiredFoodList([
+          {
+            id: 108,
+            message: "김치류",
+            d_day: "D-0",
+            is_read: false,
+            created_at: "2024-12-14 22:33:02",
+          },
+          {
+            id: 109,
+            message: "김치류",
+            d_day: "D-0",
+            is_read: false,
+            created_at: "2024-12-14 22:33:02",
+          },
+          {
+            id: 110,
+            message: "김치류",
+            d_day: "D-0",
+            is_read: false,
+            created_at: "2024-12-14 22:33:02",
+          },
+        ]);
       }
     } catch (error) {
       console.error(error);

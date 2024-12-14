@@ -9,7 +9,6 @@ export default function FoodDetail() {
   const { setModalOpen } = useModalStore();
   const { foodItems } = useRefrigeStore.getState();
   const currentFoodItem = foodItems.find((item) => item.id === Number(id));
-  console.log(currentFoodItem);
 
   const handleEatFood = () => {
     setModalOpen("SELECT_EAT_COUNT_MODAL", true, currentFoodItem);

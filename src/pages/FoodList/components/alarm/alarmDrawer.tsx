@@ -15,11 +15,7 @@ interface ExpiredFood {
   created_at: string;
 }
 
-export default function AlarmDrawer({
-  expiredFoodList,
-}: {
-  expiredFoodList: ExpiredFood[];
-}) {
+export default function AlarmDrawer({ data }: { data: ExpiredFood[] }) {
   const { setModalOpen } = useModalStore();
   const [isClosing, setIsClosing] = useState(false);
   const [isOpening, setIsOpening] = useState(true);
@@ -35,7 +31,7 @@ export default function AlarmDrawer({
   };
 
   const setAlarmListRead = async () => {
-    if (expiredFoodList && expiredFoodList.some((food) => !food.is_read)) {
+    if (data && data.some((food) => !food.is_read)) {
       try {
         await readNotification(refrigeratorId || 0);
       } catch (error) {
@@ -68,7 +64,7 @@ export default function AlarmDrawer({
           <FontAwesomeIcon icon={faX} />
         </button>
 
-        {expiredFoodList && expiredFoodList.length === 0 ? (
+        {data && data.length === 0 ? (
           <div className="flex h-[calc(100%-4rem)] flex-col items-center justify-center px-6">
             <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-gray-50">
               <FontAwesomeIcon
@@ -86,8 +82,7 @@ export default function AlarmDrawer({
             </p>
           </div>
         ) : (
-          expiredFoodList &&
-          expiredFoodList.map((item) => <AlarmItem key={item.id} item={item} />)
+          data && data.map((item) => <AlarmItem key={item.id} item={item} />)
         )}
       </article>
     </section>
