@@ -13,6 +13,10 @@ interface UserInfo {
     name: string;
     image: string;
   };
+  profileImage: {
+    name: string;
+    image: number;
+  };
 }
 
 export default function MyProfilePage() {
@@ -46,11 +50,16 @@ export default function MyProfilePage() {
     if (!userInfo) return;
 
     const res = await getUserInfo(userInfo.id);
-    setInfo(res.data);
+    setInfo({
+      ...res.data,
+      profileImage: {
+        name: res.data.image.name,
+        image: res.data.image.id,
+      },
+    });
   };
 
   useEffect(() => {
-    if (!userInfo) return;
     getInfo();
   }, [userInfo]);
 
