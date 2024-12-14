@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShareNodes, faUser } from "@fortawesome/free-solid-svg-icons";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
-import { faGear } from "@fortawesome/free-solid-svg-icons";
 
 export default function BottomNavigation() {
   const navigate = useNavigate();
@@ -10,13 +9,13 @@ export default function BottomNavigation() {
   return (
     <footer className="fixed bottom-0 z-50 h-16 w-layout border-t border-[#EEF1F4] bg-white">
       <nav className="flex h-full items-center justify-around">
-        <button className="flex flex-col items-center gap-1">
+        <button className="flex flex-1 flex-col items-center gap-1">
           <FontAwesomeIcon icon={faShareNodes} style={{ color: "#3BD273" }} />
           <span className="text-[13px] text-gray-500">냉장고 공유</span>
         </button>
 
         <button
-          className="flex flex-col items-center gap-1"
+          className="flex flex-1 flex-col items-center gap-1"
           onClick={() => navigate("/foodlist")}
         >
           <FontAwesomeIcon icon={faHouse} style={{ color: "#3BD273" }} />
@@ -24,7 +23,7 @@ export default function BottomNavigation() {
         </button>
 
         <button
-          className="flex flex-col items-center gap-1"
+          className="flex flex-1 flex-col items-center gap-1"
           onClick={() => navigate("/user/profile")}
         >
           <FontAwesomeIcon icon={faUser} style={{ color: "#3BD273" }} />
