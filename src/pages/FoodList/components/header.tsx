@@ -5,7 +5,6 @@ import { PROFILE_IMAGES } from "../../../shared/constants/profileImages";
 
 export default function Header() {
   const { userInfo } = useUserStore();
-  console.log("userInfo", userInfo);
   const profileImageUrl = PROFILE_IMAGES.find(
     (item) => item.image === userInfo?.profileImage?.image,
   )?.url;

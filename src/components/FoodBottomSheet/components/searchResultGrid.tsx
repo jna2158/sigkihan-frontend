@@ -8,16 +8,22 @@ export default function SearchResultGrid({
   searchQuery: string;
 }) {
   const [defaultList, setDefaultList] = useState<any>([]);
+  const [otherItem, setOtherItem] = useState<any>("");
 
   // 기본 제공하는 default 음식 리스트 조회
   const getDefaultList = async () => {
     await getDefaultFoodList()
       .then((res) => {
-        setDefaultList(res.data);
+        const defaultFood = res.data.default_foods;
+        const otherFoods = res.data.direct_add_image;
+
+        setDefaultList(defaultFood);
+        setOtherItem(otherFoods);
       })
       .catch((err) => {
         console.error(err);
         setDefaultList([]);
+        setOtherItem("");
       });
   };
 
@@ -41,7 +47,7 @@ export default function SearchResultGrid({
       {filteredList.length === 0 && (
         <SearchResultCard
           key={999}
-          item={{ id: null, name: searchQuery, image: "default" }}
+          item={{ id: null, name: searchQuery, image: otherItem }}
         />
       )}
     </section>

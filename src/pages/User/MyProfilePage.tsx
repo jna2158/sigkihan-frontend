@@ -2,7 +2,6 @@ import useModalStore from "../../store/useModalStore";
 import { useEffect, useState } from "react";
 import { getUserInfo } from "../../services/userInfoService";
 import useUserStore from "../../store/useUserStore";
-import { withdraw } from "../../services/authService";
 import { PROFILE_IMAGES } from "../../shared/constants/profileImages";
 
 interface UserInfo {
@@ -23,8 +22,6 @@ export default function MyProfilePage() {
   const { setModalOpen } = useModalStore();
   const { userInfo } = useUserStore();
   const [info, setInfo] = useState<UserInfo | null>(null);
-
-  console.log("userInfo", userInfo);
 
   const profileImageUrl = PROFILE_IMAGES.find(
     (item) => item.image === userInfo?.profileImage?.image,

@@ -1,5 +1,4 @@
 import FoodBottomSheet from "../../components/FoodBottomSheet/foodBottomSheet";
-import Search from "../../components/common/search";
 import FoodGrid from "./components/food/foodGrid";
 import Header from "./components/header";
 import AddFoodBtn from "./components/food/addFoodBtn";
@@ -47,10 +46,6 @@ export default function FoodListPage() {
       setNotiList(res.data);
     } catch (err) {
       setNotiList([]);
-      setNotiList([
-        { id: 1, content: "오이", date: "2024-12-13" },
-        { id: 2, content: "당근", date: "2024-12-13" },
-      ]);
       console.error(err);
     }
   };
@@ -85,7 +80,9 @@ export default function FoodListPage() {
         onClick={() => setModalOpen("FOOD_BOTTOM_SHEET_MODAL", false)}
       />
 
-      {notiList.length !== 0 && <ExpiredAlarmModal notiList={notiList} setNotiList={setNotiList} />}
+      {notiList.length !== 0 && (
+        <ExpiredAlarmModal notiList={notiList} setNotiList={setNotiList} />
+      )}
     </main>
   );
 }

@@ -14,10 +14,13 @@ interface FoodListResponse {
 
 interface DefaultFoodListResponse {
   data: {
-    id: number;
-    name: string;
-    image: string;
-  }[];
+    default_foods: {
+      id: number;
+      name: string;
+      image: string;
+    }[];
+    direct_add_image: string;
+  };
 }
 
 // 특정 냉장고 음식 리스트 조회
