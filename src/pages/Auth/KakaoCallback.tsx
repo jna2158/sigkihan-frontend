@@ -29,20 +29,20 @@ const KakaoCallback = () => {
           });
           navigate("/welcome");
         })
-        .catch((error) => {
-          console.error("카카오 로그인 실패:", error);
+        .catch((err) => {
+          console.error(err);
 
           // 로컬에서 테스트하기 위한 임시
-          setUserInfo({
-            id: 5,
-            email: "potenday@gmail.com",
-            name: "냉부심",
-            profileImage: {
-              name: "profile1",
-              image: 1,
-            },
-            refrigerator_id: 8,
-          });
+          // setUserInfo({
+          //   id: 5,
+          //   email: "potenday@gmail.com",
+          //   name: "냉부심",
+          //   profileImage: {
+          //     name: "profile1",
+          //     image: 1,
+          //   },
+          //   refrigerator_id: 8,
+          // });
 
           navigate("/");
         });
