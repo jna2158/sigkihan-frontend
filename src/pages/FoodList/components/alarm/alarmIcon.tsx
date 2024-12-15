@@ -32,6 +32,10 @@ export default function AlarmIcon() {
     }
   };
 
+  const handleClickModalOpen = () => {
+    setModalOpen("ALARM_DRAWER", true, expiredFoodList);
+  };
+
   useEffect(() => {
     getAlarmList();
   }, [refrigeratorId]);
@@ -42,10 +46,10 @@ export default function AlarmIcon() {
         icon={faBell}
         className="h-[1.8rem] w-[1.8rem]"
         style={{ color: "#EBEBEB" }}
-        onClick={() => setModalOpen("ALARM_DRAWER", true, expiredFoodList)}
+        onClick={() => handleClickModalOpen()}
       />
       {expiredFoodList.some((food) => !food.is_read) && (
-        <div className="absolute -right-1 top-0 h-[0.4rem] w-[0.4rem] rounded-full bg-primary"></div>
+        <div className="absolute right-1 top-0 h-[0.4rem] w-[0.4rem] rounded-full bg-primary"></div>
       )}
     </div>
   );

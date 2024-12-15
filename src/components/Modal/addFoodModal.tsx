@@ -6,7 +6,7 @@ import useUserStore from "../../store/useUserStore";
 import useRefrigeStore from "../../store/useRefrigeStore";
 import Calendar from "../common/calendar";
 import { onlyNumbers } from "../../shared/utils/onlyNumber";
-import { addFoodList } from "../../services/refrigeService";
+import { addFoodList, getFoodList } from "../../services/refrigeService";
 
 interface FoodData {
   id: number | null;
@@ -27,7 +27,7 @@ interface FoodForm {
 
 export default function AddFoodModal({ data }: AddFoodModalProps) {
   const { setModalOpen } = useModalStore();
-  const { addFood } = useRefrigeStore();
+  const { addFood, setFood } = useRefrigeStore();
   const { userInfo } = useUserStore.getState();
 
   const [showCalendar, setShowCalendar] = useState(false);
@@ -67,12 +67,26 @@ export default function AddFoodModal({ data }: AddFoodModalProps) {
 
     try {
       const res = await addFoodList(userInfo.refrigerator_id, food);
-      addFood([res.data]);
+      // addFood([res.data]);
+      getFood();
       setModalOpen("ADD_FOOD_MODAL", false);
       setModalOpen("FOOD_BOTTOM_SHEET_MODAL", false);
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const getFood = async () => {
+    if (!userInfo) return;
+
+    await getFoodList(userInfo.refrigerator_id)
+      .then((res) => {
+        setFood(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+        setFood([]);
+      });
   };
 
   const isFormValid =
@@ -106,12 +120,12 @@ export default function AddFoodModal({ data }: AddFoodModalProps) {
                 <input
                   type="text"
                   id="foodName"
-                  className="font-semibold h-[2rem] w-[7.5rem] rounded-[13rem] bg-gray-50 text-center text-[20px]"
+                  className="h-[2rem] w-[7.5rem] rounded-[13rem] bg-gray-50 text-center text-[20px] font-semibold"
                   value={formData.name}
                   onChange={(e) => handleFormChange("name", e.target.value)}
                 />
               ) : (
-                <label htmlFor="foodName" className="font-semibold text-[20px]">
+                <label htmlFor="foodName" className="text-[20px] font-semibold">
                   {data.name}
                 </label>
               )}
