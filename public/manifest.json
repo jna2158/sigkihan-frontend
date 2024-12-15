@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Sigkihan",
+  "name": "똑똑한 냉장고 관리의 시작",
+  "description": "똑똑한 냉장고 관리의 시작",
   "icons": [
     {
       "src": "favicon.ico",
