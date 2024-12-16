@@ -1,4 +1,4 @@
-# 식기한 냉장고
+<h1 align="center">식기한 냉장고</h1>
 
 <div align="center">
   <a href="https://sigkihan.com">
@@ -21,26 +21,26 @@
 
 ## ✔ 기술 스택
 
-### Frontend
+### 📘 Frontend
 
 - React 18
 - TypeScript
 - Tailwind CSS
 
-### State Management
+### 📘 State Management
 
 - Zustand
 
-### Package Manager
+### 📘 Package Manager
 
 - NPM
 
-### Development Tools
+### 📘 Development Tools
 
 - ESLint
 - Prettier
 
-## 시작하기
+## ✔ 시작하기
 
 ### 조건
 
