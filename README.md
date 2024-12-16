@@ -40,6 +40,36 @@
 - ESLint
 - Prettier
 
+## 🏗 배포 환경
+
+### 인프라 구조
+
+```mermaid
+graph LR
+A[Client] -->|HTTPS:443/HTTP:80| B[LoadBalancer]
+B -->|SSL 인증| B
+B -->|HTTP:80| C[EC2 instance]
+subgraph EC2 Instance
+C -->|Docker| D[Webserver]
+end
+style A fill:#2196F3
+style B fill:#fff,stroke:#333
+style C fill:#eee
+style D fill:#eee
+```
+
+### Docker 이미지 빌드
+
+```bash
+docker build -t sigkihan .
+```
+
+### Docker 컨테이너 실행
+
+```bash
+docker run -d -p 80:80 sigkihan
+```
+
 ## ✔ 시작하기
 
 ### 조건
