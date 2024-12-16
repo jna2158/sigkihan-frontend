@@ -6,20 +6,13 @@ import AlarmItem from "./alarmItem";
 import { faBellSlash } from "@fortawesome/free-solid-svg-icons";
 import { readNotification } from "../../../../services/notificationService";
 import useUserStore from "../../../../store/useUserStore";
+import { Notification } from "../../../../types/Notification";
 
-interface ExpiredFood {
-  id: number;
-  message: string;
-  d_day: string;
-  is_read: boolean;
-  created_at: string;
-}
-
-export default function AlarmDrawer({ data }: { data: ExpiredFood[] }) {
+export default function AlarmDrawer(data: any) {
   const { setModalOpen } = useModalStore();
+  const { userInfo } = useUserStore();
   const [isClosing, setIsClosing] = useState(false);
   const [isOpening, setIsOpening] = useState(true);
-  const { userInfo } = useUserStore();
   const refrigeratorId = userInfo?.refrigerator_id;
 
   const handleClose = () => {
@@ -31,7 +24,7 @@ export default function AlarmDrawer({ data }: { data: ExpiredFood[] }) {
   };
 
   const setAlarmListRead = async () => {
-    if (data && data.some((food) => !food.is_read)) {
+    if (data.some((food: Notification) => !food.is_read)) {
       try {
         await readNotification(refrigeratorId || 0);
       } catch (error) {
@@ -82,7 +75,9 @@ export default function AlarmDrawer({ data }: { data: ExpiredFood[] }) {
             </p>
           </div>
         ) : (
-          data && data.map((item) => <AlarmItem key={item.id} item={item} />)
+          data.map((item: Notification) => (
+            <AlarmItem key={item.id} item={item} />
+          ))
         )}
       </article>
     </section>

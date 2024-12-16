@@ -1,11 +1,12 @@
 import { useState } from "react";
 
-interface CalendarProps {
+export default function Calendar({
+  onSelect,
+  onClose,
+}: {
   onSelect: (date: Date) => void;
   onClose: () => void;
-}
-
-export default function Calendar({ onSelect, onClose }: CalendarProps) {
+}) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(currentDate.getDate());
 
@@ -61,7 +62,7 @@ export default function Calendar({ onSelect, onClose }: CalendarProps) {
           </button>
         </div>
 
-        <div className="center h-8 mb-2 grid grid-cols-7 gap-2 text-center">
+        <div className="center mb-2 grid h-8 grid-cols-7 gap-2 text-center">
           {["일", "월", "화", "수", "목", "금", "토"].map((day) => (
             <div key={day} className="text-sm font-medium text-gray-500">
               {day}

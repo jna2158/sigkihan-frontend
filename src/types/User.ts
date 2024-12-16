@@ -3,11 +3,23 @@ export interface User {
   email: string;
   username: string;
   refrigerator_id: number;
-  profile_image: {
+  profile_image: ProfileImage;
+}
+
+export interface UserResponse {
+  name: string;
+  image: {
     id: number;
     name: string;
-    image_url: string;
-  };
+    image: string;
+  },
+  profile_image: ProfileImage;
+}
+
+export interface ProfileImage {
+  id: number;
+  name: string;
+  image_url: string;
 }
 
 export interface UserProfile {

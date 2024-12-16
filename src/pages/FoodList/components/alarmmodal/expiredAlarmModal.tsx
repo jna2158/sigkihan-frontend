@@ -1,20 +1,21 @@
 import profile from "../../../../assets/alarm_profile.png";
-import ExpiredDateBadge from "../../../../components/common/expiredDateBadge";
 import { motion, PanInfo } from "framer-motion";
 import { readPopupNotification } from "../../../../services/notificationService";
 import useUserStore from "../../../../store/useUserStore";
+import { Notification } from "../../../../types/Notification";
+import { Dispatch, SetStateAction } from "react";
 
 export default function ExpiredAlarmModal({
   notiList,
   setNotiList,
 }: {
-  notiList: any[];
-  setNotiList: any;
+  notiList: Notification[];
+  setNotiList: Dispatch<SetStateAction<Notification[]>>;
 }) {
   const { userInfo } = useUserStore();
   const refrigeratorId = userInfo?.refrigerator_id;
 
-  const handleDragEnd = async (event: any, info: PanInfo) => {
+  const handleDragEnd = async (event: Event, info: PanInfo) => {
     if (info.offset.y < -50) {
       try {
         await readPopupNotification(refrigeratorId || 0);

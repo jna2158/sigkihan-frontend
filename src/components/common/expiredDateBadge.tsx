@@ -1,12 +1,10 @@
 import { calculateDday } from "../../shared/utils/calculateDday";
 
-interface ExpiredDateBadgeProps {
-  expirationDate?: string;
-}
-
 export default function ExpiredDateBadge({
   expirationDate,
-}: ExpiredDateBadgeProps) {
+}: {
+  expirationDate: string;
+}) {
   if (!expirationDate) return null;
 
   return (

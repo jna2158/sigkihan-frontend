@@ -3,14 +3,9 @@ import useRefrigeStore from "../../../store/useRefrigeStore";
 import { deleteFoodList } from "../../../services/refrigeService";
 import useUserStore from "../../../store/useUserStore";
 import { useNavigate } from "react-router-dom";
+import { Food } from "../../../types/Food";
 
-interface ConfirmCancelModalProps {
-  data?: {
-    id: number;
-  };
-}
-
-export default function ConfirmCancelModal({ data }: ConfirmCancelModalProps) {
+export default function ConfirmCancelModal({ data }: { data: Food }) {
   const { setModalOpen } = useModalStore();
   const { removeFood } = useRefrigeStore();
   const { userInfo } = useUserStore();
@@ -38,8 +33,8 @@ export default function ConfirmCancelModal({ data }: ConfirmCancelModalProps) {
         className="relative h-[10rem] w-[21rem] rounded-3xl bg-white p-6 pt-[2.3rem]"
         role="document"
       >
-        <p className="center font-semibold mb-[1.7rem] text-[20px]">
-        해당 식품을 삭제하시겠습니까?
+        <p className="center mb-[1.7rem] text-[20px] font-semibold">
+          해당 식품을 삭제하시겠습니까?
         </p>
 
         <footer className="mt-4 flex justify-end gap-2">

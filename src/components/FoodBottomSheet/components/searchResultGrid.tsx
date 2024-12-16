@@ -1,33 +1,33 @@
 import SearchResultCard from "./searchResultCard";
 import { getDefaultFoodList } from "../../../services/refrigeService";
 import { useEffect, useState } from "react";
+import { DefaultFood, Food, NewFood } from "../../../types/Food";
 
 export default function SearchResultGrid({
   searchQuery,
 }: {
   searchQuery: string;
 }) {
-  const [defaultList, setDefaultList] = useState<any>([]);
-  const [otherItem, setOtherItem] = useState<any>("");
+  const [defaultList, setDefaultList] = useState<DefaultFood[]>([]);
+  const [otherItem, setOtherItem] = useState<string>("");
 
   // 기본 제공하는 default 음식 리스트 조회
   const getDefaultList = async () => {
-    await getDefaultFoodList()
-      .then((res) => {
-        const defaultFood = res.data.default_foods;
-        const otherFoods = res.data.direct_add_image;
+    try {
+      const res = await getDefaultFoodList();
+      const defaultFood = res.data.default_foods;
+      const otherFoods = res.data.direct_add_image;
 
-        setDefaultList(defaultFood);
-        setOtherItem(otherFoods);
-      })
-      .catch((err) => {
-        console.error(err);
-        setDefaultList([]);
-        setOtherItem("");
-      });
+      setDefaultList(defaultFood);
+      setOtherItem(otherFoods);
+    } catch (err) {
+      console.error(err);
+      setDefaultList([]);
+      setOtherItem("");
+    }
   };
 
-  const filteredList = defaultList.filter((item: any) =>
+  const filteredList = defaultList.filter((item: DefaultFood) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase().trim()),
   );
 

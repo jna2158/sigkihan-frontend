@@ -7,26 +7,9 @@ import { onlyNumbers } from "../../shared/utils/onlyNumber";
 import useRefrigeStore from "../../store/useRefrigeStore";
 import { modifyFoodList } from "../../services/refrigeService";
 import useUserStore from "../../store/useUserStore";
+import { Food } from "../../types/Food";
 
-interface FoodForm {
-  name: string;
-  quantity: string;
-  purchase_date: string;
-  expiration_date: string;
-}
-
-interface ModifyFoodModalProps {
-  data: {
-    id: number;
-    name: string;
-    quantity: number;
-    purchase_date: string;
-    expiration_date: string;
-    default_food_name?: number;
-  };
-}
-
-export default function ModifyFoodModal({ data }: ModifyFoodModalProps) {
+export default function ModifyFoodModal({ data }: { data: Food }) {
   const { setModalOpen } = useModalStore();
   const { updateFood } = useRefrigeStore();
   const { foodItems } = useRefrigeStore();
@@ -38,14 +21,15 @@ export default function ModifyFoodModal({ data }: ModifyFoodModalProps) {
     "purchase",
   );
 
-  const [formData, setFormData] = useState<FoodForm>({
+  const [formData, setFormData] = useState<Food>({
+    id: currentFood?.id || 0,
     name: currentFood?.name || "",
-    quantity: currentFood?.quantity.toString() || "",
-    purchase_date: currentFood?.purchase_date.toString() || "",
-    expiration_date: currentFood?.expiration_date.toString() || "",
+    quantity: currentFood?.quantity || 0,
+    purchase_date: currentFood?.purchase_date?.toString() || "",
+    expiration_date: currentFood?.expiration_date?.toString() || "",
   });
 
-  const handleFormChange = (field: keyof FoodForm, value: string) => {
+  const handleFormChange = (field: keyof Food, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 

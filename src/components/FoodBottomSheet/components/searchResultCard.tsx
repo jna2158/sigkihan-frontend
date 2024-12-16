@@ -1,12 +1,10 @@
 import useModalStore from "../../../store/useModalStore";
+import { Food, NewFood } from "../../../types/Food";
 
-export default function SearchResultCard({
-  item,
-}: {
-  item: { id: number | null; name: string; image: string };
-}) {
+export default function SearchResultCard({ item }: { item: Food | NewFood }) {
   const { setModalOpen } = useModalStore();
 
+  console.log(item);
   return (
     <>
       <button

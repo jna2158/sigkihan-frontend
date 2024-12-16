@@ -11,28 +11,27 @@ import useUserStore from "../../store/useUserStore";
 import useRefrigeStore from "../../store/useRefrigeStore";
 import { getNotificationList } from "../../services/notificationService";
 import { useState } from "react";
+import { Notification } from "../../types/Notification";
 
 export default function FoodListPage() {
   const { modals, setModalOpen } = useModalStore();
   const { setFood } = useRefrigeStore();
   const { userInfo } = useUserStore.getState();
   const { foodItems } = useRefrigeStore.getState();
-  const [notiList, setNotiList] = useState<any[]>([]);
+  const [notiList, setNotiList] = useState<Notification[]>([]);
 
   // 냉장고 음식 리스트 조회
-  useEffect(() => {
+  const getFood = async () => {
     if (!userInfo) return;
 
-    getFoodList(userInfo.refrigerator_id)
-      .then((res) => {
-        setFood(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-        setFood([]);
-      });
-    getNotiList();
-  }, [userInfo]);
+    try {
+      const res = await getFoodList(userInfo.refrigerator_id);
+      setFood(res.data);
+    } catch (err) {
+      console.error(err);
+      setFood([]);
+    }
+  };
 
   // 알림 목록 조회
   const getNotiList = async () => {
@@ -46,6 +45,11 @@ export default function FoodListPage() {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    getFood();
+    getNotiList();
+  }, [userInfo]);
 
   return (
     <main className="flex h-full flex-col px-[1.3rem]">

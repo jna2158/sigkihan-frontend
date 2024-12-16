@@ -5,15 +5,17 @@ import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import useUserStore from "../../../../store/useUserStore";
 import useRefrigeStore from "../../../../store/useRefrigeStore";
 import { eatFood } from "../../../../services/refrigeService";
+import { Food } from "../../../../types/Food";
 
-export default function SelectEatCountModal(foodItem: any) {
+export default function SelectEatCountModal({ data }: { data: Food }) {
+  console.log(data);
   const { setModalOpen } = useModalStore();
   const [count, setCount] = useState(1);
   const { userInfo } = useUserStore();
   const { updateFoodQuantity } = useRefrigeStore();
 
   const handleIncrement = () => {
-    if (count < foodItem.data.quantity) {
+    if (count < data.quantity) {
       setCount((prev: number) => prev + 1);
     }
   };
@@ -27,11 +29,11 @@ export default function SelectEatCountModal(foodItem: any) {
   const handleClickConfirmBtn = async () => {
     if (!userInfo) return;
 
-    const res = await eatFood(userInfo.refrigerator_id, foodItem.data.id, {
+    const res = await eatFood(userInfo.refrigerator_id, data.id, {
       action: "consumed",
       quantity: count,
     });
-    updateFoodQuantity(foodItem.data.id, res.data.remaining_quantity);
+    updateFoodQuantity(data.id, res.data.remaining_quantity);
     setModalOpen("SELECT_EAT_COUNT_MODAL", false);
   };
 

@@ -1,24 +1,15 @@
 import { axiosInstance as axios } from "../api";
 import { REFRIGERATOR_ENDPOINTS } from "../api/endpoints";
+import { Food } from "../types/Food";
+import { DefaultFood } from "../types/Food";
 
 interface FoodListResponse {
-  data: {
-    id: number;
-    name: string;
-    default_food_name: string;
-    purchase_date: Date;
-    expiration_date: Date;
-    quantity: number;
-  }[];
+  data: Food[];
 }
 
 interface DefaultFoodListResponse {
   data: {
-    default_foods: {
-      id: number;
-      name: string;
-      image: string;
-    }[];
+    default_foods: DefaultFood[];
     direct_add_image: string;
   };
 }

@@ -1,18 +1,9 @@
 import { axiosInstance as axios } from "../api";
 import { NOTIFICATION_ENDPOINTS } from "../api/endpoints";
+import { Notification } from "../types/Notification";
 
 interface ExpiredFoodListResponse {
-  data: {
-    id: number;
-    message: string;
-    d_day: string;
-    is_read: boolean;
-    created_at: string;
-  }[];
-}
-
-interface NotificationListResponse {
-  data: { id: number; content: string; date: string }[];
+  data: Notification[];
 }
 
 // 냉장고 식품 알림 조회
@@ -41,7 +32,9 @@ export const getNotificationList = (
 };
 
 // 팝업 식품 알림 읽음 처리
-export const readPopupNotification = (refrigerator_id: number): Promise<void> => {
+export const readPopupNotification = (
+  refrigerator_id: number,
+): Promise<void> => {
   return axios.post(
     `${NOTIFICATION_ENDPOINTS.READ_NOTIFICATION}/${refrigerator_id}/notifications/popup/mark-as-read`,
   );

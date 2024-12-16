@@ -14,10 +14,12 @@ const useUserStore = create(
     (set) => ({
       userInfo: null,
 
+      // 유저 정보 설정
       setUserInfo: (user) => {
         set({ userInfo: user });
       },
 
+      // 유저 정보 업데이트
       updateUser: (updates) =>
         set((state) => ({
           userInfo: state.userInfo ? { ...state.userInfo, ...updates } : null,

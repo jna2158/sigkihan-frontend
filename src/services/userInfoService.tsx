@@ -1,22 +1,9 @@
 import { axiosInstance as axios } from "../api";
 import { USER_INFO_ENDPOINTS } from "../api/endpoints";
-interface UserInfoResponse {
-  data: {
-    name: string;
-    image: {
-      id: number;
-      name: string;
-      image: string;
-    };
-  };
-}
+import { UserResponse } from "../types/User";
 
-interface ProfileImagesResponse {
-  data: {
-    id: number;
-    name: string;
-    image: string;
-  }[];
+interface UserInfoResponse {
+  data: UserResponse;
 }
 
 // 내 정보 조회
@@ -28,6 +15,6 @@ export const getUserInfo = (id: number): Promise<UserInfoResponse> => {
 export const updateUserInfo = (
   id: number,
   data: { name: string; image_id: number },
-): Promise<any> => {
+): Promise<UserInfoResponse> => {
   return axios.put(`${USER_INFO_ENDPOINTS.UPDATE_USER_INFO}/${id}`, data);
 };

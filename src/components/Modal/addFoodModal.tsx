@@ -7,40 +7,27 @@ import useRefrigeStore from "../../store/useRefrigeStore";
 import Calendar from "../common/calendar";
 import { onlyNumbers } from "../../shared/utils/onlyNumber";
 import { addFoodList, getFoodList } from "../../services/refrigeService";
+import { Food, FoodForm } from "../../types/Food";
 
-interface FoodData {
-  id: number | null;
-  name: string;
-  image: string;
-}
-
-interface AddFoodModalProps {
-  data: FoodData;
-}
-
-interface FoodForm {
-  name: string;
-  quantity: string;
-  purchaseDate: string;
-  expiryDate: string;
-}
-
-export default function AddFoodModal({ data }: AddFoodModalProps) {
+export default function AddFoodModal({ data }: { data: Food }) {
   const { setModalOpen } = useModalStore();
-  const { addFood, setFood } = useRefrigeStore();
+  const { setFood } = useRefrigeStore();
   const { userInfo } = useUserStore.getState();
-
   const [showCalendar, setShowCalendar] = useState(false);
   const [calendarType, setCalendarType] = useState<"purchase" | "expiry">(
     "purchase",
   );
-
   const [formData, setFormData] = useState<FoodForm>({
     name: data.name,
-    quantity: "",
-    purchaseDate: new Date().toISOString().split("T")[0],
-    expiryDate: "",
+    quantity: 1,
+    purchase_date: new Date().toISOString().split("T")[0],
+    expiration_date: "",
   });
+  const isFormValid =
+    formData.name &&
+    formData.quantity &&
+    formData.purchase_date &&
+    formData.expiration_date;
 
   const handleFormChange = (field: keyof FoodForm, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -48,7 +35,8 @@ export default function AddFoodModal({ data }: AddFoodModalProps) {
 
   const handleDateSelect = (date: Date) => {
     const formattedDate = date.toISOString().split("T")[0];
-    const field = calendarType === "purchase" ? "purchaseDate" : "expiryDate";
+    const field =
+      calendarType === "purchase" ? "purchase_date" : "expiration_date";
     handleFormChange(field, formattedDate);
     setShowCalendar(false);
   };
@@ -60,8 +48,8 @@ export default function AddFoodModal({ data }: AddFoodModalProps) {
       refrigerator_id: userInfo.refrigerator_id,
       default_food_id: data.id,
       name: formData.name,
-      purchase_date: formData.purchaseDate,
-      expiration_date: formData.expiryDate,
+      purchase_date: formData.purchase_date,
+      expiration_date: formData.expiration_date,
       quantity: Number(formData.quantity),
     };
 
@@ -79,21 +67,14 @@ export default function AddFoodModal({ data }: AddFoodModalProps) {
   const getFood = async () => {
     if (!userInfo) return;
 
-    await getFoodList(userInfo.refrigerator_id)
-      .then((res) => {
-        setFood(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-        setFood([]);
-      });
+    try {
+      const res = await getFoodList(userInfo.refrigerator_id);
+      setFood(res.data);
+    } catch (err) {
+      console.error(err);
+      setFood([]);
+    }
   };
-
-  const isFormValid =
-    formData.name &&
-    formData.quantity &&
-    formData.purchaseDate &&
-    formData.expiryDate;
 
   return (
     <section className="center overlay z-[70]">
@@ -133,7 +114,7 @@ export default function AddFoodModal({ data }: AddFoodModalProps) {
 
             <div>
               <label
-                htmlFor="purchaseDate"
+                htmlFor="purchase_date"
                 className="text-center text-[13px] text-gray-500"
               >
                 구매 일자
@@ -141,7 +122,7 @@ export default function AddFoodModal({ data }: AddFoodModalProps) {
               <input
                 type="text"
                 id="purchaseDate"
-                value={formData.purchaseDate}
+                value={formData.purchase_date}
                 onClick={() => {
                   setCalendarType("purchase");
                   setShowCalendar(true);
@@ -160,8 +141,8 @@ export default function AddFoodModal({ data }: AddFoodModalProps) {
               </label>
               <input
                 type="text"
-                id="expiryDate"
-                value={formData.expiryDate}
+                id="expiration_date"
+                value={formData.expiration_date}
                 onClick={() => {
                   setCalendarType("expiry");
                   setShowCalendar(true);

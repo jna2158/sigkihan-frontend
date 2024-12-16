@@ -7,6 +7,7 @@ import {
 } from "react";
 
 export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
+  const { setModalOpen } = useModalStore();
   const sheetRef = useRef<HTMLElement>(null);
   const [startY, setStartY] = useState<number>(0);
   const [currentHeight, setCurrentHeight] = useState<number>(400);
@@ -15,7 +16,6 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
   const [isDragging, setIsDragging] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [isOpening, setIsOpening] = useState(true);
-  const { setModalOpen } = useModalStore();
   const dismissThreshold = 150;
   const initialY = useRef<number>(0);
   const [searchQuery, setSearchQuery] = useState<string>("");
