@@ -1,46 +1,55 @@
-# Getting Started with Create React App
+# 식기한 냉장고
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
+  <a href="https://식기한냉장고.com">
+    🔗 서비스 바로가기
+  </a>
+</div>
 
-## Available Scripts
+## 프로젝트 소개
 
-In the project directory, you can run:
+스마트한 냉장고 관리를 도와주는 모바일 웹 서비스입니다.
+식품을 등록하여 유통기한을 추적하고 관리하여 음식물 낭비를 줄이고 효율적인 식품 관리를 가능하게 합니다.
 
-### `npm start`
+## 주요 기능
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 🔐 카카오 소셜 로그인
+- 📝 식품 등록/수정/삭제
+- 🔔 유통기한 임박 알림
+- 📊 식품 소비/폐기 관리
+- 👤 프로필 관리
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 기술 스택
 
-### `npm test`
+### Frontend
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=Tailwind-CSS&logoColor=white)
 
-### `npm run build`
+### State Management
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Zustand](https://img.shields.io/badge/Zustand-000000?style=for-the-badge&logo=React&logoColor=white)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Package Manager
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![NPM](https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white)
 
-### `npm run eject`
+### Development Tools
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=ESLint&logoColor=white)
+![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=black)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 시작하기
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 필수 조건
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Node.js 16.x 이상
+- npm 또는 yarn
 
-## Learn More
+### 설치
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm install
+npm start
+```
