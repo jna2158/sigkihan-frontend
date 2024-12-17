@@ -1,9 +1,10 @@
 import useUserStore from "../store/useUserStore";
 import { getFoodList } from "../services/refrigeService";
 import useRefrigeStore from "../store/useRefrigeStore";
+import { useUser } from "./useUserInfo";
 
 export const useFoodData = () => {
-  const { userInfo } = useUserStore();
+  const { userInfo } = useUser();
   const { foodItems, setFood } = useRefrigeStore();
 
   // 음식 리스트 조회

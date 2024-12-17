@@ -1,22 +1,22 @@
-import useModalStore from "../../../store/useModalStore";
 import useRefrigeStore from "../../../store/useRefrigeStore";
 import { deleteFoodList } from "../../../services/refrigeService";
-import useUserStore from "../../../store/useUserStore";
 import { useNavigate } from "react-router-dom";
 import { Food } from "../../../types/Food";
-
+import { useUser } from "../../../hooks/useUserInfo";
+import { useModalControl } from "../../../hooks/useModalControl";
 export default function ConfirmCancelModal({ data }: { data: Food }) {
-  const { setModalOpen } = useModalStore();
+  const { handleCloseModal } = useModalControl("CONFIRM_CANCEL_MODAL");
   const { removeFood } = useRefrigeStore();
-  const { userInfo } = useUserStore();
+  const { refrigeratorId } = useUser();
   const navigate = useNavigate();
+
   const handleDeleteBtn = async () => {
-    if (!data?.id || !userInfo?.refrigerator_id) return;
+    if (!data?.id || !refrigeratorId) return;
 
     try {
-      const res = await deleteFoodList(userInfo.refrigerator_id, data.id);
+      const res = await deleteFoodList(refrigeratorId, data.id);
       removeFood(res.data.iď);
-      setModalOpen("CONFIRM_CANCEL_MODAL", false);
+      handleCloseModal();
       navigate("/foodlist");
     } catch (error) {
       console.error(error);
@@ -40,7 +40,7 @@ export default function ConfirmCancelModal({ data }: { data: Food }) {
         <footer className="mt-4 flex justify-end gap-2">
           <button
             className="basic-button h-[3.3rem] w-[9.3rem] bg-gray-100 text-gray-400"
-            onClick={() => setModalOpen("CONFIRM_CANCEL_MODAL", false)}
+            onClick={handleCloseModal}
           >
             아니오
           </button>

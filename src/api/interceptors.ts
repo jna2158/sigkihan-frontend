@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import { clearStorageAndRedirect } from "../shared/utils/clearStorageAndRedirect";
 
 class ApiClient {
   private static instance: ApiClient;
@@ -43,8 +44,7 @@ class ApiClient {
       (response) => response,
       async (error) => {
         if (error.response?.status === 401) {
-          localStorage.clear();
-          window.location.href = "/";
+          clearStorageAndRedirect();
         }
         return Promise.reject(error);
       },

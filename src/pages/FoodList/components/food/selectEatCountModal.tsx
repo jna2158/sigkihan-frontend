@@ -1,17 +1,16 @@
-import useModalStore from "../../../../store/useModalStore";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-import useUserStore from "../../../../store/useUserStore";
 import useRefrigeStore from "../../../../store/useRefrigeStore";
 import { eatFood } from "../../../../services/refrigeService";
 import { Food } from "../../../../types/Food";
+import { useUser } from "../../../../hooks/useUserInfo";
+import { useModalControl } from "../../../../hooks/useModalControl";
 
 export default function SelectEatCountModal({ data }: { data: Food }) {
-  console.log(data);
-  const { setModalOpen } = useModalStore();
+  const { handleCloseModal } = useModalControl("SELECT_EAT_COUNT_MODAL");
   const [count, setCount] = useState(1);
-  const { userInfo } = useUserStore();
+  const { userInfo } = useUser();
   const { updateFoodQuantity } = useRefrigeStore();
 
   const handleIncrement = () => {
@@ -34,7 +33,7 @@ export default function SelectEatCountModal({ data }: { data: Food }) {
       quantity: count,
     });
     updateFoodQuantity(data.id, res.data.remaining_quantity);
-    setModalOpen("SELECT_EAT_COUNT_MODAL", false);
+    handleCloseModal();
   };
 
   return (
@@ -70,13 +69,13 @@ export default function SelectEatCountModal({ data }: { data: Food }) {
         <footer className="mt-4 flex justify-end gap-2">
           <button
             className="basic-button h-[3.3rem] w-[9.3rem] bg-gray-100 text-gray-400"
-            onClick={() => setModalOpen("SELECT_EAT_COUNT_MODAL", false)}
+            onClick={handleCloseModal}
           >
             아니오
           </button>
           <button
             className="basic-button h-[3.3rem] w-[9.3rem] bg-primary text-white"
-            onClick={() => handleClickConfirmBtn()}
+            onClick={handleClickConfirmBtn}
           >
             확인
           </button>

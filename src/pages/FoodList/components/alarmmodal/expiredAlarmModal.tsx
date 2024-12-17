@@ -4,6 +4,7 @@ import { readPopupNotification } from "../../../../services/notificationService"
 import useUserStore from "../../../../store/useUserStore";
 import { Notification } from "../../../../types/Notification";
 import { Dispatch, SetStateAction } from "react";
+import { useUser } from "../../../../hooks/useUserInfo";
 
 export default function ExpiredAlarmModal({
   notiList,
@@ -12,8 +13,7 @@ export default function ExpiredAlarmModal({
   notiList: Notification[];
   setNotiList: Dispatch<SetStateAction<Notification[]>>;
 }) {
-  const { userInfo } = useUserStore();
-  const refrigeratorId = userInfo?.refrigerator_id;
+  const { refrigeratorId } = useUser();
 
   const handleDragEnd = async (event: Event, info: PanInfo) => {
     if (info.offset.y < -50) {

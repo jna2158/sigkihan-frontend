@@ -1,24 +1,23 @@
 import { useState, useEffect } from "react";
-import useModalStore from "../../../../store/useModalStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX } from "@fortawesome/free-solid-svg-icons";
 import AlarmItem from "./alarmItem";
 import { faBellSlash } from "@fortawesome/free-solid-svg-icons";
-import useUserStore from "../../../../store/useUserStore";
 import { Notification } from "../../../../types/Notification";
 import notificationManager from "../../../../services/managers/NotificationManager";
+import ModalCloseBtn from "../../../../components/common/modal/modalCloseBtn";
+import { useUser } from "../../../../hooks/useUserInfo";
+import { useModalControl } from "../../../../hooks/useModalControl";
 
-export default function AlarmDrawer(data: any) {
-  const { setModalOpen } = useModalStore();
-  const { userInfo } = useUserStore();
+export default function AlarmDrawer({ data }: any) {
+  const { handleCloseModal } = useModalControl("ALARM_DRAWER");
+  const { refrigeratorId } = useUser();
   const [isClosing, setIsClosing] = useState(false);
   const [isOpening, setIsOpening] = useState(true);
-  const refrigeratorId = userInfo?.refrigerator_id;
 
   const handleClose = () => {
     setIsClosing(true);
     setTimeout(() => {
-      setModalOpen("ALARM_DRAWER", false);
+      handleCloseModal();
       setIsClosing(false);
     }, 300);
   };
@@ -50,17 +49,11 @@ export default function AlarmDrawer(data: any) {
           isClosing ? "translate-x-full" : "translate-x-0"
         } ${isOpening ? "translate-x-full" : "translate-x-0"}`}
       >
-        <button
-          className="absolute right-4 top-20 text-gray-500 hover:text-gray-700"
-          onClick={() => handleClose()}
-          aria-label="모달 닫기"
-        >
-          <FontAwesomeIcon icon={faX} />
-        </button>
+        <ModalCloseBtn handleCloseModal={handleClose} />
 
         {data && data.length === 0 ? (
           <div className="flex h-[calc(100%-4rem)] flex-col items-center justify-center px-6">
-            <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-gray-50">
+            <div className="center mb-4 h-24 w-24 rounded-full bg-gray-50">
               <FontAwesomeIcon
                 icon={faBellSlash}
                 className="text-3xl text-gray-300"

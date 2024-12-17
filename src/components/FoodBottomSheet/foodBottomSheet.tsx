@@ -1,132 +1,61 @@
-import { useEffect, useRef, useState } from "react";
-import SearchResultGrid from "./components/searchResultGrid";
+import { useRef, useState, useCallback, useEffect } from "react";
 import useModalStore from "../../store/useModalStore";
-import {
-  PointerEvent as ReactPointerEvent,
-  TouchEvent as ReactTouchEvent,
-} from "react";
+import { useDraggableSheet } from "../../hooks/useDraggableSheet";
+import { useGlobalPointerEvents } from "../../hooks/useGlobalPointerEvents";
+import { useBottomSheetInit } from "../../hooks/useBottomSheetInit";
+import { SearchInput } from "./components/bottomSheet/searchInput";
+import { BottomSheetHeader } from "./components/bottomSheet/bottomSheetHeader";
+import { ChangeEvent } from "react";
+import SearchResultGrid from "./components/searchResultGrid";
 
 export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
   const { setModalOpen } = useModalStore();
   const sheetRef = useRef<HTMLElement>(null);
-  const [startY, setStartY] = useState<number>(0);
-  const [currentHeight, setCurrentHeight] = useState<number>(400);
-  const minHeight = 200;
-  const maxHeight = window.innerHeight * 0.8;
-  const [isDragging, setIsDragging] = useState(false);
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [isClosing, setIsClosing] = useState(false);
   const [isOpening, setIsOpening] = useState(true);
-  const dismissThreshold = 150;
-  const initialY = useRef<number>(0);
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const heightRef = useRef<number>(400);
 
-  const handlePointerDown = (e: ReactPointerEvent | ReactTouchEvent) => {
-    setIsDragging(true);
-    const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
-    setStartY(clientY);
-    initialY.current = clientY;
-  };
+  const {
+    currentHeight,
+    isDragging,
+    handlePointerDown,
+    handlePointerUp,
+    handlePointerMove,
+    setCurrentHeight,
+  } = useDraggableSheet(heightRef.current, () =>
+    setModalOpen("FOOD_BOTTOM_SHEET_MODAL", false),
+  );
 
-  const handlePointerMove = (
-    e: globalThis.PointerEvent | globalThis.TouchEvent,
-  ) => {
-    if (!isDragging || !sheetRef.current) return;
-
-    const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
-    const deltaY = startY - clientY;
-    const newHeight = currentHeight + deltaY;
-
-    if (newHeight >= minHeight && newHeight <= maxHeight) {
-      sheetRef.current.style.height = `${newHeight}px`;
-      setCurrentHeight(newHeight);
-      setStartY(clientY);
+  useEffect(() => {
+    if (currentHeight > 0) {
+      heightRef.current = currentHeight;
     }
-  };
+  }, [currentHeight]);
 
-  const handlePointerUp = (e: ReactPointerEvent | ReactTouchEvent) => {
-    if (!isDragging || !sheetRef.current) return;
-
-    const clientY =
-      "touches" in e
-        ? (e as ReactTouchEvent).changedTouches[0].clientY
-        : (e as ReactPointerEvent).clientY;
-    const totalDragDistance = clientY - initialY.current;
-
-    if (
-      totalDragDistance > dismissThreshold &&
-      currentHeight <= minHeight + 50
-    ) {
-      setIsClosing(true);
-      setTimeout(() => {
-        setModalOpen("FOOD_BOTTOM_SHEET_MODAL", false);
-        setIsClosing(false);
-        setCurrentHeight(400);
-        setStartY(0);
-        initialY.current = 0;
-        setIsDragging(false);
-      }, 200);
-    } else {
-      sheetRef.current.style.height = `${currentHeight}px`;
-    }
-
-    setIsDragging(false);
-  };
-
-  const handleFocus = () => {
+  const handleFocus = useCallback(() => {
     const targetHeight = window.innerHeight * 0.95;
     if (sheetRef.current) {
       sheetRef.current.style.height = `${targetHeight}px`;
       setCurrentHeight(targetHeight);
+      heightRef.current = targetHeight;
     }
-  };
+  }, [setCurrentHeight]);
 
-  const handleGlobalPointerMove = (
-    e: globalThis.PointerEvent | globalThis.TouchEvent,
-  ) => {
-    handlePointerMove(e);
-  };
+  useGlobalPointerEvents({
+    isOpen,
+    isDragging,
+    handlePointerMove,
+    handlePointerUp,
+  });
 
-  const handleGlobalPointerUp = (
-    e: globalThis.PointerEvent | globalThis.TouchEvent,
-  ) => {
-    handlePointerUp(e as any);
-  };
-
-  useEffect(() => {
-    if (isOpen) {
-      window.addEventListener("pointermove", handleGlobalPointerMove);
-      window.addEventListener("pointerup", handleGlobalPointerUp);
-      window.addEventListener("touchmove", handleGlobalPointerMove);
-      window.addEventListener("touchend", handleGlobalPointerUp);
-    }
-
-    return () => {
-      window.removeEventListener("pointermove", handleGlobalPointerMove);
-      window.removeEventListener("pointerup", handleGlobalPointerUp);
-      window.removeEventListener("touchmove", handleGlobalPointerMove);
-      window.removeEventListener("touchend", handleGlobalPointerUp);
-    };
-  }, [isOpen, isDragging, startY, currentHeight]);
-
-  useEffect(() => {
-    if (isOpen) {
-      if (sheetRef.current) {
-        sheetRef.current.style.height = "400px";
-      }
-      setCurrentHeight(400);
-      setIsDragging(false);
-      setStartY(0);
-      initialY.current = 0;
-
-      requestAnimationFrame(() => {
-        setIsOpening(true);
-        requestAnimationFrame(() => {
-          setIsOpening(false);
-        });
-      });
-      setSearchQuery("");
-    }
-  }, [isOpen]);
+  useBottomSheetInit({
+    isOpen,
+    sheetRef,
+    setCurrentHeight,
+    setIsOpening,
+    setSearchQuery,
+  });
 
   if (!isOpen && !isClosing) return null;
 
@@ -143,26 +72,20 @@ export default function FoodBottomSheet({ isOpen }: { isOpen: boolean }) {
       }}
       ref={sheetRef}
     >
-      <header
-        className="center h-10 w-full cursor-grab active:cursor-grabbing"
+      <BottomSheetHeader
         onPointerDown={handlePointerDown}
-        onTouchStart={(e: ReactTouchEvent) => handlePointerDown(e)}
-        onPointerUp={(e: ReactPointerEvent) => handlePointerUp(e)}
-        onTouchEnd={(e: ReactTouchEvent) => handlePointerUp(e)}
-      >
-        <div className="h-1 w-16 rounded-full bg-[#96A2A9]" />
-      </header>
+        onPointerUp={handlePointerUp}
+      />
       <main
         className="overflow-y-auto bg-white p-4"
         style={{ height: "calc(100% - 40px)" }}
       >
-        <input
-          type="text"
-          placeholder="검색어를 입력하세요."
-          className="h-[3rem] w-[22rem] rounded-[0.6rem] bg-gray-50 pl-[0.8rem] text-[14px] text-[#9BA5B7]"
-          onFocus={handleFocus}
+        <SearchInput
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setSearchQuery(e.target.value)
+          }
+          onFocus={handleFocus}
         />
         <SearchResultGrid searchQuery={searchQuery} />
       </main>

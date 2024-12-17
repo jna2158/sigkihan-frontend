@@ -1,10 +1,11 @@
 import { withdraw } from "../../../services/authService";
-import useModalStore from "../../../store/useModalStore";
-import useUserStore from "../../../store/useUserStore";
+import { useModalControl } from "../../../hooks/useModalControl";
+import { useUser } from "../../../hooks/useUserInfo";
+import { clearStorageAndRedirect } from "../../../shared/utils/clearStorageAndRedirect";
 
 export const WithDrawConfirmModal = () => {
-  const { setModalOpen } = useModalStore();
-  const { userInfo } = useUserStore();
+  const { handleCloseModal } = useModalControl("WITHDRAW_CONFIRM_MODAL");
+  const { userInfo } = useUser();
 
   // 탈퇴 버튼 클릭 시
   const handleClickWithDrawBtn = async () => {
@@ -12,9 +13,8 @@ export const WithDrawConfirmModal = () => {
       if (!userInfo) return;
 
       await withdraw(userInfo.id);
-      setModalOpen("WITHDRAW_CONFIRM_MODAL", false);
-      localStorage.clear();
-      window.location.href = "/";
+      handleCloseModal();
+      clearStorageAndRedirect();
     } catch (error) {
       console.error("탈퇴 실패", error);
     }
@@ -37,7 +37,7 @@ export const WithDrawConfirmModal = () => {
         <footer className="mt-4 flex justify-end gap-2">
           <button
             className="basic-button h-[3.3rem] w-[9.3rem] bg-gray-100 text-gray-400"
-            onClick={() => setModalOpen("WITHDRAW_CONFIRM_MODAL", false)}
+            onClick={handleCloseModal}
           >
             아니오
           </button>

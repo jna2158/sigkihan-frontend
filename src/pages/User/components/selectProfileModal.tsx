@@ -1,19 +1,22 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX } from "@fortawesome/free-solid-svg-icons";
-import useModalStore from "../../../store/useModalStore";
 import { useState } from "react";
 import { PROFILE_IMAGES } from "../../../shared/constants/profileImages";
 import { updateUserInfo } from "../../../services/userInfoService";
 import useUserStore from "../../../store/useUserStore";
+import ModalCloseBtn from "../../../components/common/modal/modalCloseBtn";
+import { useModalControl } from "../../../hooks/useModalControl";
 
 export default function SelectProfileModal() {
-  const { setModalOpen } = useModalStore();
-  const { userInfo, updateUser } = useUserStore();
-  
-  const [selectedProfile, setSelectedProfile] = useState(
-    PROFILE_IMAGES.find((image) => image.image === userInfo?.profileImage.image) || PROFILE_IMAGES[0]
+  const { handleCloseModal: handleCloseSelectProfileModal } = useModalControl(
+    "SELECT_PROFILE_MODAL",
   );
-  
+  const { userInfo, updateUser } = useUserStore();
+
+  const [selectedProfile, setSelectedProfile] = useState(
+    PROFILE_IMAGES.find(
+      (image) => image.image === userInfo?.profileImage.image,
+    ) || PROFILE_IMAGES[0],
+  );
+
   const handleCloseModal = async () => {
     if (!userInfo) return;
 
@@ -28,7 +31,7 @@ export default function SelectProfileModal() {
         ...userInfo,
         profileImage: { name: res.data.name, image: res.data.profile_image.id },
       });
-      setModalOpen("SELECT_PROFILE_MODAL", false);
+      handleCloseSelectProfileModal();
     } catch (error) {
       console.error(error);
     }
@@ -37,13 +40,7 @@ export default function SelectProfileModal() {
   return (
     <section className="center overlay z-[70]">
       <article className="relative w-[22.1rem] rounded-[1.3rem] bg-white p-6">
-        <button
-          className="absolute right-4 top-4 text-gray-500 hover:text-gray-700"
-          onClick={() => handleCloseModal()}
-          aria-label="모달 닫기"
-        >
-          <FontAwesomeIcon icon={faX} />
-        </button>
+        <ModalCloseBtn handleCloseModal={handleCloseModal} />
         <header className="center mb-[0.6rem] mt-[0.4rem] flex-col">
           <h1 className="text-[22px] font-semibold text-black">
             프로필 사진 선택

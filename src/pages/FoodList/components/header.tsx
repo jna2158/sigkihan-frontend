@@ -1,10 +1,10 @@
 import AlarmIcon from "./alarm/alarmIcon";
 import logo2 from "../../../assets/logo_02.svg";
-import useUserStore from "../../../store/useUserStore";
 import { PROFILE_IMAGES } from "../../../shared/constants/profileImages";
+import { useUser } from "../../../hooks/useUserInfo";
 
 export default function Header() {
-  const { userInfo } = useUserStore();
+  const { userInfo } = useUser();
   const profileImageUrl = PROFILE_IMAGES.find(
     (item) => item.image === userInfo?.profileImage?.image,
   )?.url;

@@ -3,19 +3,34 @@ import apple from "../../assets/apple.svg";
 import useModalStore from "../../store/useModalStore";
 import ExpiredDateBadge from "../../components/common/expiredDateBadge";
 import useRefrigeStore from "../../store/useRefrigeStore";
-
+import { useModalControl } from "../../hooks/useModalControl";
 export default function FoodDetail() {
   const { id } = useParams();
-  const { setModalOpen } = useModalStore();
   const { foodItems } = useRefrigeStore.getState();
   const currentFoodItem = foodItems.find((item) => item.id === Number(id));
+  const { handleOpenModal: handleOpenEatCountModal } = useModalControl(
+    "SELECT_EAT_COUNT_MODAL",
+    currentFoodItem,
+  );
+  const { handleOpenModal: handleOpenDiscardCountModal } = useModalControl(
+    "SELECT_DISCARD_COUNT_MODAL",
+    currentFoodItem,
+  );
+  const { handleOpenModal: handleOpenModifyModal } = useModalControl(
+    "MODIFY_FOOD_MODAL",
+    currentFoodItem,
+  );
+  const { handleOpenModal: handleOpenConfirmModal } = useModalControl(
+    "CONFIRM_CANCEL_MODAL",
+    { id: Number(id) },
+  );
 
   const handleEatFood = () => {
-    setModalOpen("SELECT_EAT_COUNT_MODAL", true, currentFoodItem);
+    handleOpenEatCountModal();
   };
 
   const handleDiscardFood = () => {
-    setModalOpen("SELECT_DISCARD_COUNT_MODAL", true, currentFoodItem);
+    handleOpenDiscardCountModal();
   };
 
   return (
@@ -30,17 +45,13 @@ export default function FoodDetail() {
           </span>
           <div className="absolute right-[2.1rem] flex gap-4">
             <button
-              onClick={() =>
-                setModalOpen("MODIFY_FOOD_MODAL", true, currentFoodItem)
-              }
+              onClick={handleOpenModifyModal}
               className="text-[16px] font-medium text-gray-500"
             >
               편집
             </button>
             <button
-              onClick={() =>
-                setModalOpen("CONFIRM_CANCEL_MODAL", true, { id: Number(id) })
-              }
+              onClick={handleOpenConfirmModal}
               className="text-[16px] font-medium text-gray-500"
             >
               삭제

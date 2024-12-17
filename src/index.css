@@ -109,4 +109,11 @@
   .bottom-sheet-container {
     @apply fixed bottom-0 left-1/2 z-[70] w-layout -translate-x-1/2 rounded-t-3xl bg-white;
   }
+
+  .form-label {
+    @apply text-center text-[13px] text-gray-500;
+  }
+  .form-input {
+    @apply absolute right-[2.3rem] h-[1.5rem] w-[8.3rem] cursor-pointer rounded-[13rem] bg-gray-50;
+  }
 }

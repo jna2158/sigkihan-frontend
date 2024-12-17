@@ -1,15 +1,13 @@
-import useModalStore from "../../../store/useModalStore";
 import { Food, NewFood } from "../../../types/Food";
+import { useModalControl } from "../../../hooks/useModalControl";
 
 export default function SearchResultCard({ item }: { item: Food | NewFood }) {
-  const { setModalOpen } = useModalStore();
-
-  console.log(item);
+  const { handleOpenModal } = useModalControl("ADD_FOOD_MODAL", item);
   return (
     <>
       <button
         className="center h-[5rem] w-[5rem] rounded-3xl bg-gray-50"
-        onClick={() => setModalOpen("ADD_FOOD_MODAL", true, item)}
+        onClick={handleOpenModal}
       >
         <div className="center cursor-pointer flex-col gap-[0.6rem] rounded-3xl">
           <img

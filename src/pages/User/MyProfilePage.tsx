@@ -1,8 +1,9 @@
-import useModalStore from "../../store/useModalStore";
 import { useEffect, useState } from "react";
 import { getUserInfo } from "../../services/userInfoService";
-import useUserStore from "../../store/useUserStore";
 import { PROFILE_IMAGES } from "../../shared/constants/profileImages";
+import { clearStorageAndRedirect } from "../../shared/utils/clearStorageAndRedirect";
+import { useUser } from "../../hooks/useUserInfo";
+import { useModalControl } from "../../hooks/useModalControl";
 
 interface UserInfo {
   name: string;
@@ -19,8 +20,11 @@ interface UserInfo {
 }
 
 export default function MyProfilePage() {
-  const { setModalOpen } = useModalStore();
-  const { userInfo } = useUserStore();
+  const { handleOpenModal } = useModalControl("SELECT_PROFILE_MODAL");
+  const { handleOpenModal: handleOpenWithdrawModal } = useModalControl(
+    "WITHDRAW_CONFIRM_MODAL",
+  );
+  const { userInfo } = useUser();
   const [info, setInfo] = useState<UserInfo | null>(null);
 
   const profileImageUrl = PROFILE_IMAGES.find(
@@ -30,8 +34,7 @@ export default function MyProfilePage() {
   // 로그아웃
   const handleClickLogoutBtn = async () => {
     try {
-      localStorage.clear();
-      window.location.href = "/";
+      clearStorageAndRedirect();
     } catch (error) {
       console.error("로그아웃 실패", error);
     }
@@ -39,7 +42,7 @@ export default function MyProfilePage() {
 
   // 탈퇴
   const handleClickWithdrawBtn = async () => {
-    setModalOpen("WITHDRAW_CONFIRM_MODAL", true);
+    handleOpenWithdrawModal();
   };
 
   // 내 정보 조회
@@ -69,7 +72,7 @@ export default function MyProfilePage() {
           </span>
           <div className="absolute right-[2.1rem] flex gap-4">
             <button
-              onClick={() => setModalOpen("SELECT_PROFILE_MODAL", true)}
+              onClick={handleOpenModal}
               className="text-[16px] font-medium text-gray-500"
             >
               편집
