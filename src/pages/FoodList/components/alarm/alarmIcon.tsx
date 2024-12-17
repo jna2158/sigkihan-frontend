@@ -2,31 +2,29 @@ import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useModalStore from "../../../../store/useModalStore";
 import useUserStore from "../../../../store/useUserStore";
-import { getExpiredFoodList } from "../../../../services/notificationService";
 import { useState, useEffect } from "react";
 import { Notification } from "../../../../types/Notification";
+import notificationManager from "../../../../services/managers/NotificationManager";
 
 export default function AlarmIcon() {
   const { setModalOpen } = useModalStore();
   const { userInfo } = useUserStore();
-  const [expiredFoodList, setExpiredFoodList] = useState<Notification[]>([]);
+  const [notificationList, setNotificationList] = useState<Notification[]>([]);
   const refrigeratorId = userInfo?.refrigerator_id;
 
-  // 알림 목록 조회
-  const getAlarmList = async () => {
-    try {
-      if (refrigeratorId) {
-        const res = await getExpiredFoodList(refrigeratorId);
-        setExpiredFoodList(res.data);
-      }
-    } catch (error) {
-      console.error(error);
-      setExpiredFoodList([]);
-    }
-  };
-
   useEffect(() => {
-    getAlarmList();
+    const handleNotifications = (notifications: Notification[]) => {
+      setNotificationList(notifications);
+    };
+
+    notificationManager.subscribe(handleNotifications);
+    if (refrigeratorId) {
+      notificationManager.fetchNotificationCenterList(refrigeratorId);
+    }
+
+    return () => {
+      notificationManager.unsubscribe(handleNotifications);
+    };
   }, [refrigeratorId]);
 
   return (
@@ -35,9 +33,9 @@ export default function AlarmIcon() {
         icon={faBell}
         className="h-[1.8rem] w-[1.8rem]"
         style={{ color: "#EBEBEB" }}
-        onClick={() => setModalOpen("ALARM_DRAWER", true, expiredFoodList)}
+        onClick={() => setModalOpen("ALARM_DRAWER", true, notificationList)}
       />
-      {expiredFoodList.some((food) => !food.is_read) && (
+      {notificationList.some((notification) => !notification.is_read) && (
         <div className="absolute right-1 top-0 h-[0.4rem] w-[0.4rem] rounded-full bg-primary"></div>
       )}
     </div>

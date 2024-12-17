@@ -9,9 +9,9 @@ import { getFoodList } from "../../services/refrigeService";
 import { useEffect } from "react";
 import useUserStore from "../../store/useUserStore";
 import useRefrigeStore from "../../store/useRefrigeStore";
-import { getNotificationList } from "../../services/notificationService";
 import { useState } from "react";
 import { Notification } from "../../types/Notification";
+import notificationManager from "../../services/managers/NotificationManager";
 
 export default function FoodListPage() {
   const { modals, setModalOpen } = useModalStore();
@@ -33,22 +33,21 @@ export default function FoodListPage() {
     }
   };
 
-  // 알림 목록 조회
-  const getNotiList = async () => {
-    if (!userInfo) return;
-
-    try {
-      const res = await getNotificationList(userInfo.refrigerator_id);
-      setNotiList(res.data);
-    } catch (err) {
-      setNotiList([]);
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
-    getFood();
-    getNotiList();
+    const handlePopupNotifications = (notifications: Notification[]) => {
+      setNotiList(notifications);
+    };
+
+    notificationManager.subscribe(handlePopupNotifications);
+
+    if (userInfo?.refrigerator_id) {
+      getFood();
+      notificationManager.fetchPopupNotifications(userInfo.refrigerator_id);
+    }
+
+    return () => {
+      notificationManager.unsubscribe(handlePopupNotifications);
+    };
   }, [userInfo]);
 
   return (

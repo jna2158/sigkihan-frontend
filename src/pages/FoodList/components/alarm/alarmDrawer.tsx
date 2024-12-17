@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import AlarmItem from "./alarmItem";
 import { faBellSlash } from "@fortawesome/free-solid-svg-icons";
-import { readNotification } from "../../../../services/notificationService";
 import useUserStore from "../../../../store/useUserStore";
 import { Notification } from "../../../../types/Notification";
+import notificationManager from "../../../../services/managers/NotificationManager";
 
 export default function AlarmDrawer(data: any) {
   const { setModalOpen } = useModalStore();
@@ -23,12 +23,13 @@ export default function AlarmDrawer(data: any) {
     }, 300);
   };
 
+  // 알림센터 알림 읽음 처리
   const setAlarmListRead = async () => {
-    if (data.some((food: Notification) => !food.is_read)) {
+    if (refrigeratorId && data.some((food: Notification) => !food.is_read)) {
       try {
-        await readNotification(refrigeratorId || 0);
+        await notificationManager.notificationCenterMarkAsRead(refrigeratorId);
       } catch (error) {
-        console.error(error);
+        console.error("알림 읽음 처리 중 오류 발생:", error);
       }
     }
   };
@@ -75,6 +76,7 @@ export default function AlarmDrawer(data: any) {
             </p>
           </div>
         ) : (
+          data &&
           data.map((item: Notification) => (
             <AlarmItem key={item.id} item={item} />
           ))

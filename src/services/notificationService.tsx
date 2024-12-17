@@ -6,8 +6,8 @@ interface ExpiredFoodListResponse {
   data: Notification[];
 }
 
-// 냉장고 식품 알림 조회
-export const getExpiredFoodList = (
+// 알림센터 알림 조회
+export const getNotificationCenterList = (
   refrigerator_id: number,
 ): Promise<ExpiredFoodListResponse> => {
   return axios.get(
@@ -16,14 +16,16 @@ export const getExpiredFoodList = (
 };
 
 // 냉장고 식품 알림 읽음 처리
-export const readNotification = (refrigerator_id: number): Promise<void> => {
+export const notificationCenterMarkAsRead = (
+  refrigerator_id: number,
+): Promise<void> => {
   return axios.post(
     `${NOTIFICATION_ENDPOINTS.READ_NOTIFICATION}/${refrigerator_id}/notifications/mark-as-read`,
   );
 };
 
 // 팝업 식품 알림 조회
-export const getNotificationList = (
+export const getPopupNotificationList = (
   refrigerator_id: number,
 ): Promise<ExpiredFoodListResponse> => {
   return axios.get(
