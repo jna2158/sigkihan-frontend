@@ -30,7 +30,7 @@ export default function Calendar({
   };
 
   return (
-    <aside className="bottom-sheet-container">
+    <aside className="bottom-sheet-container" aria-label="캘린더">
       <header className="center h-10 w-full">
         <div className="h-1 w-16 rounded-full bg-[#96A2A9]" />
       </header>
