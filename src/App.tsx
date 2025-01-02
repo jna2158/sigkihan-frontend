@@ -7,6 +7,7 @@ import WelcomePage from "./pages/Welcome/WelcomePage";
 import ModalContainer from "./components/common/modal/modalContainer";
 import BottomNavigation from "./components/common/\bBottomNavigation";
 import MyProfilePage from "./pages/User/MyProfilePage";
+import SharePage from "./pages/Share/SharePage";
 
 function App() {
   const location = useLocation();
@@ -21,6 +22,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/welcome" element={<WelcomePage />} />
             <Route path="/foodlist" element={<FoodListPage />} />
+            <Route path="/share" element={<SharePage />} />
             <Route path="/food/:id" element={<FoodDetail />} />
             <Route path="/user/profile" element={<MyProfilePage />} />
             <Route path="/oauth/callback/kakao" element={<KakaoCallback />} />

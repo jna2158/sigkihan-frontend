@@ -46,7 +46,7 @@ export default function BottomNavigation() {
         <nav className="flex h-full items-center justify-around">
           <button
             className="flex flex-1 flex-col items-center gap-1"
-            onClick={handleShareClick}
+            onClick={() => navigate("/share")}
           >
             <FontAwesomeIcon icon={faShareNodes} style={{ color: "#3BD273" }} />
             <span className="text-[13px] text-gray-500">냉장고 공유</span>
