@@ -3,9 +3,14 @@ import MemoItem from "./memoItem";
 
 export default function Memo() {
   return (
-    <div>
+    <div className="mt-[3.3rem]">
       <Header />
-      <div className="flex touch-pan-x gap-[0.6rem] overflow-x-scroll overscroll-x-contain">
+      <div className="grid grid-cols-2 gap-[0.6rem]">
+        <MemoItem />
+        <MemoItem />
+        <MemoItem />
+        <MemoItem />
+        <MemoItem />
         <MemoItem />
         <MemoItem />
         <MemoItem />

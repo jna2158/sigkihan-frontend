@@ -11,7 +11,7 @@ export default function Header() {
     window.Kakao?.Share.sendDefault({
       objectType: "feed",
       content: {
-        title: "냉장고 공유 초대",
+        title: `${"냉부심"}님의 냉장고 공유 초대`,
         description: "우리 냉장고를 함께 관리해보세요!",
         imageUrl: thumbnail,
         link: {
