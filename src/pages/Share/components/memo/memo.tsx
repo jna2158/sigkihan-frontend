@@ -5,7 +5,7 @@ export default function Memo() {
   return (
     <div>
       <Header />
-      <div className="flex gap-[0.6rem] overflow-hidden overflow-x-scroll">
+      <div className="flex touch-pan-x gap-[0.6rem] overflow-x-scroll overscroll-x-contain">
         <MemoItem />
         <MemoItem />
         <MemoItem />
