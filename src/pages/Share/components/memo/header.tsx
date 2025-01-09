@@ -1,7 +1,7 @@
+import { useModalControl } from "../../../../hooks/useModalControl";
+
 export default function Header() {
-  const handleOpenModal = () => {
-    console.log("open modal");
-  };
+  const { handleOpenModal } = useModalControl("ADD_MEMO_MODAL");
 
   return (
     <header className="flex items-center pb-[1.9rem] pt-[3.3rem]">

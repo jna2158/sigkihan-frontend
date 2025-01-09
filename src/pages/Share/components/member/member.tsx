@@ -3,6 +3,8 @@ import MemberItem from "./memberItem";
 import Header from "./header";
 import thumbnail from "../../../../assets/thumbnail.png";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function Member() {
   const { userInfo } = useUser();
@@ -71,19 +73,15 @@ export default function Member() {
       <Header isEditMode={isEditMode} setIsEditMode={setIsEditMode} />
       <div className="flex h-[8rem] gap-[1.1rem] overflow-x-auto">
         {members.map((member) => (
-          <MemberItem
-            key={member.id}
-            name={member.name}
-            isOwner={member.isOwner}
-            isCurrentUser={member.isCurrentUser}
-            isEditMode={isEditMode}
-          />
+          <MemberItem key={member.id} member={member} isEditMode={isEditMode} />
         ))}
         <div
           onClick={clickInviteBtn}
-          className="center h-[5.2rem] w-[5.2rem] min-w-[5.2rem] cursor-pointer rounded-full bg-gray-200"
+          className="center h-[5.2rem] w-[5.2rem] min-w-[5.2rem] cursor-pointer rounded-full bg-gray-100"
         >
-          <span className="text-2xl text-gray-500">+</span>
+          <span className="text-3xl text-gray-400">
+            <FontAwesomeIcon icon={faPlus} />
+          </span>
         </div>
       </div>
     </>

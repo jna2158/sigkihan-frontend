@@ -1,7 +1,6 @@
 import { useModalControl } from "../../../hooks/useModalControl";
 
 export default function MemberMinusModal({ data }: { data: { name: string } }) {
-  console.log(data);
   const { handleCloseModal } = useModalControl("MEMBER_MINUS_MODAL");
 
   const handleDeleteBtn = async () => {
@@ -33,7 +32,7 @@ export default function MemberMinusModal({ data }: { data: { name: string } }) {
             className="basic-button h-[3.3rem] w-[9.3rem] bg-primary text-white"
             onClick={handleDeleteBtn}
           >
-            삭제
+            확인
           </button>
         </footer>
       </div>
