@@ -1,17 +1,28 @@
-import badge from "../../../../assets/badge-check.png";
+import checkBadge from "../../../../assets/badge-check.png";
+import minusBadge from "../../../../assets/badge-minus.png";
 import { PROFILE_IMAGES } from "../../../../shared/constants/profileImages";
+import { useModalControl } from "../../../../hooks/useModalControl";
 
 export default function MemberItem({
   name,
   isOwner,
   isCurrentUser,
+  isEditMode,
 }: {
   name: string;
   isOwner: boolean;
   isCurrentUser: boolean;
+  isEditMode: boolean;
 }) {
+  const { handleOpenModal } = useModalControl("MEMBER_MINUS_MODAL", {
+    name,
+  });
+  const handleClickMinusBadge = () => {
+    handleOpenModal();
+  };
+
   return (
-    <div className="flex h-[4.9rem] flex-col items-center gap-[1.2rem]">
+    <div className="flex h-[5.2rem] min-w-[5.2rem] flex-col items-center gap-[1.2rem]">
       <div className="relative">
         <img
           src={PROFILE_IMAGES[0].url}
@@ -24,9 +35,17 @@ export default function MemberItem({
         />
         {isOwner && (
           <img
-            src={badge}
+            src={checkBadge}
             alt="인증 뱃지"
             className="absolute bottom-0 right-0 h-[1.8rem] w-[1.8rem]"
+          />
+        )}
+        {!isCurrentUser && isEditMode && (
+          <img
+            src={minusBadge}
+            alt="방출 뱃지"
+            className="absolute left-0 top-0 h-[1.5rem] w-[1.5rem] cursor-pointer"
+            onClick={handleClickMinusBadge}
           />
         )}
       </div>
