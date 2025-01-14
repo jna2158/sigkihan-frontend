@@ -1,11 +1,20 @@
 import { useModalControl } from "../../../hooks/useModalControl";
 import defaultProfile from "../../../assets/default_profile.svg";
+import { useUser } from "../../../hooks/useUserInfo";
+import { createMemo } from "../../../services/memoService";
+import { useState } from "react";
+import useMemoStore from "../../../store/useMemoStore";
 
 export default function AddMemoModal() {
   const { handleCloseModal } = useModalControl("ADD_MEMO_MODAL");
-
+  const { userInfo, refrigeratorId } = useUser();
+  const { memoList, setMemoList } = useMemoStore();
+  const [memoContent, setMemoContent] = useState("");
   const handleClickConfirmBtn = async () => {
     handleCloseModal();
+    await createMemo(refrigeratorId, memoContent).then((res) => {
+      setMemoList([res.data, ...memoList]);
+    });
   };
 
   return (
@@ -24,7 +33,7 @@ export default function AddMemoModal() {
             alt="프로필"
             className="mr-4 h-[2.3rem] w-[2.3rem]"
           />
-          <p className="text-[20px] font-semibold">From. {"냉부심"}</p>
+          <p className="text-[20px] font-semibold">From. {userInfo?.name}</p>
         </div>
         <section className="flex h-[7rem] w-[17rem] flex-col">
           <textarea
@@ -35,6 +44,7 @@ export default function AddMemoModal() {
               lineHeight: "3rem",
               textDecorationColor: "#EBEBEB",
             }}
+            onChange={(e) => setMemoContent(e.target.value)}
           />
         </section>
         <footer className="mt-4 flex justify-end gap-2">

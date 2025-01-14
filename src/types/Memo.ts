@@ -3,4 +3,6 @@ export interface Memo {
   title: string;
   content: string;
   user: string;
+  created_at: string;
 }
+

@@ -32,4 +32,5 @@ export const NOTIFICATION_ENDPOINTS = {
 // 메모
 export const MEMO_ENDPOINTS = {
   GET_MEMO_LIST: "/api/refrigerators",
+  CREATE_MEMO: "/api/refrigerators",
 };

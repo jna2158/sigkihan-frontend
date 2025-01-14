@@ -2,12 +2,12 @@ import { useUser } from "../../../../hooks/useUserInfo";
 import Header from "./header";
 import MemoItem from "./memoItem";
 import { getMemoList } from "../../../../services/memoService";
-import { useEffect, useState } from "react";
-import { Memo as MemoType } from "../../../../types/Memo";
+import { useEffect } from "react";
+import useMemoStore from "../../../../store/useMemoStore";
 
 export default function Memo() {
   const { refrigeratorId } = useUser();
-  const [memoList, setMemoList] = useState<MemoType[]>([]);
+  const { memoList, setMemoList } = useMemoStore();
 
   // 메모 목록 조회
   useEffect(() => {
