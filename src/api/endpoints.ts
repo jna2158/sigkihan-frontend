@@ -28,3 +28,8 @@ export const NOTIFICATION_ENDPOINTS = {
   GET_NOTIFICATION_LIST: "/api/refrigerators",
   READ_NOTIFICATION: "/api/refrigerators",
 };
+
+// 메모
+export const MEMO_ENDPOINTS = {
+  GET_MEMO_LIST: "/api/refrigerators",
+};
