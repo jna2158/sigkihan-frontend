@@ -16,5 +16,5 @@ export const updateUserInfo = (
   id: number,
   data: { name: string; image_id: number },
 ): Promise<UserInfoResponse> => {
-  return axios.put(`${USER_INFO_ENDPOINTS.UPDATE_USER_INFO}/${id}`, data);
+  return axios.patch(`${USER_INFO_ENDPOINTS.UPDATE_USER_INFO}/${id}`, data);
 };

@@ -11,7 +11,7 @@ export const getNotificationCenterList = (
   refrigerator_id: number,
 ): Promise<ExpiredFoodListResponse> => {
   return axios.get(
-    `${NOTIFICATION_ENDPOINTS.GET_EXPIRED_FOOD_LIST}/${refrigerator_id}/notifications/`,
+    `${NOTIFICATION_ENDPOINTS.GET_EXPIRED_FOOD_LIST}/${refrigerator_id}/notifications`,
   );
 };
 
