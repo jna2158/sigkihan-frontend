@@ -6,6 +6,7 @@ import { Memo as MemoType } from "../../../types/Memo";
 import { useState, useRef } from "react";
 import { useModalControl } from "../../../hooks/useModalControl";
 import calculateBeforeDate from "../../../shared/utils/calculateBeforeDate";
+import useUserStore from "../../../store/useUserStore";
 
 export default function MemoItem({ memo }: { memo: MemoType }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +16,8 @@ export default function MemoItem({ memo }: { memo: MemoType }) {
     "MODIFY_MEMO_MODAL",
     memo,
   );
+
+  const { userInfo } = useUserStore();
 
   // 메모 수정 버튼 클릭
   const handleClickModifyBtn = () => {
@@ -50,13 +53,15 @@ export default function MemoItem({ memo }: { memo: MemoType }) {
               {calculateBeforeDate(memo.created_at)}
             </div>
           </div>
-          <FontAwesomeIcon
-            icon={faEllipsisVertical}
-            className="ml-[1.5rem] cursor-pointer text-gray-300"
-            onClick={() => {
-              setIsOpen(!isOpen);
-            }}
-          />
+          {userInfo?.name === memo.user && (
+            <FontAwesomeIcon
+              icon={faEllipsisVertical}
+              className="ml-[1.5rem] cursor-pointer text-gray-300"
+              onClick={() => {
+                setIsOpen(!isOpen);
+              }}
+            />
+          )}
         </div>
 
         <div className="mb-[1rem] line-clamp-3 h-[3.4rem] w-[7.4rem] overflow-hidden text-ellipsis text-[13px] text-gray-500">
