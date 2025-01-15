@@ -4,9 +4,9 @@ import { PROFILE_IMAGES } from "../../../shared/constants/profileImages";
 import { useModalControl } from "../../../hooks/useModalControl";
 
 type Member = {
+  id: number;
   name: string;
-  isOwner: boolean;
-  isCurrentUser: boolean;
+  image: string;
 };
 
 export default function MemberItem({
@@ -23,19 +23,24 @@ export default function MemberItem({
     handleOpenModal();
   };
 
+  // 프로필 이미지
+  // const profileImage = PROFILE_IMAGES.find(
+  //   (profile) => profile.image === member.image,
+  // )?.url;
+
   return (
     <div className="flex h-[5.2rem] min-w-[5.2rem] flex-col items-center gap-[1.2rem]">
       <div className="relative">
         <img
-          src={PROFILE_IMAGES[0].url}
-          alt={`프로필 사진 ${PROFILE_IMAGES[0].name}`}
+          src={member.image}
+          alt="프로필"
           className={`h-[5.3rem] w-[5.3rem] rounded-full ${
-            member.isCurrentUser
+            member.name === "owner"
               ? "border-4 border-white shadow-[0_2px_3px_rgba(0,0,0,0.25)]"
               : ""
           }`}
         />
-        {member.isOwner && (
+        {member.name === "owner" && (
           <img
             src={checkBadge}
             alt="인증 뱃지"

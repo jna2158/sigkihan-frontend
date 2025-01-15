@@ -7,6 +7,7 @@ import { useState, useRef } from "react";
 import { useModalControl } from "../../../hooks/useModalControl";
 import calculateBeforeDate from "../../../shared/utils/calculateBeforeDate";
 import useUserStore from "../../../store/useUserStore";
+import { PROFILE_IMAGES } from "../../../shared/constants/profileImages";
 
 export default function MemoItem({ memo }: { memo: MemoType }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +19,11 @@ export default function MemoItem({ memo }: { memo: MemoType }) {
   );
 
   const { userInfo } = useUserStore();
+
+  // 프로필 이미지
+  const profileImage = PROFILE_IMAGES.find(
+    (profile) => profile.image === memo.user.image.id,
+  )?.url;
 
   // 메모 수정 버튼 클릭
   const handleClickModifyBtn = () => {
@@ -43,17 +49,17 @@ export default function MemoItem({ memo }: { memo: MemoType }) {
       <div className="flex h-[10.5rem] w-[10rem] flex-col gap-[1rem] rounded-2xl bg-gray-50 pl-[1.3rem] pt-[1.7rem]">
         <div className="flex gap-[0.7rem]">
           <img
-            src={profile1}
+            src={profileImage}
             alt="profile"
             className="mb-[0.4rem] h-[2.1rem] w-[2.1rem]"
           />
           <div className="flex flex-col">
-            <span className="text-[14px] font-medium">{memo.user}</span>
+            <span className="text-[14px] font-medium">{memo.user.name}</span>
             <div className="text-[12px] text-gray-400">
               {calculateBeforeDate(memo.created_at)}
             </div>
           </div>
-          {userInfo?.name === memo.user && (
+          {userInfo?.name === memo.user.name && (
             <FontAwesomeIcon
               icon={faEllipsisVertical}
               className="ml-[1.5rem] cursor-pointer text-gray-300"

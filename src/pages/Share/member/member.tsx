@@ -5,36 +5,19 @@ import thumbnail from "../../../assets/thumbnail.png";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { getRefrigeratorInfo } from "../../../services/refrigeService";
+import { useEffect } from "react";
+
+interface Member {
+  id: number;
+  name: string;
+  image: string;
+}
+[];
 
 export default function Member() {
-  const { userInfo } = useUser();
-  const currentUserName = userInfo?.name;
-  const members = [
-    {
-      id: 1,
-      name: "김철수",
-      isOwner: true,
-      isCurrentUser: currentUserName === "김철수",
-    },
-    {
-      id: 2,
-      name: "유지원",
-      isOwner: false,
-      isCurrentUser: currentUserName === "유지원",
-    },
-    {
-      id: 3,
-      name: "박영수",
-      isOwner: false,
-      isCurrentUser: currentUserName === "박영수",
-    },
-    {
-      id: 4,
-      name: "박영수",
-      isOwner: false,
-      isCurrentUser: currentUserName === "박영수",
-    },
-  ];
+  const { userInfo, refrigeratorId } = useUser();
+  const [members, setMembers] = useState<Member[]>([]);
   const [isEditMode, setIsEditMode] = useState(false);
 
   // 친구 초대 버튼 클릭
@@ -67,6 +50,15 @@ export default function Member() {
       installTalk: true,
     });
   };
+
+  // 냉장고 멤버 정보 조회
+  useEffect(() => {
+    if (refrigeratorId) {
+      getRefrigeratorInfo(refrigeratorId).then((res) => {
+        setMembers([res.data.owner, ...res.data.member]);
+      });
+    }
+  }, [refrigeratorId]);
 
   return (
     <>

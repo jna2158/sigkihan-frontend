@@ -14,6 +14,30 @@ interface DefaultFoodListResponse {
   };
 }
 
+interface RefrigeratorInfoResponse {
+  data: {
+    id: number;
+    name: string;
+    owner: {
+      id: number;
+      name: string;
+      image: string;
+    };
+    member: {
+      id: number;
+      name: string;
+      image: string;
+    }[];
+  };
+}
+
+// 냉장고 정보 조회
+export const getRefrigeratorInfo = (
+  id: number,
+): Promise<RefrigeratorInfoResponse> => {
+  return axios.get(`${REFRIGERATOR_ENDPOINTS.GET_REFRIGERATOR_INFO}/${id}`);
+};
+
 // 특정 냉장고 음식 리스트 조회
 export const getFoodList = (id: number): Promise<FoodListResponse> => {
   return axios.get(`${REFRIGERATOR_ENDPOINTS.GET_FOOD_LIST}/${id}/foods`);
