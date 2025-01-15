@@ -10,6 +10,7 @@ export const AUTH_ENDPOINTS = {
 export const USER_INFO_ENDPOINTS = {
   GET_USER_INFO: "/api/users",
   UPDATE_USER_INFO: "/api/users",
+  GET_REFRIGERATOR_LIST: "/api/refrigerators",
 };
 
 // 냉장고 정보
