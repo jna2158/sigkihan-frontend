@@ -25,3 +25,10 @@ export const createMemo = (
     content,
   });
 };
+
+// 메모 삭제
+export const deleteMemo = (refrigerator_id: number, memo_id: number) => {
+  return axios.delete(
+    `${MEMO_ENDPOINTS.DELETE_MEMO}/${refrigerator_id}/memos/${memo_id}`,
+  );
+};

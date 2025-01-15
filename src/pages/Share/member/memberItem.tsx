@@ -1,7 +1,7 @@
-import checkBadge from "../../../../assets/badge-check.png";
-import minusBadge from "../../../../assets/badge-minus.png";
-import { PROFILE_IMAGES } from "../../../../shared/constants/profileImages";
-import { useModalControl } from "../../../../hooks/useModalControl";
+import checkBadge from "../../../assets/badge-check.png";
+import minusBadge from "../../../assets/badge-minus.png";
+import { PROFILE_IMAGES } from "../../../shared/constants/profileImages";
+import { useModalControl } from "../../../hooks/useModalControl";
 
 type Member = {
   name: string;

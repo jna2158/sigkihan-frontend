@@ -1,9 +1,9 @@
-import { useModalControl } from "../../../hooks/useModalControl";
-import defaultProfile from "../../../assets/default_profile.svg";
-import { useUser } from "../../../hooks/useUserInfo";
-import { createMemo } from "../../../services/memoService";
+import { useModalControl } from "../../../../hooks/useModalControl";
+import defaultProfile from "../../../../assets/default_profile.svg";
+import { useUser } from "../../../../hooks/useUserInfo";
 import { useState } from "react";
-import useMemoStore from "../../../store/useMemoStore";
+import useMemoStore from "../../../../store/useMemoStore";
+import { createMemo } from "../../../../services/memoService";
 
 export default function AddMemoModal() {
   const { handleCloseModal } = useModalControl("ADD_MEMO_MODAL");

@@ -1,9 +1,9 @@
-import { useUser } from "../../../../hooks/useUserInfo";
+import { useUser } from "../../../hooks/useUserInfo";
 import Header from "./header";
 import MemoItem from "./memoItem";
-import { getMemoList } from "../../../../services/memoService";
+import { getMemoList } from "../../../services/memoService";
 import { useEffect } from "react";
-import useMemoStore from "../../../../store/useMemoStore";
+import useMemoStore from "../../../store/useMemoStore";
 
 export default function Memo() {
   const { refrigeratorId } = useUser();

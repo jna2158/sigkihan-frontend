@@ -1,7 +1,7 @@
-import { useUser } from "../../../../hooks/useUserInfo";
+import { useUser } from "../../../hooks/useUserInfo";
 import MemberItem from "./memberItem";
 import Header from "./header";
-import thumbnail from "../../../../assets/thumbnail.png";
+import thumbnail from "../../../assets/thumbnail.png";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";

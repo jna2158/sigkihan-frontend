@@ -1,5 +1,5 @@
-import Member from "./components/member/member";
-import Memo from "./components/memo/memo";
+import Member from "./member/member";
+import Memo from "./memo/memo";
 
 export default function SharePage() {
   return (

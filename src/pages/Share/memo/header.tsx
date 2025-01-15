@@ -1,4 +1,4 @@
-import { useModalControl } from "../../../../hooks/useModalControl";
+import { useModalControl } from "../../../hooks/useModalControl";
 
 export default function Header() {
   const { handleOpenModal } = useModalControl("ADD_MEMO_MODAL");
