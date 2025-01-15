@@ -11,6 +11,7 @@ import { WithDrawConfirmModal } from "../../../pages/User/components/withDrawCon
 import MemberMinusModal from "./memberMinusModal";
 import AddMemoModal from "../../../pages/Share/memo/components/addMemoModal";
 import DeleteMemoModal from "../../../pages/Share/memo/components/deleteMemoModal";
+import ModifyMemoModal from "../../../pages/Share/memo/components/modifyMemoModal";
 
 const MODAL_COMPONENTS = {
   ADD_FOOD_MODAL: AddFoodModal,
@@ -25,6 +26,7 @@ const MODAL_COMPONENTS = {
   MEMBER_MINUS_MODAL: MemberMinusModal,
   ADD_MEMO_MODAL: AddMemoModal,
   DELETE_MEMO_MODAL: DeleteMemoModal,
+  MODIFY_MEMO_MODAL: ModifyMemoModal,
 };
 
 export default function ModalContainer() {

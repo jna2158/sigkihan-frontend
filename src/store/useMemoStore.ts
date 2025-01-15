@@ -7,6 +7,7 @@ export type MemoStore = {
 
   setMemoList: (memo: Memo[]) => void;
   deleteMemoItem: (memoId: number) => void;
+  updateMemoItem: (updates: Memo) => void;
 };
 
 const useUserStore = create(
@@ -27,12 +28,12 @@ const useUserStore = create(
       },
 
       // 메모 업데이트
-      // updateMemo: (updates) =>
-      //   set((state) => ({
-      //     memoList: state.memoList.map((memo) =>
-      //       memo.id === updates.id ? { ...memo, ...updates } : memo,
-      //     ),
-      //   })),
+      updateMemoItem: (updates: Memo) =>
+        set((state) => ({
+          memoList: state.memoList.map((memo) =>
+            memo.id === updates.id ? { ...memo, ...updates } : memo,
+          ),
+        })),
     }),
     {
       name: "memo-storage",

@@ -34,4 +34,5 @@ export const MEMO_ENDPOINTS = {
   GET_MEMO_LIST: "/api/refrigerators",
   CREATE_MEMO: "/api/refrigerators",
   DELETE_MEMO: "/api/refrigerators",
+  UPDATE_MEMO: "/api/refrigerators",
 };

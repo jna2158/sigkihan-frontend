@@ -32,3 +32,15 @@ export const deleteMemo = (refrigerator_id: number, memo_id: number) => {
     `${MEMO_ENDPOINTS.DELETE_MEMO}/${refrigerator_id}/memos/${memo_id}`,
   );
 };
+
+// 메모 수정
+export const updateMemo = (
+  refrigerator_id: number,
+  memo_id: number,
+  content: string,
+) => {
+  return axios.patch(
+    `${MEMO_ENDPOINTS.UPDATE_MEMO}/${refrigerator_id}/memos/${memo_id}`,
+    { title: "", content },
+  );
+};

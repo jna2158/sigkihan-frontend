@@ -11,10 +11,21 @@ export default function MemoItem({ memo }: { memo: MemoType }) {
   const [isOpen, setIsOpen] = useState(false);
   const sheetRef = useRef<HTMLDivElement>(null);
   const { handleOpenModal } = useModalControl("DELETE_MEMO_MODAL", memo);
+  const { handleOpenModal: handleOpenModifyMemoModal } = useModalControl(
+    "MODIFY_MEMO_MODAL",
+    memo,
+  );
 
-  // 메모 삭제
-  const handleClickDeleteMemo = () => {
+  // 메모 수정 버튼 클릭
+  const handleClickModifyBtn = () => {
+    handleOpenModifyMemoModal();
+    setIsOpen(false);
+  };
+
+  // 메모 삭제 버튼 클릭
+  const handleClickDeleteBtn = () => {
     handleOpenModal();
+    setIsOpen(false);
   };
 
   return (
@@ -67,13 +78,16 @@ export default function MemoItem({ memo }: { memo: MemoType }) {
           className="overflow-y-auto bg-white p-4"
           style={{ height: "calc(100% - 40px)" }}
         >
-          <button className="px-[2.3rem] py-[1.1rem] text-[16px] font-medium">
+          <button
+            className="px-[2.3rem] py-[1.1rem] text-[16px] font-medium"
+            onClick={handleClickModifyBtn}
+          >
             수정하기
           </button>
           <hr />
           <button
             className="px-[2.3rem] py-[1.1rem] text-[16px] font-medium text-gray-400"
-            onClick={handleClickDeleteMemo}
+            onClick={handleClickDeleteBtn}
           >
             삭제하기
           </button>
