@@ -24,7 +24,7 @@ export default function FoodListPage() {
     if (refrigeratorId) {
       fetchFoodList();
     }
-  }, [userInfo]);
+  }, [userInfo, refrigeratorId]);
 
   return (
     <main className="flex h-full flex-col px-[1.3rem]">

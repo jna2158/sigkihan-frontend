@@ -83,3 +83,10 @@ export const eatFood = (
     data,
   );
 };
+
+// 냉장고 초대 코드 생성
+export const generateInviteCode = (refrigeratorId: number) => {
+  return axios.post(
+    `${REFRIGERATOR_ENDPOINTS.GENERATE_INVITE_CODE}/${refrigeratorId}/invitations`,
+  );
+};

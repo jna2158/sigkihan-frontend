@@ -9,6 +9,7 @@ export const useFoodData = () => {
 
   // 음식 리스트 조회
   const fetchFoodList = async () => {
+    console.log("fetchFoodList", userInfo);
     if (!userInfo) return;
 
     try {

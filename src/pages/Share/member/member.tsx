@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { getRefrigeratorInfo } from "../../../services/refrigeService";
 import { useEffect } from "react";
-
+import { generateInviteCode } from "../../../services/refrigeService";
 interface Member {
   id: number;
   name: string;
@@ -20,34 +20,58 @@ export default function Member() {
   const [members, setMembers] = useState<Member[]>([]);
   const [isEditMode, setIsEditMode] = useState(false);
 
+  // 친구 초대 코드 생성
+  const generateCode = async () => {
+    await generateInviteCode(refrigeratorId).then((res) => {
+      return res.data.invitation_code;
+    });
+  };
+
   // 친구 초대 버튼 클릭
-  const clickInviteBtn = () => {
+  const clickInviteBtn = async () => {
+    console.log("초대 버튼 클릭", process.env.REACT_APP_HOME_URL);
     if (!window.Kakao?.isInitialized()) {
       window.Kakao?.init(process.env.REACT_APP_KAKAO_JS_SDK_KEY);
     }
+    try {
+      await sendKakaoMessage();
+      generateCode();
+      alert("초대가 완료되었어요");
+    } catch (error) {
+      console.error("메시지 전송 실패", error);
+    }
+  };
 
-    // 카카오톡 공유하기
-    window.Kakao?.Share.sendDefault({
-      objectType: "feed",
-      content: {
-        title: `${"냉부심"}님의 냉장고 공유 초대`,
-        description: "우리 냉장고를 함께 관리해보세요!",
-        imageUrl: thumbnail,
-        link: {
-          mobileWebUrl: window.location.href,
-          webUrl: window.location.href,
-        },
-      },
-      buttons: [
-        {
-          title: "냉장고 구경하기",
-          link: {
-            mobileWebUrl: window.location.href,
-            webUrl: window.location.href,
+  // 카카오톡 공유하기
+  const sendKakaoMessage = () => {
+    return new Promise((resolve, reject) => {
+      try {
+        window.Kakao?.Share.sendDefault({
+          objectType: "feed",
+          content: {
+            title: `${userInfo?.name}님의 냉장고 공유 초대`,
+            description: "우리 냉장고를 함께 관리해보세요!",
+            imageUrl: thumbnail,
+            link: {
+              mobileWebUrl: process.env.REACT_APP_HOME_URL,
+              webUrl: process.env.REACT_APP_HOME_URL,
+            },
           },
-        },
-      ],
-      installTalk: true,
+          buttons: [
+            {
+              title: "냉장고 구경하기",
+              link: {
+                mobileWebUrl: process.env.REACT_APP_HOME_URL,
+                webUrl: process.env.REACT_APP_HOME_URL,
+              },
+            },
+          ],
+          installTalk: true,
+        });
+        return resolve(true);
+      } catch (error) {
+        return reject(error);
+      }
     });
   };
 
