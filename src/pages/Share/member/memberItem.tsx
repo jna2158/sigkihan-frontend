@@ -2,18 +2,13 @@ import checkBadge from "../../../assets/badge-check.png";
 import minusBadge from "../../../assets/badge-minus.png";
 import { PROFILE_IMAGES } from "../../../shared/constants/profileImages";
 import { useModalControl } from "../../../hooks/useModalControl";
-
-type Member = {
-  id: number;
-  name: string;
-  image: string;
-};
+import { MemberType } from "../../../types/Member";
 
 export default function MemberItem({
   member,
   isEditMode,
 }: {
-  member: Member;
+  member: MemberType;
   isEditMode: boolean;
 }) {
   const { handleOpenModal } = useModalControl("MEMBER_MINUS_MODAL", {
@@ -24,15 +19,15 @@ export default function MemberItem({
   };
 
   // 프로필 이미지
-  // const profileImage = PROFILE_IMAGES.find(
-  //   (profile) => profile.image === member.image,
-  // )?.url;
+  const profileImage = PROFILE_IMAGES.find(
+    (profile) => profile.image === member.profile_image_id,
+  )?.url;
 
   return (
     <div className="flex h-[5.2rem] min-w-[5.2rem] flex-col items-center gap-[1.2rem]">
       <div className="relative">
         <img
-          src={member.image}
+          src={profileImage}
           alt="프로필"
           className={`h-[5.3rem] w-[5.3rem] rounded-full ${
             member.name === "owner"

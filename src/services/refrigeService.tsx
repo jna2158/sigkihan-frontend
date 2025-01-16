@@ -21,12 +21,14 @@ interface RefrigeratorInfoResponse {
     owner: {
       id: number;
       name: string;
-      image: string;
+      profile_image: string;
+      profile_image_id: number;
     };
     member: {
       id: number;
       name: string;
-      image: string;
+      profile_image: string;
+      profile_image_id: number;
     }[];
   };
 }

@@ -8,16 +8,11 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { getRefrigeratorInfo } from "../../../services/refrigeService";
 import { useEffect } from "react";
 import { generateInviteCode } from "../../../services/refrigeService";
-interface Member {
-  id: number;
-  name: string;
-  image: string;
-}
-[];
+import { MemberType } from "../../../types/Member";
 
 export default function Member() {
   const { userInfo, refrigeratorId } = useUser();
-  const [members, setMembers] = useState<Member[]>([]);
+  const [members, setMembers] = useState<MemberType[]>([]);
   const [isEditMode, setIsEditMode] = useState(false);
 
   // 친구 초대 코드 생성
