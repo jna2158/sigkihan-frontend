@@ -49,18 +49,21 @@ export const getDefaultFoodList = (): Promise<DefaultFoodListResponse> => {
 };
 
 // 냉장고에 음식 추가
-export const addFoodList = (id: number, data: any) => {
-  return axios.post(`${REFRIGERATOR_ENDPOINTS.ADD_FOOD}/${id}/foods`, data);
+export const addFoodList = (refrigerator_id: number, data: any) => {
+  return axios.post(
+    `${REFRIGERATOR_ENDPOINTS.ADD_FOOD}/${refrigerator_id}/foods`,
+    data,
+  );
 };
 
 // 냉장고 음식 수정
 export const modifyFoodList = (
-  refrigeratorId: number,
+  refrigerator_id: number,
   foodId: number,
   data: any,
 ) => {
   return axios.patch(
-    `${REFRIGERATOR_ENDPOINTS.MODIFY_FOOD}/${refrigeratorId}/foods/${foodId}`,
+    `${REFRIGERATOR_ENDPOINTS.MODIFY_FOOD}/${refrigerator_id}/foods/${foodId}`,
     data,
   );
 };

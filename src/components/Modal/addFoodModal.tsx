@@ -44,6 +44,7 @@ export default function AddFoodModal({ data }: { data: Food }) {
       refrigerator_id: userInfo.refrigerator_id,
       default_food_id: data.id,
       name: formData.name,
+      storage_type: "refrigerated",
       purchase_date: formData.purchase_date,
       expiration_date: formData.expiration_date,
       quantity: Number(formData.quantity),
