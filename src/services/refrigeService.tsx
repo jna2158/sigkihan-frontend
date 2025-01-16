@@ -39,8 +39,12 @@ export const getRefrigeratorInfo = (
 };
 
 // 특정 냉장고 음식 리스트 조회
-export const getFoodList = (id: number): Promise<FoodListResponse> => {
-  return axios.get(`${REFRIGERATOR_ENDPOINTS.GET_FOOD_LIST}/${id}/foods`);
+export const getFoodList = (
+  refrigerator_id: number,
+): Promise<FoodListResponse> => {
+  return axios.get(
+    `${REFRIGERATOR_ENDPOINTS.GET_FOOD_LIST}/${refrigerator_id}/foods`,
+  );
 };
 
 // 기본으로 제공하는 디폴트 음식 조회
