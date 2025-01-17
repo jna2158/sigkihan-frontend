@@ -9,7 +9,8 @@ import { useFoodData } from "../../hooks/useFoodData";
 import { useModalControl } from "../../hooks/useModalControl";
 import { usePopupNotification } from "../../hooks/usePopupNotification";
 import { useUser } from "../../hooks/useUserInfo";
-
+import { useState } from "react";
+import InvitePopup from "../Share/invitePopup";
 export default function FoodListPage() {
   const { userInfo, refrigeratorId } = useUser();
   const { foodItems, fetchFoodList } = useFoodData();
@@ -19,10 +20,35 @@ export default function FoodListPage() {
   const { isOpen, handleCloseModal } = useModalControl(
     "FOOD_BOTTOM_SHEET_MODAL",
   );
+  const [invitationCode, setInvitationCode] = useState("");
+  const [invitationUsername, setInvitationUsername] = useState("");
+
+  // 초대 받은 목록이 있는지 확인
+  const checkHasInvite = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+    const username = urlParams.get("username");
+    if (code && username) {
+      setInvitationCode(code);
+      setInvitationUsername(username);
+      return true;
+    }
+    return false;
+  };
+
+  const { handleOpenModal } = useModalControl("INVITE_POPUP", {
+    invitationCode,
+    invitationUsername,
+  });
 
   useEffect(() => {
     if (refrigeratorId) {
       fetchFoodList();
+    }
+
+    const hasInvite = checkHasInvite();
+    if (hasInvite && invitationCode && invitationUsername) {
+      handleOpenModal();
     }
   }, [userInfo, refrigeratorId]);
 

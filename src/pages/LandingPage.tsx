@@ -11,8 +11,20 @@ export default function LandingPage() {
     const refreshToken = localStorage.getItem("refresh");
 
     if (accessToken && refreshToken) {
-      navigate("/welcome");
+      const savedPath = sessionStorage.getItem("redirectPath");
+      navigate(savedPath || "/welcome");
       return;
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    console.log("urlParams", urlParams);
+    const code = urlParams.get("code");
+    const username = urlParams.get("username");
+    if (code && username) {
+      sessionStorage.setItem(
+        "redirectPath",
+        `/foodlist?code=${code}&username=${username}`,
+      );
     }
 
     const handlePageShow = (e: PageTransitionEvent) => {

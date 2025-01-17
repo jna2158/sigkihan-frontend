@@ -23,6 +23,7 @@ export const REFRIGERATOR_ENDPOINTS = {
   DELETE_FOOD: "/api/refrigerators",
   EAT_FOOD: "/api/refrigerators",
   GENERATE_INVITE_CODE: "/api/refrigerators",
+  CHANGE_INVITE_STATUS: "/api/refrigerators",
 };
 
 // 알림

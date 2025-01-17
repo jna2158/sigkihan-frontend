@@ -99,3 +99,14 @@ export const generateInviteCode = (refrigeratorId: number) => {
     `${REFRIGERATOR_ENDPOINTS.GENERATE_INVITE_CODE}/${refrigeratorId}/invitations`,
   );
 };
+
+// 냉장고 초대 코드 수락/거절
+export const changeInviteStatus = (
+  invitation_code: string,
+  status: "accepted" | "declined",
+) => {
+  return axios.post(
+    `${REFRIGERATOR_ENDPOINTS.CHANGE_INVITE_STATUS}/invitations/${invitation_code}`,
+    { status },
+  );
+};

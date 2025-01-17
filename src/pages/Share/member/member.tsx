@@ -17,28 +17,25 @@ export default function Member() {
 
   // 친구 초대 코드 생성
   const generateCode = async () => {
-    await generateInviteCode(refrigeratorId).then((res) => {
-      return res.data.invitation_code;
-    });
+    const res = await generateInviteCode(refrigeratorId);
+    return res.data.invitation_code;
   };
 
   // 친구 초대 버튼 클릭
   const clickInviteBtn = async () => {
-    console.log("초대 버튼 클릭", process.env.REACT_APP_HOME_URL);
     if (!window.Kakao?.isInitialized()) {
       window.Kakao?.init(process.env.REACT_APP_KAKAO_JS_SDK_KEY);
     }
     try {
-      await sendKakaoMessage();
-      generateCode();
-      alert("초대가 완료되었어요");
+      const code = await generateCode();
+      await sendKakaoMessage(code);
     } catch (error) {
       console.error("메시지 전송 실패", error);
     }
   };
 
   // 카카오톡 공유하기
-  const sendKakaoMessage = () => {
+  const sendKakaoMessage = (code: string) => {
     return new Promise((resolve, reject) => {
       try {
         window.Kakao?.Share.sendDefault({
@@ -56,8 +53,8 @@ export default function Member() {
             {
               title: "냉장고 구경하기",
               link: {
-                mobileWebUrl: process.env.REACT_APP_HOME_URL,
-                webUrl: process.env.REACT_APP_HOME_URL,
+                mobileWebUrl: `${process.env.REACT_APP_HOME_URL}/foodlist?code=${code}&username=${userInfo?.name}`,
+                webUrl: `${process.env.REACT_APP_HOME_URL}/foodlist?code=${code}&username=${userInfo?.name}`,
               },
             },
           ],

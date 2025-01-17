@@ -12,6 +12,7 @@ import MemberMinusModal from "./memberMinusModal";
 import AddMemoModal from "../../../pages/Share/memo/components/addMemoModal";
 import DeleteMemoModal from "../../../pages/Share/memo/components/deleteMemoModal";
 import ModifyMemoModal from "../../../pages/Share/memo/components/modifyMemoModal";
+import InvitePopup from "../../../pages/Share/invitePopup";
 
 const MODAL_COMPONENTS = {
   ADD_FOOD_MODAL: AddFoodModal,
@@ -27,6 +28,7 @@ const MODAL_COMPONENTS = {
   ADD_MEMO_MODAL: AddMemoModal,
   DELETE_MEMO_MODAL: DeleteMemoModal,
   MODIFY_MEMO_MODAL: ModifyMemoModal,
+  INVITE_POPUP: InvitePopup,
 };
 
 export default function ModalContainer() {
