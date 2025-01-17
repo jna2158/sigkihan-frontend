@@ -12,7 +12,12 @@ export default function LandingPage() {
 
     if (accessToken && refreshToken) {
       const savedPath = sessionStorage.getItem("redirectPath");
-      navigate(savedPath || "/welcome");
+      if (savedPath) {
+        sessionStorage.removeItem("redirectPath");
+        navigate(savedPath);
+      } else {
+        navigate("/welcome");
+      }
       return;
     }
 
