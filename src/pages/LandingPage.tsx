@@ -12,15 +12,7 @@ export default function LandingPage() {
 
     // 로그인 된 상태면 welcome 페이지로 이동
     if (accessToken && refreshToken) {
-      const code = sessionStorage.getItem("code");
-      const username = sessionStorage.getItem("username");
-      if (code && username) {
-        sessionStorage.removeItem("code");
-        sessionStorage.removeItem("username");
-        navigate(`/welcome?code=${code}&username=${username}`);
-      } else {
-        navigate("/welcome");
-      }
+      navigate("/welcome");
       return;
     }
 

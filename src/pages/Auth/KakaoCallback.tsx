@@ -15,6 +15,7 @@ const KakaoCallback = () => {
         localStorage.setItem("access", data.access);
         localStorage.setItem("refresh", data.refresh);
         localStorage.setItem("user", JSON.stringify(data.user));
+
         setUserInfo({
           id: data.user.id,
           email: data.user.email,
@@ -25,7 +26,16 @@ const KakaoCallback = () => {
           },
           refrigerator_id: data.user.refrigerator_id,
         });
-        navigate("/welcome");
+
+        const code = sessionStorage.getItem("code");
+        const username = sessionStorage.getItem("username");
+        if (code && username) {
+          sessionStorage.removeItem("code");
+          sessionStorage.removeItem("username");
+          navigate(`/welcome?code=${code}&username=${username}`);
+        } else {
+          navigate("/welcome");
+        }
       } catch (err) {
         console.error(err);
         navigate("/");
