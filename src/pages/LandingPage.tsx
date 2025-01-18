@@ -12,19 +12,15 @@ export default function LandingPage() {
 
     // 로그인 된 상태면 welcome 페이지로 이동
     if (accessToken && refreshToken) {
-      navigate("/welcome");
-      return;
-    }
-
-    console.log("로그인 안됨");
-    console.log("inviteCode", localStorage.getItem("inviteCode"));
-    // 초대 받은 목록이 있으면 foodlist 페이지로 이동
-    const inviteCode = localStorage.getItem("code");
-    const inviteUsername = localStorage.getItem("username");
-    if (inviteCode && inviteUsername) {
-      localStorage.removeItem("code");
-      localStorage.removeItem("username");
-      navigate(`/foodlist?code=${inviteCode}&username=${inviteUsername}`);
+      const code = sessionStorage.getItem("code");
+      const username = sessionStorage.getItem("username");
+      if (code && username) {
+        sessionStorage.removeItem("code");
+        sessionStorage.removeItem("username");
+        navigate(`/welcome?code=${code}&username=${username}`);
+      } else {
+        navigate("/welcome");
+      }
       return;
     }
 

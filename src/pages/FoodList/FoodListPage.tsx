@@ -57,9 +57,8 @@ export default function FoodListPage() {
     const code = urlParams.get("code");
     const username = urlParams.get("username");
     if (code && username) {
-      console.log("useEffect", code, username);
-      localStorage.setItem("code", code);
-      localStorage.setItem("username", username);
+      sessionStorage.setItem("code", code);
+      sessionStorage.setItem("username", username);
     }
   }, [window.location.search]);
 
