@@ -13,7 +13,6 @@ export default function LandingPage() {
     // 로그인 된 상태면 welcome 페이지로 이동
     if (accessToken && refreshToken) {
       navigate("/welcome");
-      sessionStorage.clear();
       return;
     }
 

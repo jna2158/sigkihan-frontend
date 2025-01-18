@@ -11,11 +11,12 @@ export default function InvitePopup({
   const handleClickAcceptBtn = () => {
     changeInviteStatus(data.invitationCode, "accepted");
     handleCloseModal();
-    window.location.href = "/";
+    window.location.href = "/foodlist";
   };
 
   const handleClickDeclineBtn = () => {
     changeInviteStatus(data.invitationCode, "declined");
+    handleCloseModal();
   };
 
   return (

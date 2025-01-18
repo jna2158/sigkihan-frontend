@@ -49,6 +49,7 @@ export default function FoodListPage() {
     const hasInvite = checkHasInvite();
     if (hasInvite && invitationCode && invitationUsername) {
       handleOpenModal();
+      sessionStorage.clear();
     }
   }, [userInfo, refrigeratorId]);
 
