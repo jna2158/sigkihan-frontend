@@ -4,12 +4,19 @@ import { useUser } from "../../../../hooks/useUserInfo";
 import { useState } from "react";
 import useMemoStore from "../../../../store/useMemoStore";
 import { createMemo } from "../../../../services/memoService";
+import { PROFILE_IMAGES } from "../../../../shared/constants/profileImages";
 
 export default function AddMemoModal() {
   const { handleCloseModal } = useModalControl("ADD_MEMO_MODAL");
   const { userInfo, refrigeratorId } = useUser();
   const { memoList, setMemoList } = useMemoStore();
   const [memoContent, setMemoContent] = useState("");
+
+  const userProfileImage =
+    PROFILE_IMAGES.find(
+      (profile) => profile.image === userInfo?.profileImage.image,
+    )?.url || defaultProfile;
+
   const handleClickConfirmBtn = async () => {
     handleCloseModal();
     await createMemo(refrigeratorId, memoContent).then((res) => {
@@ -29,7 +36,7 @@ export default function AddMemoModal() {
       >
         <div className="flex items-center">
           <img
-            src={defaultProfile}
+            src={userProfileImage}
             alt="프로필"
             className="mr-4 h-[2.3rem] w-[2.3rem]"
           />

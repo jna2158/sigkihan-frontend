@@ -5,12 +5,18 @@ import { useState } from "react";
 import useMemoStore from "../../../../store/useMemoStore";
 import { updateMemo } from "../../../../services/memoService";
 import { Memo } from "../../../../types/Memo";
+import { PROFILE_IMAGES } from "../../../../shared/constants/profileImages";
 
 export default function ModifyMemoModal({ data }: { data: Memo }) {
   const { handleCloseModal } = useModalControl("MODIFY_MEMO_MODAL");
   const { userInfo, refrigeratorId } = useUser();
   const { memoList, updateMemoItem } = useMemoStore();
   const [memoContent, setMemoContent] = useState(data.content);
+
+  const userProfileImage =
+    PROFILE_IMAGES.find(
+      (profile) => profile.image === userInfo?.profileImage.image,
+    )?.url || defaultProfile;
 
   const handleClickConfirmBtn = async () => {
     handleCloseModal();
@@ -31,7 +37,7 @@ export default function ModifyMemoModal({ data }: { data: Memo }) {
       >
         <div className="flex items-center">
           <img
-            src={defaultProfile}
+            src={userProfileImage}
             alt="프로필"
             className="mr-4 h-[2.3rem] w-[2.3rem]"
           />
