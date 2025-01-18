@@ -52,6 +52,17 @@ export default function FoodListPage() {
     }
   }, [userInfo, refrigeratorId]);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+    const username = urlParams.get("username");
+    if (code && username) {
+      console.log("useEffect", code, username);
+      localStorage.setItem("code", code);
+      localStorage.setItem("username", username);
+    }
+  }, [window.location.search]);
+
   return (
     <main className="flex h-full flex-col px-[1.3rem]">
       <header>

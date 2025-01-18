@@ -10,26 +10,22 @@ export default function LandingPage() {
     const accessToken = localStorage.getItem("access");
     const refreshToken = localStorage.getItem("refresh");
 
+    // 로그인 된 상태면 welcome 페이지로 이동
     if (accessToken && refreshToken) {
-      const savedPath = sessionStorage.getItem("redirectPath");
-      if (savedPath) {
-        sessionStorage.removeItem("redirectPath");
-        navigate(savedPath);
-      } else {
-        navigate("/welcome");
-      }
+      navigate("/welcome");
       return;
     }
 
-    const urlParams = new URLSearchParams(window.location.search);
-    console.log("urlParams", urlParams);
-    const code = urlParams.get("code");
-    const username = urlParams.get("username");
-    if (code && username) {
-      sessionStorage.setItem(
-        "redirectPath",
-        `/foodlist?code=${code}&username=${username}`,
-      );
+    console.log("로그인 안됨");
+    console.log("inviteCode", localStorage.getItem("inviteCode"));
+    // 초대 받은 목록이 있으면 foodlist 페이지로 이동
+    const inviteCode = localStorage.getItem("code");
+    const inviteUsername = localStorage.getItem("username");
+    if (inviteCode && inviteUsername) {
+      localStorage.removeItem("code");
+      localStorage.removeItem("username");
+      navigate(`/foodlist?code=${inviteCode}&username=${inviteUsername}`);
+      return;
     }
 
     const handlePageShow = (e: PageTransitionEvent) => {
@@ -43,7 +39,7 @@ export default function LandingPage() {
     return () => {
       window.removeEventListener("pageshow", handlePageShow);
     };
-  }, [navigate]);
+  }, [navigate, window.location.search]);
 
   return (
     <main
