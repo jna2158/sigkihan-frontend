@@ -11,7 +11,6 @@ export default function DeleteMemoModal(data: { data: Memo }) {
 
   // 메모 삭제
   const handleDeleteBtn = async () => {
-    console.log(data);
     if (!data.data.id || !refrigeratorId) return;
 
     try {

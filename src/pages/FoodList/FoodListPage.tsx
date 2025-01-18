@@ -42,10 +42,6 @@ export default function FoodListPage() {
   });
 
   useEffect(() => {
-    if (refrigeratorId) {
-      fetchFoodList();
-    }
-
     const hasInvite = checkHasInvite();
     if (hasInvite && invitationCode && invitationUsername) {
       handleOpenModal();

@@ -3,7 +3,7 @@ import useUserStore from "../store/useUserStore";
 import { User } from "../types/User";
 
 export const useUser = () => {
-  const { userInfo } = useUserStore.getState();
+  const { userInfo, updateUser } = useUserStore.getState();
   const [refrigeratorId, setRefrigeratorId] = useState<number>(0);
 
   useEffect(() => {
@@ -23,6 +23,8 @@ export const useUser = () => {
   return {
     userInfo,
     refrigeratorId,
+    setRefrigeratorId,
+    updateUser,
     isUserAuthenticated,
     hasRefrigerator,
   };

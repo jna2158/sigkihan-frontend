@@ -23,6 +23,7 @@ export default function AddFoodModal({ data }: { data: Food }) {
     purchase_date: new Date().toISOString().split("T")[0],
     expiration_date: "",
   });
+  const { refrigeratorId } = useUser();
 
   const handleFormChange = (field: keyof FoodForm, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -41,7 +42,7 @@ export default function AddFoodModal({ data }: { data: Food }) {
     if (!userInfo) return;
 
     const food = {
-      refrigerator_id: userInfo.refrigerator_id,
+      refrigerator_id: refrigeratorId,
       default_food_id: data.id,
       name: formData.name,
       storage_type: "refrigerated",
@@ -51,7 +52,7 @@ export default function AddFoodModal({ data }: { data: Food }) {
     };
 
     try {
-      await addFoodList(userInfo.refrigerator_id, food);
+      await addFoodList(refrigeratorId, food);
       fetchFoodList();
       handleCloseAddFoodModal();
       handleCloseBottomSheetModal();
