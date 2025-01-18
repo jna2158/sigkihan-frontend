@@ -32,7 +32,7 @@ const KakaoCallback = () => {
         if (code && username) {
           sessionStorage.removeItem("code");
           sessionStorage.removeItem("username");
-          navigate(`/welcome?code=${code}&username=${username}`);
+          navigate(`/foodlist?code=${code}&username=${username}`);
         } else {
           navigate("/welcome");
         }
