@@ -38,8 +38,7 @@ export default function SelectDiscardCountModal({ data }: { data: Food }) {
   };
 
   return (
-    <dialog
-      open
+    <section
       className="center overlay z-[70]"
       aria-labelledby="discard-modal-title"
       aria-describedby="discard-modal-description"
@@ -95,6 +94,6 @@ export default function SelectDiscardCountModal({ data }: { data: Food }) {
           </button>
         </footer>
       </div>
-    </dialog>
+    </section>
   );
 }
