@@ -11,6 +11,7 @@ export default function MemberItem({
   member: MemberType;
   isEditMode: boolean;
 }) {
+  console.log(member);
   const { handleOpenModal } = useModalControl("MEMBER_MINUS_MODAL", {
     name: member.name,
   });
@@ -35,7 +36,7 @@ export default function MemberItem({
               : ""
           }`}
         />
-        {member.name === "owner" && (
+        {member.role === "owner" && (
           <img
             src={checkBadge}
             alt="인증 뱃지"

@@ -71,7 +71,12 @@ export default function Member() {
   useEffect(() => {
     if (refrigeratorId) {
       getRefrigeratorInfo(refrigeratorId).then((res) => {
-        setMembers([res.data.owner, ...res.data.member]);
+        const owner = { ...res.data.owner, role: "owner" };
+        const members = res.data.member.map((member) => ({
+          ...member,
+          role: "member",
+        }));
+        setMembers([owner, ...members]);
       });
     }
   }, [refrigeratorId]);
