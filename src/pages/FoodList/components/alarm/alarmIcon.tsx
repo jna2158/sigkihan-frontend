@@ -10,23 +10,30 @@ import { useModalControl } from "../../../../hooks/useModalControl";
 
 export default function AlarmIcon() {
   const [notificationList, setNotificationList] = useState<Notification[]>([]);
-  const { handleOpenModal } = useModalControl("ALARM_DRAWER", notificationList);
+  const { handleOpenModal } = useModalControl("ALARM_DRAWER", {
+    data: notificationList,
+  });
+  const { isOpen: isDrawerOpen } = useModalControl("ALARM_DRAWER");
   const { refrigeratorId } = useUser();
 
+  // 알림센터 목록 조회
   useEffect(() => {
-    const handleNotifications = (notifications: Notification[]) => {
-      setNotificationList(notifications);
-    };
-
-    notificationManager.subscribe(handleNotifications);
-    if (refrigeratorId) {
-      notificationManager.fetchNotificationCenterList(refrigeratorId);
-    }
-
-    return () => {
-      notificationManager.unsubscribe(handleNotifications);
-    };
+    fetchNotifications();
   }, [refrigeratorId]);
+
+  useEffect(() => {
+    if (isDrawerOpen) {
+      fetchNotifications();
+    }
+  }, [isDrawerOpen]);
+
+  const fetchNotifications = async () => {
+    if (refrigeratorId) {
+      const notifications =
+        await notificationManager.fetchNotificationCenterList(refrigeratorId);
+      setNotificationList(notifications);
+    }
+  };
 
   return (
     <div className="relative cursor-pointer">

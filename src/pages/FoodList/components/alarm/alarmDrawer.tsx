@@ -24,7 +24,10 @@ export default function AlarmDrawer({ data }: any) {
 
   // 알림센터 알림 읽음 처리
   const setAlarmListRead = async () => {
-    if (refrigeratorId && data.some((food: Notification) => !food.is_read)) {
+    if (
+      refrigeratorId &&
+      data.data.some((food: Notification) => !food.is_read)
+    ) {
       try {
         await notificationManager.notificationCenterMarkAsRead(refrigeratorId);
       } catch (error) {
@@ -51,7 +54,7 @@ export default function AlarmDrawer({ data }: any) {
       >
         <ModalCloseBtn handleCloseModal={handleClose} />
 
-        {data && data.length === 0 ? (
+        {data && data.data.length === 0 ? (
           <div className="flex h-[calc(100%-4rem)] flex-col items-center justify-center px-6">
             <div className="center mb-4 h-24 w-24 rounded-full bg-gray-50">
               <FontAwesomeIcon
@@ -70,7 +73,7 @@ export default function AlarmDrawer({ data }: any) {
           </div>
         ) : (
           data &&
-          data.map((item: Notification) => (
+          data.data.map((item: Notification) => (
             <AlarmItem key={item.id} item={item} />
           ))
         )}

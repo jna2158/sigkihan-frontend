@@ -14,6 +14,8 @@ export default function Member() {
   const { userInfo, refrigeratorId } = useUser();
   const [members, setMembers] = useState<MemberType[]>([]);
   const [isEditMode, setIsEditMode] = useState(false);
+  const currentUser =
+    members.find((member) => member.id === userInfo?.id) || null;
 
   // 친구 초대 코드 생성
   const generateCode = async () => {
@@ -86,7 +88,12 @@ export default function Member() {
       <Header isEditMode={isEditMode} setIsEditMode={setIsEditMode} />
       <div className="flex h-[8rem] gap-[1.1rem] overflow-x-auto">
         {members.map((member) => (
-          <MemberItem key={member.id} member={member} isEditMode={isEditMode} />
+          <MemberItem
+            key={member.id}
+            member={member}
+            isEditMode={isEditMode}
+            currentUser={currentUser}
+          />
         ))}
         <div
           onClick={clickInviteBtn}

@@ -3,18 +3,26 @@ import minusBadge from "../../../assets/badge-minus.png";
 import { PROFILE_IMAGES } from "../../../shared/constants/profileImages";
 import { useModalControl } from "../../../hooks/useModalControl";
 import { MemberType } from "../../../types/Member";
+import ConfirmCancelModal from "../../../components/common/modal/confirmCancelModal";
 
 export default function MemberItem({
   member,
   isEditMode,
+  currentUser,
 }: {
   member: MemberType;
   isEditMode: boolean;
+  currentUser: MemberType | null;
 }) {
-  console.log(member);
   const { handleOpenModal } = useModalControl("MEMBER_MINUS_MODAL", {
     name: member.name,
   });
+  const { handleOpenModal: handleOpenGetOutSelfModal } = useModalControl(
+    "GET_OUT_SELF_MODAL",
+    {
+      name: member.name,
+    },
+  );
   const handleClickMinusBadge = () => {
     handleOpenModal();
   };
@@ -31,7 +39,7 @@ export default function MemberItem({
           src={profileImage}
           alt="프로필"
           className={`h-[5.3rem] w-[5.3rem] rounded-full ${
-            member.name === "owner"
+            member.name === currentUser?.name
               ? "border-4 border-white shadow-[0_2px_3px_rgba(0,0,0,0.25)]"
               : ""
           }`}

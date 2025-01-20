@@ -4,7 +4,9 @@ import { User } from "../types/User";
 
 export const useUser = () => {
   const { userInfo, updateUser } = useUserStore.getState();
-  const [refrigeratorId, setRefrigeratorId] = useState<number>(0);
+  const [refrigeratorId, setRefrigeratorId] = useState<number>(
+    userInfo?.refrigerator_id || 0,
+  );
 
   useEffect(() => {
     if (userInfo?.refrigerator_id) {

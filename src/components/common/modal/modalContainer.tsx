@@ -13,6 +13,7 @@ import AddMemoModal from "../../../pages/Share/memo/components/addMemoModal";
 import DeleteMemoModal from "../../../pages/Share/memo/components/deleteMemoModal";
 import ModifyMemoModal from "../../../pages/Share/memo/components/modifyMemoModal";
 import InvitePopup from "../../../pages/Share/invitePopup";
+import GetOutSelfModal from "../../../pages/Share/member/components/getOutSelfModal";
 
 const MODAL_COMPONENTS = {
   ADD_FOOD_MODAL: AddFoodModal,
@@ -29,6 +30,7 @@ const MODAL_COMPONENTS = {
   DELETE_MEMO_MODAL: DeleteMemoModal,
   MODIFY_MEMO_MODAL: ModifyMemoModal,
   INVITE_POPUP: InvitePopup,
+  GET_OUT_SELF_MODAL: GetOutSelfModal,
 };
 
 export default function ModalContainer() {
