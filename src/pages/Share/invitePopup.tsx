@@ -8,18 +8,17 @@ export default function InvitePopup({
   data: { invitationCode: string; invitationUsername: string };
 }) {
   const { handleCloseModal } = useModalControl("INVITE_POPUP");
-  const [message, setMessage] = useState("");
 
   const handleClickAcceptBtn = () => {
-    setMessage("accept요청 보냄");
+    console.log("accept요청 보냄");
     changeInviteStatus(data.invitationCode, "accepted")
       .then((res) => {
-        setMessage(`accept요청 성공 ${res.status}`);
-        // handleCloseModal();
-        // window.location.href = "/foodlist";
+        console.log("accept요청 성공", res.status);
+        handleCloseModal();
+        window.location.href = "/foodlist";
       })
       .catch((err) => {
-        setMessage(`accept요청 실패 ${err}`);
+        console.log(err);
       });
   };
 
