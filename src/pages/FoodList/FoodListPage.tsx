@@ -44,12 +44,14 @@ export default function FoodListPage() {
 
   useEffect(() => {
     const hasInvite = checkHasInvite();
-    console.log("hasInvite", hasInvite, invitationCode, invitationUsername);
+    console.log("hasInvite", hasInvite);
+    console.log("invitationCode", invitationCode);
+    console.log("invitationUsername", invitationUsername);
     if (hasInvite && invitationCode && invitationUsername) {
       handleOpenModal();
       sessionStorage.clear();
     }
-  }, [userInfo, refrigeratorId]);
+  }, [userInfo, refrigeratorId, invitationCode, invitationUsername]);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
