@@ -19,6 +19,8 @@ export default function InvitePopup({
       })
       .catch((err) => {
         console.log(err);
+        handleCloseModal();
+        window.location.href = "/foodlist";
       });
   };
 
