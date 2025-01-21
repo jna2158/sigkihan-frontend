@@ -20,13 +20,14 @@ export default function InvitePopup({
       .catch((err) => {
         console.log(err);
         handleCloseModal();
-        window.location.href = "/foodlist";
       });
+    window.location.href = "/foodlist";
   };
 
   const handleClickDeclineBtn = () => {
     changeInviteStatus(data.invitationCode, "declined");
     handleCloseModal();
+    window.location.href = "/foodlist";
   };
 
   return (
