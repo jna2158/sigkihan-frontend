@@ -1,6 +1,5 @@
 import { changeInviteStatus } from "../../services/refrigeService";
 import { useModalControl } from "../../hooks/useModalControl";
-import { useState } from "react";
 
 export default function InvitePopup({
   data,

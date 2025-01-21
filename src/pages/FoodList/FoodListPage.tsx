@@ -10,7 +10,7 @@ import { useModalControl } from "../../hooks/useModalControl";
 import { usePopupNotification } from "../../hooks/usePopupNotification";
 import { useUser } from "../../hooks/useUserInfo";
 import { useState } from "react";
-import InvitePopup from "../Share/invitePopup";
+
 export default function FoodListPage() {
   const { userInfo, refrigeratorId } = useUser();
   const { foodItems, fetchFoodList } = useFoodData();
@@ -27,7 +27,6 @@ export default function FoodListPage() {
   const checkHasInvite = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
-    console.log("urlParams", urlParams);
     const username = urlParams.get("username");
     if (code && username) {
       setInvitationCode(code);
@@ -44,9 +43,6 @@ export default function FoodListPage() {
 
   useEffect(() => {
     const hasInvite = checkHasInvite();
-    console.log("hasInvite", hasInvite);
-    console.log("invitationCode", invitationCode);
-    console.log("invitationUsername", invitationUsername);
     if (hasInvite && invitationCode && invitationUsername) {
       handleOpenModal();
       sessionStorage.clear();

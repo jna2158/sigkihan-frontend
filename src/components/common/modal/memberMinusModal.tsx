@@ -12,11 +12,10 @@ export default function MemberMinusModal({
 }) {
   const { handleCloseModal } = useModalControl("MEMBER_MINUS_MODAL");
   const { refrigeratorId } = useUser();
-  const navigate = useNavigate();
 
   // 냉장고 멤버 추방
   const handleDeleteBtn = async () => {
-    getOutMember(refrigeratorId, data.member.id).then(() => {
+    await getOutMember(refrigeratorId, data.member.id).then(() => {
       handleCloseModal();
       window.location.reload();
     });
