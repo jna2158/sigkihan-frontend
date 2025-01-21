@@ -109,18 +109,7 @@ export default function Member() {
             isRefrigeratorOwner={isRefrigeratorOwner}
           />
         ))}
-        <MemberItem
-          member={{
-            id: 10,
-            name: "초대",
-            profile_image_id: 3,
-            role: "member",
-            profile_image: "",
-          }}
-          isEditMode={isEditMode}
-          currentUser={currentUser}
-          isRefrigeratorOwner={isRefrigeratorOwner}
-        />
+
         <div
           onClick={clickInviteBtn}
           className="center h-[5.2rem] w-[5.2rem] min-w-[5.2rem] cursor-pointer rounded-full bg-gray-100"
