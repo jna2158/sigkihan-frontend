@@ -44,7 +44,7 @@ export default function FoodListPage() {
 
   useEffect(() => {
     const hasInvite = checkHasInvite();
-    console.log("hasInvite", hasInvite);
+    console.log("hasInvite", hasInvite, invitationCode, invitationUsername);
     if (hasInvite && invitationCode && invitationUsername) {
       handleOpenModal();
       sessionStorage.clear();
