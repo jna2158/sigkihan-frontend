@@ -16,7 +16,7 @@ export default function InvitePopup({
       .then((res) => {
         setMessage(`accept요청 성공 ${res.status}`);
         // handleCloseModal();
-        window.location.href = "/foodlist";
+        // window.location.href = "/foodlist";
       })
       .catch((err) => {
         setMessage(`accept요청 실패 ${err}`);
