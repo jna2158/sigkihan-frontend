@@ -15,7 +15,7 @@ export default function InvitePopup({
     changeInviteStatus(data.invitationCode, "accepted")
       .then((res) => {
         setMessage(`accept요청 성공 ${res.status}`);
-        handleCloseModal();
+        // handleCloseModal();
         window.location.href = "/foodlist";
       })
       .catch((err) => {
@@ -56,6 +56,7 @@ export default function InvitePopup({
             확인
           </button>
         </footer>
+        <p className="center text-gray-400">{message}</p>
       </div>
     </section>
   );
