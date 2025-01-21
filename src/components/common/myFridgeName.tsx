@@ -14,15 +14,6 @@ export default function MyFridgeName() {
   useEffect(() => {
     getRefrigeratorList().then((res) => {
       setFridgeList(res.data);
-      if (!fridgeList.find((fridge) => fridge.id === refrigeratorId)) {
-        setRefrigeratorId(res.data[0].id);
-        if (userInfo) {
-          updateUser({
-            ...userInfo,
-            refrigerator_id: res.data[0].id,
-          });
-        }
-      }
     });
   }, []);
 
@@ -31,6 +22,21 @@ export default function MyFridgeName() {
       fetchFoodList(Number(refrigeratorId));
     }
   }, [refrigeratorId]);
+
+  useEffect(() => {
+    if (
+      fridgeList.length > 0 &&
+      !fridgeList.find((fridge) => fridge.id === refrigeratorId)
+    ) {
+      setRefrigeratorId(fridgeList[0].id);
+      if (userInfo) {
+        updateUser({
+          ...userInfo,
+          refrigerator_id: fridgeList[0].id,
+        });
+      }
+    }
+  }, [fridgeList, refrigeratorId]);
 
   // 냉장고 선택 시 유저 정보 업데이트
   const handleFridgeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
