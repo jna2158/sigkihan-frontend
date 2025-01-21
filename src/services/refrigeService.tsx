@@ -110,3 +110,10 @@ export const changeInviteStatus = (
     { status },
   );
 };
+
+// 냉장고 스스로 나가기
+export const getOutSelf = (refrigeratorId: number) => {
+  return axios.delete(
+    `${REFRIGERATOR_ENDPOINTS.GET_OUT_SELF}/${refrigeratorId}/members/self`,
+  );
+};

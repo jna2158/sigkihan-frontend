@@ -27,6 +27,7 @@ export default function FoodListPage() {
   const checkHasInvite = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
+    console.log("urlParams", urlParams);
     const username = urlParams.get("username");
     if (code && username) {
       setInvitationCode(code);
@@ -43,6 +44,7 @@ export default function FoodListPage() {
 
   useEffect(() => {
     const hasInvite = checkHasInvite();
+    console.log("hasInvite", hasInvite);
     if (hasInvite && invitationCode && invitationUsername) {
       handleOpenModal();
       sessionStorage.clear();

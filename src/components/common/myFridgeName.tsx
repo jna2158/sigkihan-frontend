@@ -14,6 +14,15 @@ export default function MyFridgeName() {
   useEffect(() => {
     getRefrigeratorList().then((res) => {
       setFridgeList(res.data);
+      if (!fridgeList.find((fridge) => fridge.id === refrigeratorId)) {
+        setRefrigeratorId(res.data[0].id);
+        if (userInfo) {
+          updateUser({
+            ...userInfo,
+            refrigerator_id: res.data[0].id,
+          });
+        }
+      }
     });
   }, []);
 

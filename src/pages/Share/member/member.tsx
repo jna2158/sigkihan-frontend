@@ -9,6 +9,7 @@ import { getRefrigeratorInfo } from "../../../services/refrigeService";
 import { useEffect } from "react";
 import { generateInviteCode } from "../../../services/refrigeService";
 import { MemberType } from "../../../types/Member";
+import { useModalControl } from "../../../hooks/useModalControl";
 
 export default function Member() {
   const { userInfo, refrigeratorId } = useUser();
@@ -16,6 +17,10 @@ export default function Member() {
   const [isEditMode, setIsEditMode] = useState(false);
   const currentUser =
     members.find((member) => member.id === userInfo?.id) || null;
+  const isRefrigeratorOwner = currentUser?.role === "owner";
+  const { handleOpenModal } = useModalControl("GET_OUT_SELF_MODAL", {
+    data: members.find((member) => member.role === "owner"),
+  });
 
   // 친구 초대 코드 생성
   const generateCode = async () => {
@@ -35,6 +40,13 @@ export default function Member() {
       console.error("메시지 전송 실패", error);
     }
   };
+
+  useEffect(() => {
+    if (isEditMode && !isRefrigeratorOwner) {
+      handleOpenModal();
+      setIsEditMode(false);
+    }
+  }, [isEditMode, isRefrigeratorOwner]);
 
   // 카카오톡 공유하기
   const sendKakaoMessage = (code: string) => {
@@ -93,6 +105,7 @@ export default function Member() {
             member={member}
             isEditMode={isEditMode}
             currentUser={currentUser}
+            isRefrigeratorOwner={isRefrigeratorOwner}
           />
         ))}
         <div

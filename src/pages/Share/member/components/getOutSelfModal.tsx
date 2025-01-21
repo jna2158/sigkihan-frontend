@@ -3,16 +3,27 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../../../../hooks/useUserInfo";
 import { useModalControl } from "../../../../hooks/useModalControl";
 import { MemberType } from "../../../../types/Member";
+import { PROFILE_IMAGES } from "../../../../shared/constants/profileImages";
+import { getOutSelf } from "../../../../services/refrigeService";
 
-export default function GetOutSelfModal({ data }: { data: MemberType }) {
+export default function GetOutSelfModal({ data }: any) {
   const { handleCloseModal } = useModalControl("GET_OUT_SELF_MODAL");
   const { removeFood } = useRefrigeStore();
   const { refrigeratorId } = useUser();
   const navigate = useNavigate();
 
-  const handleDeleteBtn = async () => {
-    handleCloseModal();
+  // 냉장고 나가기
+  const handleConfirmBtn = async () => {
+    await getOutSelf(refrigeratorId).then(() => {
+      handleCloseModal();
+      navigate("/foodlist");
+    });
   };
+
+  // 프로필 이미지
+  const profileImage = PROFILE_IMAGES.find(
+    (profile) => profile.image === data.data.profile_image_id,
+  )?.url;
 
   return (
     <section
@@ -21,11 +32,18 @@ export default function GetOutSelfModal({ data }: { data: MemberType }) {
       aria-describedby="dialog-description"
     >
       <div
-        className="relative h-[10rem] w-[21rem] rounded-3xl bg-white p-6 pt-[2.3rem]"
+        className="relative h-[15.2rem] w-[21rem] rounded-3xl bg-white p-6 pt-[2.3rem]"
         role="document"
       >
+        <div className="center mb-[1.1rem]">
+          <img
+            src={profileImage}
+            alt="프로필"
+            className="h-[4rem] w-[4rem] rounded-full"
+          />
+        </div>
         <p className="center mb-[1.7rem] text-[20px] font-semibold">
-          냉장고를 나가겠습니까?
+          {data.data.name}님의 냉장고를 나가겠습니까?
         </p>
 
         <footer className="mt-4 flex justify-end gap-2">
@@ -37,9 +55,9 @@ export default function GetOutSelfModal({ data }: { data: MemberType }) {
           </button>
           <button
             className="basic-button h-[3.3rem] w-[9.3rem] bg-primary text-white"
-            onClick={handleDeleteBtn}
+            onClick={handleConfirmBtn}
           >
-            삭제
+            확인
           </button>
         </footer>
       </div>

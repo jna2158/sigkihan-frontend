@@ -3,16 +3,17 @@ import minusBadge from "../../../assets/badge-minus.png";
 import { PROFILE_IMAGES } from "../../../shared/constants/profileImages";
 import { useModalControl } from "../../../hooks/useModalControl";
 import { MemberType } from "../../../types/Member";
-import ConfirmCancelModal from "../../../components/common/modal/confirmCancelModal";
 
 export default function MemberItem({
   member,
   isEditMode,
   currentUser,
+  isRefrigeratorOwner,
 }: {
   member: MemberType;
   isEditMode: boolean;
   currentUser: MemberType | null;
+  isRefrigeratorOwner: boolean;
 }) {
   const { handleOpenModal } = useModalControl("MEMBER_MINUS_MODAL", {
     name: member.name,
@@ -23,8 +24,13 @@ export default function MemberItem({
       name: member.name,
     },
   );
+
   const handleClickMinusBadge = () => {
-    handleOpenModal();
+    if (isRefrigeratorOwner) {
+      handleOpenModal();
+    } else {
+      handleOpenGetOutSelfModal();
+    }
   };
 
   // 프로필 이미지
@@ -51,7 +57,7 @@ export default function MemberItem({
             className="absolute bottom-0 right-0 h-[1.8rem] w-[1.8rem]"
           />
         )}
-        {isEditMode && (
+        {isEditMode && isRefrigeratorOwner && (
           <img
             src={minusBadge}
             alt="방출 뱃지"
