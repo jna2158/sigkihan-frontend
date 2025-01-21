@@ -15,22 +15,11 @@ export default function MemberItem({
   currentUser: MemberType | null;
   isRefrigeratorOwner: boolean;
 }) {
-  const { handleOpenModal } = useModalControl("MEMBER_MINUS_MODAL", {
-    name: member.name,
-  });
-  const { handleOpenModal: handleOpenGetOutSelfModal } = useModalControl(
-    "GET_OUT_SELF_MODAL",
-    {
-      name: member.name,
-    },
-  );
+  const { handleOpenModal } = useModalControl("MEMBER_MINUS_MODAL", { member });
 
+  // 냉장고 멤버 방출 뱃지 클릭
   const handleClickMinusBadge = () => {
-    if (isRefrigeratorOwner) {
-      handleOpenModal();
-    } else {
-      handleOpenGetOutSelfModal();
-    }
+    handleOpenModal();
   };
 
   // 프로필 이미지
@@ -57,7 +46,7 @@ export default function MemberItem({
             className="absolute bottom-0 right-0 h-[1.8rem] w-[1.8rem]"
           />
         )}
-        {isEditMode && isRefrigeratorOwner && (
+        {isEditMode && isRefrigeratorOwner && member.role === "member" && (
           <img
             src={minusBadge}
             alt="방출 뱃지"

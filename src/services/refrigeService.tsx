@@ -117,3 +117,10 @@ export const getOutSelf = (refrigeratorId: number) => {
     `${REFRIGERATOR_ENDPOINTS.GET_OUT_SELF}/${refrigeratorId}/members/self`,
   );
 };
+
+// 냉장고 멤버 추방
+export const getOutMember = (refrigeratorId: number, memberId: number) => {
+  return axios.delete(
+    `${REFRIGERATOR_ENDPOINTS.GET_OUT_MEMBER}/${refrigeratorId}/members/${memberId}`,
+  );
+};

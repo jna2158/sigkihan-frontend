@@ -41,13 +41,6 @@ export default function Member() {
     }
   };
 
-  useEffect(() => {
-    if (isEditMode && !isRefrigeratorOwner) {
-      handleOpenModal();
-      setIsEditMode(false);
-    }
-  }, [isEditMode, isRefrigeratorOwner]);
-
   // 카카오톡 공유하기
   const sendKakaoMessage = (code: string) => {
     return new Promise((resolve, reject) => {
@@ -81,6 +74,14 @@ export default function Member() {
     });
   };
 
+  // 냉장고 스스로 나가기 모달 오픈
+  useEffect(() => {
+    if (isEditMode && !isRefrigeratorOwner) {
+      handleOpenModal();
+      setIsEditMode(false);
+    }
+  }, [isEditMode, isRefrigeratorOwner]);
+
   // 냉장고 멤버 정보 조회
   useEffect(() => {
     if (refrigeratorId) {
@@ -108,6 +109,18 @@ export default function Member() {
             isRefrigeratorOwner={isRefrigeratorOwner}
           />
         ))}
+        <MemberItem
+          member={{
+            id: 10,
+            name: "초대",
+            profile_image_id: 3,
+            role: "member",
+            profile_image: "",
+          }}
+          isEditMode={isEditMode}
+          currentUser={currentUser}
+          isRefrigeratorOwner={isRefrigeratorOwner}
+        />
         <div
           onClick={clickInviteBtn}
           className="center h-[5.2rem] w-[5.2rem] min-w-[5.2rem] cursor-pointer rounded-full bg-gray-100"

@@ -25,6 +25,7 @@ export const REFRIGERATOR_ENDPOINTS = {
   GENERATE_INVITE_CODE: "/api/refrigerators",
   CHANGE_INVITE_STATUS: "/api/refrigerators",
   GET_OUT_SELF: "/api/refrigerators",
+  GET_OUT_MEMBER: "/api/refrigerators",
 };
 
 // 알림
