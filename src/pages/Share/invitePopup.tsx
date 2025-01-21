@@ -55,7 +55,6 @@ export default function InvitePopup({
             확인
           </button>
         </footer>
-        <p className="center">{message}</p>
       </div>
     </section>
   );
