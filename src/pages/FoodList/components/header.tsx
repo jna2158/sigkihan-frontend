@@ -1,8 +1,8 @@
 import AlarmIcon from "./alarm/alarmIcon";
-import logo2 from "../../../assets/logo_02.svg";
 import { PROFILE_IMAGES } from "../../../shared/constants/profileImages";
 import { useUser } from "../../../hooks/useUserInfo";
 import MyFridgeName from "../../../components/common/myFridgeName";
+import StatisticsIcon from "../../Statistics/components/statisticsIcon";
 
 export default function Header() {
   const { userInfo } = useUser();
@@ -14,13 +14,9 @@ export default function Header() {
     <header className="center mt-[2.9rem] flex py-4">
       <div className="flex-1">
         <MyFridgeName />
-        {/* <img
-          src={logo2}
-          alt="식기한 냉장고 로고"
-          className="h-[2.4rem] w-[10rem]"
-        /> */}
       </div>
       <nav className="center flex gap-[1rem]">
+        <StatisticsIcon />
         <AlarmIcon />
         <img
           src={profileImageUrl}

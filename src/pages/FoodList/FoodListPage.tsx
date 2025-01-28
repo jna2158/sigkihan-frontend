@@ -41,6 +41,7 @@ export default function FoodListPage() {
     invitationUsername,
   });
 
+  // 초대 받은 목록이 있으면 모달 오픈
   useEffect(() => {
     const hasInvite = checkHasInvite();
     if (hasInvite && invitationCode && invitationUsername) {

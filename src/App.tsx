@@ -8,6 +8,7 @@ import ModalContainer from "./components/common/modal/modalContainer";
 import BottomNavigation from "./components/common/\bBottomNavigation";
 import MyProfilePage from "./pages/User/MyProfilePage";
 import SharePage from "./pages/Share/SharePage";
+import StatisticsPage from "./pages/Statistics/StatisticsPage";
 
 function App() {
   const location = useLocation();
@@ -26,6 +27,7 @@ function App() {
             <Route path="/food/:id" element={<FoodDetail />} />
             <Route path="/user/profile" element={<MyProfilePage />} />
             <Route path="/oauth/callback/kakao" element={<KakaoCallback />} />
+            <Route path="/statistics" element={<StatisticsPage />} />
           </Routes>
         </main>
         {shouldShowBottomNav && <BottomNavigation />}
