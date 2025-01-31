@@ -105,9 +105,9 @@ export default function Top5() {
         data: [
           { x: 10.8, y: 60, r: 94, label: "우유" },
           { x: 30, y: 59, r: 59, label: "계란" },
-          { x: 30, y: 140, r: 43, label: "감자" },
-          { x: 23.5, y: 0, r: 32, label: "쌀" },
-          { x: 21.3, y: 130, r: 27, label: "마늘" },
+          { x: 30, y: 128, r: 45, label: "감자" },
+          { x: 23.7, y: 3, r: 40, label: "쌀" },
+          { x: 20.6, y: 125, r: 31, label: "마늘" },
         ],
         backgroundColor: gradient,
       },
