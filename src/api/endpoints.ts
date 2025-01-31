@@ -42,3 +42,8 @@ export const MEMO_ENDPOINTS = {
   DELETE_MEMO: "/api/refrigerators",
   UPDATE_MEMO: "/api/refrigerators",
 };
+
+// 통계
+export const STATISTICS_ENDPOINTS = {
+  GET_TOP_5: "/api/refrigerators",
+};

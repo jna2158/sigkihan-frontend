@@ -8,6 +8,8 @@ import {
   LineElement,
 } from "chart.js";
 import { useState, useRef, useEffect } from "react";
+import { getTop5 } from "../../../services/statisticService";
+import { useUser } from "../../../hooks/useUserInfo";
 
 ChartJS.register(Tooltip, Legend, LinearScale, PointElement, LineElement, {
   id: "centerLabel",
@@ -52,6 +54,7 @@ const applyFontSize = (index: number) => {
 export default function Top5() {
   const [gradient, setGradient] = useState<string[]>([]);
   const chartRef = useRef<any>(null);
+  const { refrigeratorId } = useUser();
 
   const onChartReady = () => {
     if (chartRef.current) {
@@ -85,6 +88,12 @@ export default function Top5() {
       setGradient(gradients);
     }
   };
+
+  useEffect(() => {
+    getTop5(refrigeratorId).then((res) => {
+      console.log(res.data.monthly_top_consumed_foods);
+    });
+  }, []);
 
   useEffect(() => {
     if (chartRef.current) {
