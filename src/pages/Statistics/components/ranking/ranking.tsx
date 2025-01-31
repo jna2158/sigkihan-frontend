@@ -17,7 +17,8 @@ export default function Ranking() {
     });
   }, [refrigeratorId]);
 
-  return ranking.length > 2 ? (
+  console.log("ranking", ranking);
+  return ranking.length > 1 ? (
     <section className="my-[0.9rem] h-[18rem] w-[22rem] rounded-3xl bg-white px-[1.9rem] py-[1.7rem]">
       <section className="mb-[1.1rem] text-sm text-gray-400">소비랭킹</section>
       {ranking.map((ranking) => (
