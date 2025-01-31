@@ -75,33 +75,40 @@ export default function Top5({
       const ctx = chart.ctx;
       if (!ctx) return;
 
-      const gradients = [
-        ctx.createLinearGradient(0, 0, 200, 0),
-        ctx.createLinearGradient(0, 0, 200, 0),
-        ctx.createLinearGradient(0, 0, 200, 0),
-        ctx.createLinearGradient(0, 0, 200, 0),
-        ctx.createLinearGradient(0, 0, 200, 0),
-      ];
+      const newGradients = Array.from({ length: 5 }, (_, index) => {
+        const gradient = ctx.createLinearGradient(0, 0, 200, 0);
+        switch (index) {
+          case 0:
+            gradient.addColorStop(0, "#3BD273");
+            gradient.addColorStop(1, "#85F42C");
+            break;
+          case 1:
+            gradient.addColorStop(0, "#FFA12F");
+            gradient.addColorStop(1, "#FFCB30");
+            break;
+          case 2:
+            gradient.addColorStop(0, "#FF2F4E");
+            gradient.addColorStop(1, "#FF6D35");
+            break;
+          case 3:
+            gradient.addColorStop(0, "#21C473");
+            gradient.addColorStop(1, "#33E269");
+            break;
+          case 4:
+            gradient.addColorStop(0, "#E659D5");
+            gradient.addColorStop(1, "#C67EFF");
+            break;
+          default:
+            break;
+        }
+        return gradient;
+      });
 
-      gradients[0].addColorStop(0, "#3BD273");
-      gradients[0].addColorStop(1, "#85F42C");
-
-      gradients[1].addColorStop(0, "#FFA12F");
-      gradients[1].addColorStop(1, "#FFCB30");
-
-      gradients[2].addColorStop(0, "#FF2F4E");
-      gradients[2].addColorStop(1, "#FF6D35");
-
-      gradients[3].addColorStop(0, "#21C473");
-      gradients[3].addColorStop(1, "#33E269");
-
-      gradients[4].addColorStop(0, "#E659D5");
-      gradients[4].addColorStop(1, "#C67EFF");
-
-      setGradient(gradients);
+      setGradient(newGradients);
     }
   };
 
+  // 소비식품 TOP5 조회
   useEffect(() => {
     getTop5(refrigeratorId).then((res) => {
       const data = res.data.monthly_top_consumed_foods;
@@ -125,14 +132,18 @@ export default function Top5({
   }, [refrigeratorId]);
 
   useEffect(() => {
-    if (chartRef.current) {
-      onChartReady();
-    }
-  }, [chartRef.current]);
+    setTimeout(() => {
+      if (chartRef.current) {
+        onChartReady();
+      }
+    }, 0);
+  }, []);
 
   useEffect(() => {
-    if (gradient.length > 0 && chartRef.current) {
-      chartRef.current.update();
+    if (chartRef.current) {
+      const chart = chartRef.current;
+      chart.data.datasets[0].backgroundColor = [...gradient];
+      chart.update();
     }
   }, [gradient]);
 

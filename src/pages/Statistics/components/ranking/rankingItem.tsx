@@ -30,7 +30,9 @@ export default function RankingItem({
           style={{ width: progressBarWidth }}
         ></div>
       </section>
-      <span className="text-xs text-gray-400">{maxQuantity}개</span>
+      <span className="text-xs text-gray-400">
+        {ranking.total_quantity}개
+      </span>
     </section>
   );
 }
