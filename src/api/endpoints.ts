@@ -46,4 +46,5 @@ export const MEMO_ENDPOINTS = {
 // 통계
 export const STATISTICS_ENDPOINTS = {
   GET_TOP_5: "/api/refrigerators",
+  GET_MONTHLY_RANKING: "/api/refrigerators",
 };

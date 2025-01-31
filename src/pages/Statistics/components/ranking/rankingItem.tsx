@@ -1,13 +1,18 @@
 import { PROFILE_IMAGES } from "../../../../shared/constants/profileImages";
-import { MemberType } from "../../../../types/Member";
 
-export default function RankingItem({ member }: { member: MemberType }) {
+export default function RankingItem({
+  ranking,
+  maxQuantity,
+}: {
+  ranking: any;
+  maxQuantity: number;
+}) {
   // 프로필 이미지
   const profileImage = PROFILE_IMAGES.find(
-    (profile) => profile.image === member.profile_image_id,
+    (profile) => profile.image === ranking.user.image,
   )?.url;
 
-  const progressBarWidth = "70%";
+  const progressBarWidth = `${(ranking.total_quantity / maxQuantity) * 100}%`;
 
   return (
     <section className="flex items-center justify-between">
@@ -17,7 +22,7 @@ export default function RankingItem({ member }: { member: MemberType }) {
           alt="프로필 이미지"
           className="h-[1.8rem] w-[1.8rem] rounded-full"
         />
-        <section className="text-sm">{member.name}</section>
+        <section className="text-sm">{ranking.user.name}</section>
       </section>
       <section className="h-[0.6rem] w-[9.8rem] rounded-full bg-gray-50">
         <div
@@ -25,7 +30,7 @@ export default function RankingItem({ member }: { member: MemberType }) {
           style={{ width: progressBarWidth }}
         ></div>
       </section>
-      <span className="text-xs text-gray-400">7개</span>
+      <span className="text-xs text-gray-400">{maxQuantity}개</span>
     </section>
   );
 }

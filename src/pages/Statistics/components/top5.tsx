@@ -11,6 +11,14 @@ import { useState, useRef, useEffect } from "react";
 import { getTop5 } from "../../../services/statisticService";
 import { useUser } from "../../../hooks/useUserInfo";
 
+const position = [
+  { x: 10.8, y: 60, r: 94, label: "" },
+  { x: 30, y: 59, r: 59, label: "" },
+  { x: 30, y: 128, r: 45, label: "" },
+  { x: 23.7, y: 3, r: 40, label: "" },
+  { x: 20.6, y: 125, r: 31, label: "" },
+];
+
 ChartJS.register(Tooltip, Legend, LinearScale, PointElement, LineElement, {
   id: "centerLabel",
   afterDatasetsDraw(chart) {
@@ -55,6 +63,7 @@ export default function Top5() {
   const [gradient, setGradient] = useState<string[]>([]);
   const chartRef = useRef<any>(null);
   const { refrigeratorId } = useUser();
+  const [foodData, setFoodData] = useState<any[]>([]);
 
   const onChartReady = () => {
     if (chartRef.current) {
@@ -91,9 +100,24 @@ export default function Top5() {
 
   useEffect(() => {
     getTop5(refrigeratorId).then((res) => {
-      console.log(res.data.monthly_top_consumed_foods);
+      const data = res.data.monthly_top_consumed_foods;
+      if (data.length === 0) {
+        setFoodData([]);
+        return;
+      }
+
+      const sortedData = data
+        .sort((a, b) => b?.total_quantity - a?.total_quantity)
+        .map((item, index) => ({
+          x: position[index].x,
+          y: position[index].y,
+          r: position[index].r,
+          label: item.food_name,
+        }));
+
+      setFoodData(sortedData);
     });
-  }, []);
+  }, [refrigeratorId]);
 
   useEffect(() => {
     if (chartRef.current) {
@@ -111,13 +135,7 @@ export default function Top5() {
     datasets: [
       {
         label: "소비식품",
-        data: [
-          { x: 10.8, y: 60, r: 94, label: "우유" },
-          { x: 30, y: 59, r: 59, label: "계란" },
-          { x: 30, y: 128, r: 45, label: "감자" },
-          { x: 23.7, y: 3, r: 40, label: "쌀" },
-          { x: 20.6, y: 125, r: 31, label: "마늘" },
-        ],
+        data: foodData,
         backgroundColor: gradient,
       },
     ],
