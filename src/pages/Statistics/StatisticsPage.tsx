@@ -4,7 +4,7 @@ import Ranking from "./components/ranking/ranking";
 
 export default function StatisticsPage() {
   return (
-    <main className="flex h-full flex-col bg-gray-50 px-[1.3rem]">
+    <main className="flex min-h-screen flex-col bg-gray-50 px-[1.3rem]">
       <Header />
       <Top5 />
       <Ranking />

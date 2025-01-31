@@ -40,7 +40,7 @@ export default function Ranking() {
   ];
 
   return (
-    <section className="mt-[0.9rem] h-[18rem] w-[22rem] rounded-3xl bg-white px-[1.9rem] py-[1.7rem]">
+    <section className="my-[0.9rem] h-[18rem] w-[22rem] rounded-3xl bg-white px-[1.9rem] py-[1.7rem]">
       <section className="mb-[1.1rem] text-sm text-gray-400">소비랭킹</section>
       {member.map((member) => (
         <section className="mt-[0.75rem]">
