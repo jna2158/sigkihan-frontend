@@ -59,7 +59,11 @@ const applyFontSize = (index: number) => {
   }
 };
 
-export default function Top5() {
+export default function Top5({
+  setNoFood,
+}: {
+  setNoFood: (value: boolean) => void;
+}) {
   const [gradient, setGradient] = useState<string[]>([]);
   const chartRef = useRef<any>(null);
   const { refrigeratorId } = useUser();
@@ -102,6 +106,7 @@ export default function Top5() {
     getTop5(refrigeratorId).then((res) => {
       const data = res.data.monthly_top_consumed_foods;
       if (data.length === 0) {
+        setNoFood(true);
         setFoodData([]);
         return;
       }
