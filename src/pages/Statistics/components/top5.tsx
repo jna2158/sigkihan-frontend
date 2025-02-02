@@ -6,58 +6,44 @@ import {
   LinearScale,
   PointElement,
   LineElement,
+  Filler,
 } from "chart.js";
 import { useState, useRef, useEffect } from "react";
 import { getTop5 } from "../../../services/statisticService";
 import { useUser } from "../../../hooks/useUserInfo";
+import { position } from "../../../shared/constants/chart/chartElementPosition";
+import { fontSize } from "../../../shared/constants/chart/chartElementFontSize";
 
-const position = [
-  { x: 10.8, y: 60, r: 94, label: "" },
-  { x: 30, y: 59, r: 59, label: "" },
-  { x: 30, y: 128, r: 45, label: "" },
-  { x: 23.7, y: 3, r: 40, label: "" },
-  { x: 20.6, y: 125, r: 31, label: "" },
-];
-
-ChartJS.register(Tooltip, Legend, LinearScale, PointElement, LineElement, {
-  id: "centerLabel",
-  afterDatasetsDraw(chart) {
-    const { ctx, data } = chart;
-    chart.getDatasetMeta(0).data.forEach((element: any, index: number) => {
-      const { x, y } = element.tooltipPosition(true);
-      const pointData = data.datasets[0].data[index] as {
-        x: number;
-        y: number;
-        r: number;
-        label: string;
-      };
-      const label = pointData.label || "";
-      ctx.fillStyle = "white";
-      ctx.textAlign = "center";
-      ctx.font = `bold ${applyFontSize(index)}`;
-      ctx.textBaseline = "middle";
-      ctx.fillText(label, x, y);
-    });
+// 차트 설정
+ChartJS.register(
+  Filler,
+  Tooltip,
+  Legend,
+  LinearScale,
+  PointElement,
+  LineElement,
+  {
+    id: "centerLabel",
+    afterDatasetsDraw(chart) {
+      const { ctx, data } = chart;
+      chart.getDatasetMeta(0).data.forEach((element: any, index: number) => {
+        const { x, y } = element.tooltipPosition(true);
+        const pointData = data.datasets[0].data[index] as {
+          x: number;
+          y: number;
+          r: number;
+          label: string;
+        };
+        const label = pointData.label || "";
+        ctx.fillStyle = "white";
+        ctx.textAlign = "center";
+        ctx.font = `bold ${fontSize(index)}`;
+        ctx.textBaseline = "middle";
+        ctx.fillText(label, x, y);
+      });
+    },
   },
-});
-
-// 폰트 크기 적용
-const applyFontSize = (index: number) => {
-  switch (index) {
-    case 0:
-      return "32px Arial";
-    case 1:
-      return "24px Arial";
-    case 2:
-      return "20px Arial";
-    case 3:
-      return "16px Arial";
-    case 4:
-      return "14px Arial";
-    default:
-      return "12px Arial";
-  }
-};
+);
 
 export default function Top5({
   setNoFood,
@@ -69,44 +55,71 @@ export default function Top5({
   const { refrigeratorId } = useUser();
   const [foodData, setFoodData] = useState<any[]>([]);
 
-  const onChartReady = () => {
-    if (chartRef.current) {
-      const chart = chartRef.current;
-      const ctx = chart.ctx;
-      if (!ctx) return;
-
-      const newGradients = Array.from({ length: 5 }, (_, index) => {
-        const gradient = ctx.createLinearGradient(0, 0, 200, 0);
-        switch (index) {
-          case 0:
-            gradient.addColorStop(0, "#3BD273");
-            gradient.addColorStop(1, "#85F42C");
-            break;
-          case 1:
-            gradient.addColorStop(0, "#FFA12F");
-            gradient.addColorStop(1, "#FFCB30");
-            break;
-          case 2:
-            gradient.addColorStop(0, "#FF2F4E");
-            gradient.addColorStop(1, "#FF6D35");
-            break;
-          case 3:
-            gradient.addColorStop(0, "#21C473");
-            gradient.addColorStop(1, "#33E269");
-            break;
-          case 4:
-            gradient.addColorStop(0, "#E659D5");
-            gradient.addColorStop(1, "#C67EFF");
-            break;
-          default:
-            break;
-        }
-        return gradient;
-      });
-
-      setGradient(newGradients);
-    }
+  // 차트 데이터
+  const data = {
+    datasets: [
+      {
+        label: "소비식품",
+        data: foodData,
+      },
+    ],
   };
+
+  // 차트 준비되면 그라데이션 생성
+  const onChartReady = () => {
+    const chart = chartRef.current;
+    if (!chart) return null;
+
+    const ctx = chart.ctx;
+    if (!ctx) return null;
+
+    const newGradients = Array.from({ length: 5 }, (_, index) => {
+      switch (index) {
+        case 0:
+          const gradient0 = ctx.createLinearGradient(10.8, 0, 200, 0);
+          gradient0.addColorStop(0, "#3BD273");
+          gradient0.addColorStop(1, "#85F42C");
+          return gradient0;
+
+        case 1:
+          const gradient1 = ctx.createLinearGradient(50, 60, 200, 0);
+          gradient1.addColorStop(0, "#FFA12F");
+          gradient1.addColorStop(1, "#FFCB30");
+          return gradient1;
+
+        case 2:
+          const gradient2 = ctx.createLinearGradient(200, 0, 300, 0);
+          gradient2.addColorStop(0, "#FF6D35");
+          gradient2.addColorStop(1, "#FF2F4E");
+
+          return gradient2;
+
+        case 3:
+          const gradient3 = ctx.createLinearGradient(50, 200, 20, 300);
+          gradient3.addColorStop(0, "#33E269");
+          gradient3.addColorStop(1, "#21C473");
+          return gradient3;
+
+        case 4:
+          const gradient5 = ctx.createLinearGradient(90, 0, 250, 0);
+
+          gradient5.addColorStop(0, "#C67EFF");
+          gradient5.addColorStop(1, "#E659D5");
+          return gradient5;
+
+        default:
+          break;
+      }
+    });
+
+    setGradient(newGradients);
+  };
+
+  useEffect(() => {
+    if (chartRef.current) {
+      onChartReady();
+    }
+  }, []);
 
   // 소비식품 TOP5 조회
   useEffect(() => {
@@ -132,30 +145,19 @@ export default function Top5({
   }, [refrigeratorId]);
 
   useEffect(() => {
-    setTimeout(() => {
-      if (chartRef.current) {
-        onChartReady();
-      }
-    }, 0);
-  }, []);
-
-  useEffect(() => {
-    if (chartRef.current) {
+    if (chartRef.current && gradient.length > 0) {
       const chart = chartRef.current;
-      chart.data.datasets[0].backgroundColor = [...gradient];
+      if (!chart) return;
+
+      const ctx = chart.ctx;
+      if (!ctx) return;
+
+      chart.data.datasets[0].backgroundColor = foodData.map(
+        (_, index) => gradient[index],
+      );
       chart.update();
     }
-  }, [gradient]);
-
-  const data = {
-    datasets: [
-      {
-        label: "소비식품",
-        data: foodData,
-        backgroundColor: gradient,
-      },
-    ],
-  };
+  }, [gradient, foodData]);
 
   // 차트 옵션
   const options = {
