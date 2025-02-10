@@ -8,6 +8,7 @@ import { useUser } from "../../hooks/useUserInfo";
 import { useModalControl } from "../../hooks/useModalControl";
 import { useCalendarControl } from "../../hooks/useCalendarControl";
 import ModalCloseBtn from "../common/modal/modalCloseBtn";
+import { getRecommendExpirationDate } from "../../services/refrigeService";
 
 export default function AddFoodModal({ data }: { data: Food }) {
   const { handleCloseModal: handleCloseAddFoodModal } =
@@ -22,6 +23,7 @@ export default function AddFoodModal({ data }: { data: Food }) {
     quantity: 1,
     purchase_date: new Date().toISOString().split("T")[0],
     expiration_date: "",
+    storage_type: "refrigerated",
   });
   const { refrigeratorId } = useUser();
 
@@ -45,7 +47,7 @@ export default function AddFoodModal({ data }: { data: Food }) {
       refrigerator_id: refrigeratorId,
       default_food_id: data.id,
       name: formData.name,
-      storage_type: "refrigerated",
+      storage_type: formData.storage_type,
       purchase_date: formData.purchase_date,
       expiration_date: formData.expiration_date,
       quantity: Number(formData.quantity),
@@ -59,6 +61,18 @@ export default function AddFoodModal({ data }: { data: Food }) {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const handleClickRecommendBtn = async () => {
+    setFormData((prev) => ({
+      ...prev,
+      expiration_date: "",
+    }));
+    const response = await getRecommendExpirationDate(formData);
+    setFormData((prev) => ({
+      ...prev,
+      expiration_date: response.data.expiration,
+    }));
   };
 
   return (
@@ -88,6 +102,58 @@ export default function AddFoodModal({ data }: { data: Food }) {
                   {data.name}
                 </label>
               )}
+            </div>
+
+            <div className="flex gap-[0.6rem]">
+              <label htmlFor="storage" className="form-label">
+                보관 방법
+              </label>
+              <div className="ml-[1rem] flex w-[8.3rem] gap-[0.3rem]">
+                <button
+                  type="button"
+                  className={`storage-button ${
+                    formData.storage_type === "refrigerated" ? "active" : ""
+                  }`}
+                  onClick={() =>
+                    handleFormChange("storage_type", "refrigerated")
+                  }
+                >
+                  냉장
+                </button>
+                <button
+                  type="button"
+                  className={`storage-button ${
+                    formData.storage_type === "frozen" ? "active" : ""
+                  }`}
+                  onClick={() => handleFormChange("storage_type", "frozen")}
+                >
+                  냉동
+                </button>
+                <button
+                  type="button"
+                  className={`storage-button ${
+                    formData.storage_type === "room_temp" ? "active" : ""
+                  }`}
+                  onClick={() => handleFormChange("storage_type", "room_temp")}
+                >
+                  실온
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="quantity" className="form-label">
+                수량
+              </label>
+              <input
+                type="text"
+                id="quantity"
+                className="absolute right-[2.3rem] h-[1.5rem] w-[8.3rem] rounded-[13rem] bg-gray-50"
+                value={formData.quantity}
+                onChange={(e) =>
+                  handleFormChange("quantity", onlyNumbers(e.target.value))
+                }
+              />
             </div>
 
             <div>
@@ -122,21 +188,15 @@ export default function AddFoodModal({ data }: { data: Food }) {
                 readOnly
                 className="form-input"
               />
-            </div>
-
-            <div>
-              <label htmlFor="quantity" className="form-label">
-                수량
-              </label>
-              <input
-                type="text"
-                id="quantity"
-                className="absolute right-[2.3rem] h-[1.5rem] w-[8.3rem] rounded-[13rem] bg-gray-50"
-                value={formData.quantity}
-                onChange={(e) =>
-                  handleFormChange("quantity", onlyNumbers(e.target.value))
-                }
-              />
+              <button
+                type="button"
+                className="absolute right-[45px] mt-[3px] h-[1.1rem] w-[2.6rem] rounded-[9px] bg-gradient-to-r from-[#3BD273] to-[#85F42C]"
+                onClick={handleClickRecommendBtn}
+              >
+                <span className="center text-[12px] font-semibold text-white">
+                  Ai 추천
+                </span>
+              </button>
             </div>
 
             <footer className="flex justify-center">

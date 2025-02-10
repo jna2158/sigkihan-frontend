@@ -116,4 +116,11 @@
   .form-input {
     @apply absolute right-[2.3rem] h-[1.5rem] w-[8.3rem] cursor-pointer rounded-[13rem] bg-gray-50;
   }
+
+  .storage-button {
+    @apply h-[1.75rem] w-[2.5rem] cursor-pointer rounded-[13rem] bg-gray-50 text-[13px] text-gray-500;
+  }
+  .storage-button.active {
+    @apply bg-primary text-white;
+  }
 }

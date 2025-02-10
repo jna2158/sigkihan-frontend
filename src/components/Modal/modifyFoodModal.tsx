@@ -2,7 +2,10 @@ import { useState } from "react";
 import Calendar from "../common/calendar";
 import { onlyNumbers } from "../../shared/utils/onlyNumber";
 import useRefrigeStore from "../../store/useRefrigeStore";
-import { modifyFoodList } from "../../services/refrigeService";
+import {
+  modifyFoodList,
+  getRecommendExpirationDate,
+} from "../../services/refrigeService";
 import { Food } from "../../types/Food";
 import ModalCloseBtn from "../common/modal/modalCloseBtn";
 import { useModalControl } from "../../hooks/useModalControl";
@@ -22,6 +25,7 @@ export default function ModifyFoodModal({ data }: { data: Food }) {
     quantity: currentFood?.quantity || 0,
     purchase_date: currentFood?.purchase_date?.toString() || "",
     expiration_date: currentFood?.expiration_date?.toString() || "",
+    storage_type: currentFood?.storage_type || "refrigerated",
   });
 
   const handleFormChange = (field: keyof Food, value: string) => {
@@ -48,6 +52,18 @@ export default function ModifyFoodModal({ data }: { data: Food }) {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const handleClickRecommendBtn = async () => {
+    setFormData((prev) => ({
+      ...prev,
+      expiration_date: "",
+    }));
+    const response = await getRecommendExpirationDate(formData);
+    setFormData((prev) => ({
+      ...prev,
+      expiration_date: response.data.expiration,
+    }));
   };
 
   return (
@@ -83,6 +99,58 @@ export default function ModifyFoodModal({ data }: { data: Food }) {
               )}
             </div>
 
+            <div className="flex gap-[0.6rem]">
+              <label htmlFor="storage" className="form-label">
+                보관 방법
+              </label>
+              <div className="ml-[1rem] flex w-[8.3rem] gap-[0.3rem]">
+                <button
+                  type="button"
+                  className={`storage-button ${
+                    formData.storage_type === "refrigerated" ? "active" : ""
+                  }`}
+                  onClick={() =>
+                    handleFormChange("storage_type", "refrigerated")
+                  }
+                >
+                  냉장
+                </button>
+                <button
+                  type="button"
+                  className={`storage-button ${
+                    formData.storage_type === "frozen" ? "active" : ""
+                  }`}
+                  onClick={() => handleFormChange("storage_type", "frozen")}
+                >
+                  냉동
+                </button>
+                <button
+                  type="button"
+                  className={`storage-button ${
+                    formData.storage_type === "room_temp" ? "active" : ""
+                  }`}
+                  onClick={() => handleFormChange("storage_type", "room_temp")}
+                >
+                  실온
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="quantity" className="form-label">
+                수량
+              </label>
+              <input
+                type="text"
+                id="quantity"
+                value={formData.quantity}
+                onChange={(e) =>
+                  handleFormChange("quantity", onlyNumbers(e.target.value))
+                }
+                className="form-input"
+              />
+            </div>
+
             <div>
               <label htmlFor="purchaseDate" className="form-label">
                 구매 일자
@@ -114,20 +182,15 @@ export default function ModifyFoodModal({ data }: { data: Food }) {
                 readOnly
                 className="form-input"
               />
-            </div>
-            <div>
-              <label htmlFor="quantity" className="form-label">
-                수량
-              </label>
-              <input
-                type="text"
-                id="quantity"
-                value={formData.quantity}
-                onChange={(e) =>
-                  handleFormChange("quantity", onlyNumbers(e.target.value))
-                }
-                className="form-input"
-              />
+              <button
+                type="button"
+                className="absolute right-[45px] mt-[3px] h-[1.1rem] w-[2.6rem] rounded-[9px] bg-gradient-to-r from-[#3BD273] to-[#85F42C]"
+                onClick={handleClickRecommendBtn}
+              >
+                <span className="center text-[12px] font-semibold text-white">
+                  Ai 추천
+                </span>
+              </button>
             </div>
 
             <footer className="flex justify-center">

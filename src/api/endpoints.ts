@@ -26,6 +26,7 @@ export const REFRIGERATOR_ENDPOINTS = {
   CHANGE_INVITE_STATUS: "/api/refrigerators",
   GET_OUT_SELF: "/api/refrigerators",
   GET_OUT_MEMBER: "/api/refrigerators",
+  GET_RECOMMEND_EXPIRATION_DATE: "/api/refrigerators",
 };
 
 // 알림
@@ -47,4 +48,9 @@ export const MEMO_ENDPOINTS = {
 export const STATISTICS_ENDPOINTS = {
   GET_TOP_5: "/api/refrigerators",
   GET_MONTHLY_RANKING: "/api/refrigerators",
+};
+
+// Ai 추천
+export const AI_ENDPOINTS = {
+  GET_RECOMMEND_EXPIRATION_DATE: "/api/foods",
 };

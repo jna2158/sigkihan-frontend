@@ -2,6 +2,7 @@ import { axiosInstance as axios } from "../api";
 import { REFRIGERATOR_ENDPOINTS } from "../api/endpoints";
 import { Food } from "../types/Food";
 import { DefaultFood } from "../types/Food";
+import { AI_ENDPOINTS } from "../api/endpoints";
 
 interface FoodListResponse {
   data: Food[];
@@ -123,4 +124,11 @@ export const getOutMember = (refrigeratorId: number, memberId: number) => {
   return axios.delete(
     `${REFRIGERATOR_ENDPOINTS.GET_OUT_MEMBER}/${refrigeratorId}/members/${memberId}`,
   );
+};
+
+// Ai 추천 소비기한 조회
+export const getRecommendExpirationDate = (data: any) => {
+  return axios.get(`${AI_ENDPOINTS.GET_RECOMMEND_EXPIRATION_DATE}/expiration`, {
+    params: data,
+  });
 };

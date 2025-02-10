@@ -7,6 +7,7 @@ export interface Food {
   quantity: number;
   image_url?: string;
   image?: string;
+  storage_type: "refrigerated" | "frozen" | "room_temp";
 }
 
 export interface FoodForm {
@@ -14,6 +15,7 @@ export interface FoodForm {
   quantity: number;
   purchase_date: string;
   expiration_date: string;
+  storage_type: "refrigerated" | "frozen" | "room_temp";
 }
 
 export interface DefaultFood {
