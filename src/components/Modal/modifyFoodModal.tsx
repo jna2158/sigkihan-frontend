@@ -59,7 +59,19 @@ export default function ModifyFoodModal({ data }: { data: Food }) {
       ...prev,
       expiration_date: "",
     }));
-    const response = await getRecommendExpirationDate(formData);
+
+    const storageTypeMap = {
+      refrigerated: "냉장",
+      frozen: "냉동",
+      room_temp: "실온",
+    };
+
+    const modifiedFormData = {
+      ...formData,
+      storage_type: storageTypeMap[formData.storage_type],
+    };
+
+    const response = await getRecommendExpirationDate(modifiedFormData);
     setFormData((prev) => ({
       ...prev,
       expiration_date: response.data.expiration,
