@@ -10,6 +10,7 @@ import { useModalControl } from "../../hooks/useModalControl";
 import { usePopupNotification } from "../../hooks/usePopupNotification";
 import { useUser } from "../../hooks/useUserInfo";
 import { useState } from "react";
+import RecommandRecipe from "./components/food/recommandRecipe";
 
 export default function FoodListPage() {
   const { userInfo, refrigeratorId } = useUser();
@@ -77,7 +78,10 @@ export default function FoodListPage() {
           </article>
         )}
 
-        <nav className="sticky bottom-4">
+        <nav className="center sticky bottom-4 z-10">
+          <RecommandRecipe />
+        </nav>
+        <nav className="center sticky bottom-16 z-20 h-[1rem]">
           <AddFoodBtn />
         </nav>
       </section>

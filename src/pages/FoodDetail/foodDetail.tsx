@@ -44,7 +44,7 @@ export default function FoodDetail() {
             {currentFoodItem?.name}
           </span>
           <div className="absolute right-[2.1rem] flex gap-4">
-            <button
+          <button
               onClick={handleOpenModifyModal}
               className="text-[16px] font-medium text-gray-500"
             >

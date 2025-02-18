@@ -9,6 +9,8 @@ import BottomNavigation from "./components/common/\bBottomNavigation";
 import MyProfilePage from "./pages/User/MyProfilePage";
 import SharePage from "./pages/Share/SharePage";
 import StatisticsPage from "./pages/Statistics/StatisticsPage";
+import RecipePage from "./pages/Recipe/RecipePage";
+import RecipeDetailPage from "./pages/RecipeDetail/RecipeDetailPage";
 
 function App() {
   const location = useLocation();
@@ -28,6 +30,8 @@ function App() {
             <Route path="/user/profile" element={<MyProfilePage />} />
             <Route path="/oauth/callback/kakao" element={<KakaoCallback />} />
             <Route path="/statistics" element={<StatisticsPage />} />
+            <Route path="/recipe" element={<RecipePage />} />
+            <Route path="/recipe/:id" element={<RecipeDetailPage />} />
           </Routes>
         </main>
         {shouldShowBottomNav && <BottomNavigation />}
