@@ -53,4 +53,5 @@ export const STATISTICS_ENDPOINTS = {
 // Ai 추천
 export const AI_ENDPOINTS = {
   GET_RECOMMEND_EXPIRATION_DATE: "/api/foods",
+  GET_RECOMMEND_RECIPE: "/api/refrigerators",
 };

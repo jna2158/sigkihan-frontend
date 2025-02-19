@@ -132,3 +132,11 @@ export const getRecommendExpirationDate = (data: any) => {
     params: data,
   });
 };
+
+// Ai 추천 레시피 조회
+export const getRecommendRecipe = (refrigeratorId: number) => {
+  return axios.get(
+    `${AI_ENDPOINTS.GET_RECOMMEND_RECIPE}/${refrigeratorId}/recipes`,
+    { timeout: 100000 },
+  );
+};

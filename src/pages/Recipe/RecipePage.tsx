@@ -2,24 +2,25 @@ import Header from "./components/Header";
 import RecipeItem from "./components/RecipeItem";
 import { useState, useEffect } from "react";
 import RecipeLoading from "./components/RecipeLoading";
-
-interface Recipe {
-  id: number;
-  name: string;
-  description: string;
-  image: string;
-}
-
+import { getRecommendRecipe } from "../../services/refrigeService";
+import { useUser } from "../../hooks/useUserInfo";
+import useRecipeStore from "../../store/useRecipeStore";
 export default function RecipePage() {
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { setRefrigeratorId, refrigeratorId, updateUser, userInfo } = useUser();
+  const [item, setItem] = useState<any>([]);
+  const { recipe, setRecipe } = useRecipeStore();
 
   useEffect(() => {
     // 냉장고 레시피 조회
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
+    if (refrigeratorId) {
+      setIsLoading(true);
+      getRecommendRecipe(refrigeratorId).then((res) => {
+        setIsLoading(false);
+        setRecipe(res.data.recipes);
+        setItem(res.data.recipes);
+      });
+    }
   }, []);
 
   return (
@@ -32,9 +33,9 @@ export default function RecipePage() {
             <Header />
           </header>
           <article className="flex flex-wrap gap-[1.5rem]">
-            <RecipeItem />
-            <RecipeItem />
-            <RecipeItem />
+            {item.map((item: any) => (
+              <RecipeItem key={item.id} recipe={item} />
+            ))}
           </article>
         </main>
       )}
